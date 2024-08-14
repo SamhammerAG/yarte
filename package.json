@@ -1,0 +1,48 @@
+{
+  "name": "yarte",
+  "version": "1.0.0",
+  "description": "Yet another rich text editor based on TipTap and ProseMirror",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "richtext",
+    "editor",
+    "tiptap"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@tiptap/core": "^2.5.1",
+    "@tiptap/extension-bold": "^2.5.4",
+    "@tiptap/extension-bullet-list": "^2.5.4",
+    "@tiptap/extension-color": "^2.5.2",
+    "@tiptap/extension-document": "^2.5.4",
+    "@tiptap/extension-highlight": "^2.5.4",
+    "@tiptap/extension-history": "^2.5.8",
+    "@tiptap/extension-image": "^2.5.2",
+    "@tiptap/extension-italic": "^2.5.4",
+    "@tiptap/extension-link": "^2.5.4",
+    "@tiptap/extension-list-item": "^2.5.8",
+    "@tiptap/extension-ordered-list": "^2.5.8",
+    "@tiptap/extension-paragraph": "^2.5.4",
+    "@tiptap/extension-strike": "^2.5.4",
+    "@tiptap/extension-table": "^2.5.2",
+    "@tiptap/extension-table-cell": "^2.5.2",
+    "@tiptap/extension-table-header": "^2.5.2",
+    "@tiptap/extension-table-row": "^2.5.2",
+    "@tiptap/extension-text": "^2.5.4",
+    "@tiptap/extension-text-align": "^2.5.2",
+    "@tiptap/extension-text-style": "^2.5.2",
+    "@tiptap/extension-underline": "^2.5.4",
+    "@tiptap/pm": "^2.5.1",
+    "lit": "^3.2.0"
+  },
+  "devDependencies": {
+    "vite": "^5.3.5"
+  }
+}
