@@ -1,49 +1,56 @@
 import { Plugin } from "@tiptap/pm/state";
 import Image from "@tiptap/extension-image";
 
+let customEvent = new CustomEvent("image-url", {
+  detail: {
+    file: {},
+    url: "",
+  },
+});
+
 export const ImageExtension = Image.configure({
-	inline: true,
+  inline: true,
 }).extend({
-	addProseMirrorPlugins: () => {
-		return [
-			new Plugin({
-				props: {
-					handlePaste: (view, event) => {
-						const hasFiles =
-							event.clipboardData &&
-							event.clipboardData.files &&
-							event.clipboardData.files.length;
+  addProseMirrorPlugins: () => {
+    return [
+      new Plugin({
+        props: {
+          handlePaste: (view, event) => {
+            const hasFiles =
+              event.clipboardData &&
+              event.clipboardData.files &&
+              event.clipboardData.files.length;
 
-						if (!hasFiles) {
-							return;
-						}
+            if (!hasFiles) {
+              return;
+            }
 
-						const images = Array.from(event.clipboardData.files).filter(
-							(file) => {
-								return file.type.includes("image/");
-							}
-						);
+            const images = Array.from(event.clipboardData.files).filter(
+              (file) => {
+                return file.type.includes("image/");
+              }
+            );
 
-						if (images.length === 0) {
-							return;
-						}
+            if (images.length === 0) {
+              return;
+            }
 
-						event.preventDefault();
+            event.preventDefault();
 
-						const { schema } = view.state;
+            const { schema } = view.state;
 
-						for (const image of images) {
-							this.uploadInlineImage(image).then((image) => {
-								const node = schema.nodes.image.create({
-									src: image,
-								});
-								const transaction = view.state.tr.replaceSelectionWith(node);
-								view.dispatch(transaction);
-							});
-						}
-					},
-				},
-			}),
-		];
-	},
+            for (const image of images) {
+              customEvent.detail.file = image;
+              this.parentElement.dispatchEvent(customEvent);
+              const node = schema.nodes.image.create({
+                src: customEvent.detail.url,
+              });
+              const transaction = view.state.tr.replaceSelectionWith(node);
+              view.dispatch(transaction);
+            }
+          },
+        },
+      }),
+    ];
+  },
 });
