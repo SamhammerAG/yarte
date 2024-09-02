@@ -36,7 +36,7 @@ export class RichTextEditor extends LitElement {
     content: { type: String },
     __content: { type: String },
     toolbar: { type: Array },
-    customEvent: { type: CustomEvent },
+    imageUpload: { type: () => {} },
 
     editor: {},
   };
@@ -44,7 +44,6 @@ export class RichTextEditor extends LitElement {
   set content(value) {
     let oldValue = this.content;
     this.__content = value;
-    this.requestUpdate("content", oldValue);
     this.editor.commands.setContent(value);
   }
 
@@ -55,9 +54,7 @@ export class RichTextEditor extends LitElement {
   set readOnly(isReadOnly) {
     let oldValue = this.readOnly;
     this.__readOnly = isReadOnly;
-    this.requestUpdate("readOnly", oldValue);
     this.editor.setEditable(!isReadOnly);
-    console.log(this.editor.isEditable);
   }
 
   get readOnly() {
@@ -83,6 +80,8 @@ export class RichTextEditor extends LitElement {
   getToolbarButton(name) {
     const toolbarButtons = new Map(
       Object.entries({
+        spacer: html`<span class="spacer"></span>`,
+
         bold: html` <button
           class="bold button ${classMap({
             active: this.editor.isActive("bold"),
@@ -189,16 +188,91 @@ export class RichTextEditor extends LitElement {
           </button>
         `,
 
-        highlight: html`
+        removeformat: html`
           <button
-            class="highlight button ${classMap({
-              active: this.editor.isActive("highlight"),
-            })}"
+            class="remove-format button"
             ?disabled=${this.readOnly}
-            @click=${this.toggleHighlight}
+            @click=${this.toggleRemoveFormat}
           >
-            ${buttonIcons.get("highlight")}
+            ${buttonIcons.get("remove-format")}
           </button>
+        `,
+
+        highlight: html`
+          <div class="container">
+            <button
+              class="highlight button"
+              ?disabled=${this.readOnly}
+              @click=${this.toggleHighlightDropdown}
+            >
+              ${buttonIcons.get("highlight")}
+            </button>
+            <div class="dropdown vertical" id="highlightDropdown">
+              <button
+                class="unset-color button"
+                @click=${this.unsetHighlightColor}
+              >
+                ${buttonIcons.get("unset-color")} Remove Color
+              </button>
+              <div class="select-color">
+                <button
+                  class="set-text-color red ${classMap({
+                    active: this.editor.isActive("highlight", {
+                      color: "#e91313",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setHighlight("#e91313");
+                  }}
+                ></button>
+                <button
+                  class="set-text-color neon-green${classMap({
+                    active: this.editor.isActive("highlight", {
+                      color: "#63f963",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setHighlight("#63f963");
+                  }}
+                ></button>
+                <button
+                  class="set-text-color blue${classMap({
+                    active: this.editor.isActive("highlight", {
+                      color: "#72cdfd",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setHighlight("#72cdfd");
+                  }}
+                ></button>
+                <button
+                  class="set-text-color yellow${classMap({
+                    active: this.editor.isActive("highlight", {
+                      color: "#fdfd77",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setHighlight("#fdfd77");
+                  }}
+                ></button>
+                <button
+                  class="set-text-color pink${classMap({
+                    active: this.editor.isActive("highlight", {
+                      color: "#fc7999",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setHighlight("#fc7999");
+                  }}
+                ></button>
+              </div>
+            </div>
+          </div>
         `,
 
         color: html`
@@ -210,31 +284,48 @@ export class RichTextEditor extends LitElement {
             >
               ${buttonIcons.get("color")}
             </button>
-            <div class="dropdown horizontal" id="colorDropdown">
+            <div class="dropdown vertical" id="colorDropdown">
               <button
-                class="set-text-color red${classMap({
-                  active: this.editor.isActive("textStyle", { color: "#e91313" }),
-                })}"
-                ?disabled=${this.readOnly}
-                @click=${() => {this.setColor("#e91313")}}
+                class="unset-color button"
+                @click=${this.unsetTextStyleColor}
               >
+                ${buttonIcons.get("unset-color")} Remove Color
               </button>
-							<button
-                class="set-text-color green${classMap({
-                  active: this.editor.isActive("textStyle", { color: "#118800" }),
-                })}"
-                ?disabled=${this.readOnly}
-                @click=${() => {this.setColor("#118800")}}
-              >
-              </button>
-							<button
-                class="set-text-color blue${classMap({
-                  active: this.editor.isActive("textStyle", { color: "#72cdfd" }),
-                })}"
-                ?disabled=${this.readOnly}
-                @click=${() => {this.setColor("#72cdfd")}}
-              >
-              </button>
+              <div class="select-color">
+                <button
+                  class="set-text-color red ${classMap({
+                    active: this.editor.isActive("textStyle", {
+                      color: "#e91313",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setColor("#e91313");
+                  }}
+                ></button>
+                <button
+                  class="set-text-color green${classMap({
+                    active: this.editor.isActive("textStyle", {
+                      color: "#118800",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setColor("#118800");
+                  }}
+                ></button>
+                <button
+                  class="set-text-color blue${classMap({
+                    active: this.editor.isActive("textStyle", {
+                      color: "#72cdfd",
+                    }),
+                  })}"
+                  ?disabled=${this.readOnly}
+                  @click=${() => {
+                    this.setColor("#72cdfd");
+                  }}
+                ></button>
+              </div>
             </div>
           </div>
         `,
@@ -356,7 +447,7 @@ export class RichTextEditor extends LitElement {
             return [
               new Plugin({
                 props: {
-                  handlePaste: (view, event) => {
+                  handlePaste: async (view, event) => {
                     const hasFiles =
                       event.clipboardData &&
                       event.clipboardData.files &&
@@ -381,16 +472,8 @@ export class RichTextEditor extends LitElement {
                     const { schema } = view.state;
 
                     for (const image of images) {
-                      this.customEvent.detail.file = image;
-                      this.parentElement.dispatchEvent(this.customEvent);
-                      this.dispatch("imageUrl", {
-                        detail: {
-                          file: image,
-                          url: "",
-                        },
-                      });
                       const node = schema.nodes.image.create({
-                        src: this.customEvent.detail.url,
+                        src: await this.imageUpload(image),
                       });
                       const transaction =
                         view.state.tr.replaceSelectionWith(node);
@@ -404,7 +487,9 @@ export class RichTextEditor extends LitElement {
         }),
         Underline,
         Paragraph,
-        Highlight,
+        Highlight.configure({
+          multicolor: true,
+        }),
         BulletList,
         OrderedList,
         Table.configure({
@@ -493,12 +578,25 @@ export class RichTextEditor extends LitElement {
     dropdownMenu.classList.toggle("show");
   }
 
+  toggleHighlightDropdown() {
+    const dropdownMenu = this.renderRoot.getElementById("highlightDropdown");
+    dropdownMenu.classList.toggle("show");
+  }
+
   toggleBold() {
     this.editor.chain().focus().toggleBold().run();
   }
 
   setColor(color) {
     this.editor.chain().focus().setColor(color).run();
+  }
+
+  unsetTextStyleColor() {
+    this.editor.chain().focus().unsetColor().run();
+  }
+
+  unsetHighlightColor() {
+    this.editor.chain().focus().unsetHighlight().run();
   }
 
   setTable() {
@@ -540,13 +638,17 @@ export class RichTextEditor extends LitElement {
     this.editor.chain().focus().toggleStrike().run();
   }
 
-  //Erweitern mit Farbauswahl
-  toggleHighlight() {
-    this.editor.chain().focus().toggleHighlight({ color: "#94FADB" }).run();
+  setHighlight(color) {
+    console.log(color);
+    this.editor.chain().focus().setHighlight({ color: color }).run();
   }
 
   toggleUnderline() {
     this.editor.chain().focus().toggleUnderline().run();
+  }
+
+  toggleRemoveFormat() {
+    this.editor.chain().focus().unsetAllMarks().run();
   }
 
   setLinkButton() {
@@ -595,7 +697,7 @@ export class RichTextEditor extends LitElement {
   }
 
   textAlignJustify() {
-    this.editor.chain().chain().focus().setTextAlign("justify").run();
+    this.editor.chain().focus().setTextAlign("justify").run();
   }
 }
 

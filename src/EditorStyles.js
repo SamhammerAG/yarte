@@ -13,6 +13,8 @@ export const editorStyles = css`
     --purple: #6a00f5;
     --selected: #a6ccf7;
     --hover: #f0f0f0;
+    --border: #ccced1;
+    --spacer: #ccced1;
   }
 
   .editor-wrapper {
@@ -107,19 +109,25 @@ export const editorStyles = css`
 
   .toolbar {
     display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     column-gap: 10px;
     margin: 0;
-    padding: 5px;
+    padding: 7px;
     font-family: "Inter", sans-serif;
     box-shadow: var(--shadow);
   }
 
+  .spacer {
+    min-width: 1px;
+    width: 1px;
+    background: var(--spacer);
+  }
+
   .button {
-		display: flex;
+    display: flex;
     background-color: white;
-		padding: 3px 6px 3px 6px;
+    padding: 3px 6px 3px 6px;
     align-items: center;
     cursor: pointer;
     border: 0;
@@ -141,7 +149,7 @@ export const editorStyles = css`
   }
 
   .container {
-		position: relative;
+    position: relative;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -153,8 +161,8 @@ export const editorStyles = css`
     display: flex;
     justify-content: space-around;
     align-items: center;
-		min-width: max-content;
-		padding: 5px;
+    min-width: max-content;
+    padding: 5px;
     box-shadow: var(--shadow);
     border-radius: var(--radius);
     margin-top: 0.3rem;
@@ -166,33 +174,70 @@ export const editorStyles = css`
     transform: translateY(0.5rem);
     transition: all 0.1s cubic-bezier(0.16, 1, 0.5, 1);
 
-		&.vertical {
-			flex-direction: column;
-			row-gap: var(--gap);
-		}
+    &.vertical {
+      flex-direction: column;
+      row-gap: var(--gap);
+    }
 
-		&.horizontal {
-			flex-direction: row;
-			column-gap: var(--gap);
-		}
+    &.horizontal {
+      flex-direction: row;
+      column-gap: var(--gap);
+    }
   }
 
-	.set-text-color{
-		min-width: 24px;
-		min-height: 24px;
-		border: none;
-    border-radius: 3px;
+  .unset-color {
+    border-radius: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom: 1px solid var(--border);
+  }
+  .unset-color-icon {
+    margin-right: 5px;
+  }
 
-		&.red {
-			background-color: rgb(233, 19, 19);
-		}
-		&.green {
-			background-color: rgb(17, 136, 0);
-		}
-		&.blue {
-			background-color: rgb(114, 205, 253);
-		}
-	}
+  .select-color {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .set-text-color {
+    min-width: 24px;
+    min-height: 24px;
+    border: none;
+    border-radius: 3px;
+    margin: 2px;
+
+    &.red {
+      background-color: #e91313;
+    }
+    &.green {
+      background-color: #118800;
+    }
+    &.neon-green {
+      background-color: #63f963;
+    }
+    &.blue {
+      background-color: #72cdfd;
+    }
+    &.pink {
+      background-color: #fc7999;
+    }
+    &.yellow {
+      background-color: #fdfd77;
+    }
+    &.active {
+      outline: 2px solid var(--selected);
+    }
+  }
+
+  .set-text-color:hover {
+    transition: 0.5s ease-in-out;
+    outline-offset: 1px;
+    outline: 2px solid var(--selected);
+  }
 
   .dropdown .dropdown-container:hover {
     background-color: var(--hover);
