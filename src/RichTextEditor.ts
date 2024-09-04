@@ -21,45 +21,28 @@ import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import { LitElement, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
-import { ImageExtension } from "./Image";
 import Image from "@tiptap/extension-image";
 import { map } from "lit/directives/map.js";
 import { editorStyles } from "./EditorStyles";
 import buttonIcons from "./Icons";
 import { Plugin } from "@tiptap/pm/state";
-import BubbleMenu from "@tiptap/extension-bubble-menu";
+import { customElement, property } from "lit/decorators.js";
 
+@customElement("rich-text-editor")
 export class RichTextEditor extends LitElement {
-  static properties = {
-    readOnly: { type: Boolean },
-    __readOnly: { type: Boolean },
-    content: { type: String },
-    __content: { type: String },
-    toolbar: { type: Array },
-    imageUpload: { type: () => {} },
+  @property({ type: Boolean })
+  readOnly: boolean = false;
 
-    editor: {},
-  };
+  @property({ type: Array })
+  toolbar?: string[] = [];
 
-  set content(value) {
-    let oldValue = this.content;
-    this.__content = value;
-    this.editor.commands.setContent(value);
-  }
+  @property({ type: String })
+  content: string = "";
 
-  get content() {
-    return this.__content;
-  }
+  @property({ attribute: false })
+  imageUpload: any;
 
-  set readOnly(isReadOnly) {
-    let oldValue = this.readOnly;
-    this.__readOnly = isReadOnly;
-    this.editor.setEditable(!isReadOnly);
-  }
-
-  get readOnly() {
-    return this.__readOnly;
-  }
+  editor: any;
 
   constructor() {
     super();
@@ -68,16 +51,122 @@ export class RichTextEditor extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.toolbar = this.getAttribute("toolbar")
-      .split(",")
+      ?.split(",")
       .map((options) => options.trim().toLowerCase());
     this.editor = this.initializeEditor();
+    //this.addCloseDropdownListener();
   }
 
-  initializeEditor() {
-    return new Editor(this.defaultSettings());
+  initializeEditor(): Editor {
+    return new Editor({
+      element: this.createEditorRootElement(),
+      editable: !this.readOnly,
+      extensions: [
+        Document,
+        Text,
+        TextStyle,
+        Bold,
+        Italic,
+        Link,
+        Strike,
+        History,
+        Image.configure({
+          inline: true,
+        }).extend({
+          addProseMirrorPlugins: () => {
+            return [
+              new Plugin({
+                props: {
+                  handlePaste: (view, event) => {
+                    const hasFiles =
+                      event.clipboardData &&
+                      event.clipboardData.files &&
+                      event.clipboardData.files.length;
+
+                    if (!hasFiles) {
+                      return;
+                    }
+
+                    const images = Array.from(event.clipboardData.files).filter(
+                      (file) => {
+                        return file.type.includes("image/");
+                      }
+                    );
+
+                    if (images.length === 0) {
+                      return;
+                    }
+
+                    event.preventDefault();
+
+                    const { schema } = view.state;
+
+                    for (const image of images) {
+                      this.imageUpload(image).then((img: File) => {
+                        const node = schema.nodes.image.create({
+                          src: img,
+                        });
+                        const transaction =
+                          view.state.tr.replaceSelectionWith(node);
+                        view.dispatch(transaction);
+                      });
+                    }
+                  },
+                },
+              }),
+            ];
+          },
+        }),
+        Underline,
+        Paragraph,
+        Highlight.configure({
+          multicolor: true,
+        }),
+        BulletList,
+        OrderedList,
+        Table.configure({
+          resizable: true,
+        }),
+        Color,
+        TableCell,
+        TableRow,
+        TableHeader,
+        TextAlign.configure({
+          types: ["heading", "paragraph"],
+        }),
+        ListItem,
+      ],
+      content: this.content,
+      onCreate: () => {
+        this.contentChange();
+      },
+      onUpdate: () => {
+        this.requestUpdate();
+        this.contentChange();
+      },
+      onSelectionUpdate: () => {
+        this.requestUpdate();
+      },
+    });
   }
 
-  getToolbarButton(name) {
+  addCloseDropdownListener() {
+    window.onclick = (event) => {
+      if (event) {
+        var dropdowns = this.renderRoot.querySelectorAll("div.dropdown");
+        var i;
+        console.log(dropdowns);
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    };
+  }
+
+  getToolbarButton(name: string) {
     const toolbarButtons = new Map(
       Object.entries({
         spacer: html`<span class="spacer"></span>`,
@@ -427,111 +516,18 @@ export class RichTextEditor extends LitElement {
     return toolbarButtons.get(name);
   }
 
-  defaultSettings() {
-    return {
-      element: this.createEditorRootElement(),
-      editable: !this.readonly,
-      extensions: [
-        Document,
-        Text,
-        TextStyle,
-        Bold,
-        Italic,
-        Link,
-        Strike,
-        History,
-        Image.configure({
-          inline: true,
-        }).extend({
-          addProseMirrorPlugins: () => {
-            return [
-              new Plugin({
-                props: {
-                  handlePaste: async (view, event) => {
-                    const hasFiles =
-                      event.clipboardData &&
-                      event.clipboardData.files &&
-                      event.clipboardData.files.length;
+  private createEditorRootElement(): HTMLElement {
+    const editorElement = this.renderRoot.querySelector<HTMLElement>(".editor");
 
-                    if (!hasFiles) {
-                      return;
-                    }
-
-                    const images = Array.from(event.clipboardData.files).filter(
-                      (file) => {
-                        return file.type.includes("image/");
-                      }
-                    );
-
-                    if (images.length === 0) {
-                      return;
-                    }
-
-                    event.preventDefault();
-
-                    const { schema } = view.state;
-
-                    for (const image of images) {
-                      const node = schema.nodes.image.create({
-                        src: await this.imageUpload(image),
-                      });
-                      const transaction =
-                        view.state.tr.replaceSelectionWith(node);
-                      view.dispatch(transaction);
-                    }
-                  },
-                },
-              }),
-            ];
-          },
-        }),
-        Underline,
-        Paragraph,
-        Highlight.configure({
-          multicolor: true,
-        }),
-        BulletList,
-        OrderedList,
-        Table.configure({
-          resizable: true,
-        }),
-        BubbleMenu.configure({
-          element: this.renderRoot.querySelector(".toolbar"),
-        }),
-        Color,
-        TableCell,
-        TableRow,
-        TableHeader,
-        TextAlign.configure({
-          types: ["heading", "paragraph"],
-        }),
-        ListItem,
-      ],
-      content: this.content,
-      onCreate: () => {
-        this.contentChange();
-      },
-      onUpdate: ({ editor }) => {
-        this.requestUpdate();
-        this.contentChange();
-      },
-      onSelectionUpdate: () => {
-        this.requestUpdate();
-      },
-    };
-  }
-
-  createEditorRootElement() {
-    if (this.renderRoot.querySelector(".editor")) {
-      return this.renderRoot.querySelector(".editor");
+    if (editorElement) {
+      return editorElement;
     }
 
-    const editor = document.createElement("div");
-    editor.setAttribute("class", "editor");
+    const newEditorElement = document.createElement("div");
+    newEditorElement.classList.add("editor");
+    this.renderRoot.appendChild(newEditorElement);
 
-    this.renderRoot.appendChild(editor);
-
-    return editor;
+    return newEditorElement;
   }
 
   contentChange() {
@@ -541,7 +537,7 @@ export class RichTextEditor extends LitElement {
     });
   }
 
-  dispatch(eventName, detail) {
+  dispatch(eventName: string, detail: {}) {
     this.dispatchEvent(new CustomEvent(eventName, { detail }));
   }
 
@@ -564,30 +560,30 @@ export class RichTextEditor extends LitElement {
   static styles = [editorStyles];
 
   toggleTableDropdown() {
-    const dropdownMenu = this.renderRoot.getElementById("tableDropdown");
-    dropdownMenu.classList.toggle("show");
+    const dropdownMenu = this.renderRoot.querySelector("#tableDropdown");
+    dropdownMenu?.classList.toggle("show");
   }
 
   toggleAlignDropdown() {
-    const dropdownMenu = this.renderRoot.getElementById("alignDropdown");
-    dropdownMenu.classList.toggle("show");
+    const dropdownMenu = this.renderRoot.querySelector("#alignDropdown");
+    dropdownMenu?.classList.toggle("show");
   }
 
   toggleColorDropdown() {
-    const dropdownMenu = this.renderRoot.getElementById("colorDropdown");
-    dropdownMenu.classList.toggle("show");
+    const dropdownMenu = this.renderRoot.querySelector("#colorDropdown");
+    dropdownMenu?.classList.toggle("show");
   }
 
   toggleHighlightDropdown() {
-    const dropdownMenu = this.renderRoot.getElementById("highlightDropdown");
-    dropdownMenu.classList.toggle("show");
+    const dropdownMenu = this.renderRoot.querySelector("#highlightDropdown");
+    dropdownMenu?.classList.toggle("show");
   }
 
   toggleBold() {
     this.editor.chain().focus().toggleBold().run();
   }
 
-  setColor(color) {
+  setColor(color: string) {
     this.editor.chain().focus().setColor(color).run();
   }
 
@@ -600,19 +596,21 @@ export class RichTextEditor extends LitElement {
   }
 
   setTable() {
-    const rows = this.renderRoot.getElementById("rows");
-    const cols = this.renderRoot.getElementById("cols");
-    if (rows.value === "" || cols.value === "")
+    const rowsElement =
+      this.renderRoot.querySelector<HTMLInputElement>("#rows");
+    const colsElement =
+      this.renderRoot.querySelector<HTMLInputElement>("#cols");
+
+    if (!rowsElement || !colsElement) return;
+
+    const rows = parseInt(rowsElement.value, 10);
+    const cols = parseInt(colsElement.value, 10);
+
+    if (isNaN(rows) || isNaN(cols)) {
       this.editor.chain().focus().insertTable().run();
-    else
-      this.editor
-        .chain()
-        .focus()
-        .insertTable({
-          rows: parseInt(rows.value),
-          cols: parseInt(cols.value),
-        })
-        .run();
+    } else {
+      this.editor.chain().focus().insertTable({ rows, cols }).run();
+    }
   }
 
   setImage() {
@@ -638,8 +636,7 @@ export class RichTextEditor extends LitElement {
     this.editor.chain().focus().toggleStrike().run();
   }
 
-  setHighlight(color) {
-    console.log(color);
+  setHighlight(color: string) {
     this.editor.chain().focus().setHighlight({ color: color }).run();
   }
 
@@ -700,5 +697,3 @@ export class RichTextEditor extends LitElement {
     this.editor.chain().focus().setTextAlign("justify").run();
   }
 }
-
-customElements.define("rich-text-editor", RichTextEditor);

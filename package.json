@@ -3,15 +3,17 @@
 	"version": "1.0.1",
 	"description": "Yet another rich text editor based on TipTap and ProseMirror",
 	"type": "module",
-  "files": ["dist"],
-  "main": "./dist/yarte.umd.cjs",
-  "module": "./dist/yarte.js",
-  "exports": {
-    ".": {
-      "import": "./dist/yarte.js",
-      "require": "./dist/yarte.umd.cjs"
-    }
-  },
+	"files": [
+		"dist"
+	],
+	"main": "./dist/yarte.umd.cjs",
+	"module": "./dist/yarte.js",
+	"exports": {
+		".": {
+			"import": "./dist/yarte.js",
+			"require": "./dist/yarte.umd.cjs"
+		}
+	},
 	"scripts": {
 		"dev": "vite",
 		"watch": "vite build --watch",
@@ -22,7 +24,7 @@
 		"type": "git",
 		"url": "https://github.com/SamhammerAG/yarte"
 	},
-  "homepage": "https://github.com/SamhammerAG/yarte",
+	"homepage": "https://github.com/SamhammerAG/yarte",
 	"keywords": [
 		"richtext",
 		"editor",
@@ -58,6 +60,7 @@
 		"lit": "^3.2.0"
 	},
 	"devDependencies": {
+		"typescript": "^5.5.4",
 		"vite": "^5.3.5"
 	}
 }
