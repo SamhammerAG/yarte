@@ -38,6 +38,21 @@
     });
 
     function initliazieEditor(): void {
+        editor = new Editor({
+            element,
+            extensions: [Document, Text, Paragraph, ...getExtensions()],
+            content,
+            onTransaction: () => {
+                editor = editor;
+            },
+        });
+
+        editor.on("update", ({ editor }) => {
+            contentStore.set(editor.getHTML());
+        });
+    }
+
+    function getExtensions(): Mark<any>[] {
         const extensions: Mark<BoldOptions, any>[] = [];
 
         toolbar.forEach((item: string) => {
@@ -48,18 +63,7 @@
             }
         });
 
-        editor = new Editor({
-            element,
-            extensions: [Document, Text, Paragraph, ...extensions],
-            content,
-            onTransaction: () => {
-                editor = editor;
-            },
-        });
-
-        editor.on("update", ({ editor }) => {
-            contentStore.set(editor.getHTML());
-        });
+        return extensions;
     }
 </script>
 
