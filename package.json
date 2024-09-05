@@ -1,66 +1,57 @@
 {
-	"name": "@samhammer/yarte",
-	"version": "1.0.1",
-	"description": "Yet another rich text editor based on TipTap and ProseMirror",
-	"type": "module",
-	"files": [
-		"dist"
-	],
-	"main": "./dist/yarte.umd.cjs",
-	"module": "./dist/yarte.js",
-	"exports": {
-		".": {
-			"import": "./dist/yarte.js",
-			"require": "./dist/yarte.umd.cjs"
-		}
-	},
-	"scripts": {
-		"dev": "vite",
-		"watch": "vite build --watch",
-		"build": "vite build",
-		"preview": "vite preview"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/SamhammerAG/yarte"
-	},
-	"homepage": "https://github.com/SamhammerAG/yarte",
-	"keywords": [
-		"richtext",
-		"editor",
-		"tiptap"
-	],
-	"author": "Samhammer AG",
-	"license": "MIT",
-	"dependencies": {
-		"@tiptap/core": "^2.5.1",
-		"@tiptap/extension-bold": "^2.5.4",
-		"@tiptap/extension-bubble-menu": "^2.6.2",
-		"@tiptap/extension-bullet-list": "^2.5.4",
-		"@tiptap/extension-color": "^2.5.2",
-		"@tiptap/extension-document": "^2.5.4",
-		"@tiptap/extension-highlight": "^2.5.4",
-		"@tiptap/extension-history": "^2.5.8",
-		"@tiptap/extension-image": "^2.5.2",
-		"@tiptap/extension-italic": "^2.5.4",
-		"@tiptap/extension-link": "^2.5.4",
-		"@tiptap/extension-list-item": "^2.5.8",
-		"@tiptap/extension-ordered-list": "^2.5.8",
-		"@tiptap/extension-paragraph": "^2.5.4",
-		"@tiptap/extension-strike": "^2.5.4",
-		"@tiptap/extension-table": "^2.5.2",
-		"@tiptap/extension-table-cell": "^2.5.2",
-		"@tiptap/extension-table-header": "^2.5.2",
-		"@tiptap/extension-table-row": "^2.5.2",
-		"@tiptap/extension-text": "^2.5.4",
-		"@tiptap/extension-text-align": "^2.5.2",
-		"@tiptap/extension-text-style": "^2.5.2",
-		"@tiptap/extension-underline": "^2.5.4",
-		"@tiptap/pm": "^2.5.1",
-		"lit": "^3.2.0"
-	},
-	"devDependencies": {
-		"typescript": "^5.5.4",
-		"vite": "^5.3.5"
-	}
+  "name": "svelte-webcomponent",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Yet another rich text editor based on TipTap",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamhammerAG/yarte"
+  },
+  "homepage": "https://github.com/SamhammerAG/yarte",
+  "keywords": [
+    "richtext",
+    "editor",
+    "tiptap"
+  ],
+  "author": "Samhammer AG",
+  "license": "MIT",
+  "dependencies": {
+    "@tiptap/core": "^2.5.1",
+    "@tiptap/extension-bold": "^2.5.4",
+    "@tiptap/extension-bubble-menu": "^2.6.2",
+    "@tiptap/extension-bullet-list": "^2.5.4",
+    "@tiptap/extension-color": "^2.5.2",
+    "@tiptap/extension-document": "^2.5.4",
+    "@tiptap/extension-highlight": "^2.5.4",
+    "@tiptap/extension-history": "^2.5.8",
+    "@tiptap/extension-image": "^2.5.2",
+    "@tiptap/extension-link": "^2.5.4",
+    "@tiptap/extension-list-item": "^2.5.8",
+    "@tiptap/extension-ordered-list": "^2.5.8",
+    "@tiptap/extension-paragraph": "^2.5.4",
+    "@tiptap/extension-strike": "^2.5.4",
+    "@tiptap/extension-table": "^2.5.2",
+    "@tiptap/extension-table-cell": "^2.5.2",
+    "@tiptap/extension-table-header": "^2.5.2",
+    "@tiptap/extension-table-row": "^2.5.2",
+    "@tiptap/extension-text": "^2.5.4",
+    "@tiptap/extension-text-align": "^2.5.2",
+    "@tiptap/extension-text-style": "^2.5.2",
+    "@tiptap/extension-underline": "^2.5.4",
+    "@tiptap/pm": "^2.5.1"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@tsconfig/svelte": "^5.0.4",
+    "svelte": "^4.2.18",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1"
+  }
 }

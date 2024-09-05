@@ -1,12 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samhammer Rich Text Editor</title>
-    <script type="module" src="./index.ts"></script>
-  </head>
-  <body>
-    <rich-text-editor toolbar="color, bold, strike ,textalign, italic,bulletlist,orderedlist,link,highlight, underline ,undo,redo, table, image" content="Tiptap supports syntax highlighting in code blocks. This example shows you how to create a text editor with syntax highlighting using Tiptap & the CodeBlockLowlight extension." id="1"></rich-text-editor>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>YARTE Editor Test</title>
+  <script type="module" src="dist/swc.iife.js"></script>
+  <script>
+    const contentString = "Hello World!";
+    const toolbarItems = ["katze", "meow", "woof", "test"];
+    const imageUploadDelegate = function () {
+      console.log("image upload is defined! YAY!");
+    }
+
+    function attachDataToWebComponent() {
+      const element = editor();
+      element.toolbar = toolbarItems;
+      element.imageUpload = imageUploadDelegate;
+      element.content = contentString;
+    };
+
+    function updateContent() {
+      editor().content = input(1).value;
+    }
+
+    function toggleReadOnly() {
+      var element = editor();
+
+      if (element.readonly) {
+        element.removeAttribute("readonly");
+      } else {
+        element.setAttribute("readonly", "");
+      }
+    }
+
+    function editor() {
+      return document.querySelector("yarte-editor");
+    }
+
+    function input(number) {
+      return document.querySelector("#input" + number);
+    }
+
+    function alterToolbar(add) {
+      var item = input(2).value;
+
+      if (add) {
+        toolbarItems.push(item);
+      } else if (toolbarItems.includes(item)) {
+        toolbarItems.splice(toolbarItems.indexOf(item), 1);
+      }
+
+      editor().toolbar = toolbarItems;
+    }
+
+    window.onload = function () {
+      attachDataToWebComponent();
+    }
+  </script>
+  <style>
+    div:not(.test-inputs) {
+      padding: 1rem;
+      background-color: aqua;
+      margin-top: .5rem;
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <yarte-editor readonly></yarte-editor>
+
+  <div class="test-inputs">
+    <div>
+      <input id="input1" type="text" />
+      <button onclick="updateContent()">Update Content</button>
+    </div>
+    <div>
+      <button onclick="toggleReadOnly()">Toggle Read-Only</button>
+    </div>
+    <div>
+      <button onclick="alterToolbar(false)">Remove</button>
+      <input id="input2" type="text" />
+      <button onclick="alterToolbar(true)">Add</button>
+    </div>
+  </div>
+</body>
+
 </html>

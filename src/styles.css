@@ -1,0 +1,39 @@
+* {
+    --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+    --color: #166e67;
+    --gap: 0.5rem;
+    --radius: 5px;
+    --darkgray: rgba(61, 37, 20, 0.12);
+    --lightgray: rgba(61, 37, 20, 0.05);
+    --silver: rgba(61, 37, 20, 0.08);
+    --purple: #6a00f5;
+    --selected: #a6ccf7;
+    --hover: #f0f0f0;
+    --border: #ccced1;
+    --spacer: #ccced1;
+}
+
+#editor {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow:
+        0 1rem 1rem -0.625rem rgba(34, 47, 62, 0.15),
+        0 0 2.5rem 1px rgba(34, 47, 62, 0.15);
+    border-radius: 10px;
+}
+
+:global(#editor .readonly) {
+    opacity: 0.6;
+}
+
+:global(.tiptap) {
+    min-height: 300px;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    overflow: hidden;
+    position: relative;
+    margin: 1.5rem;
+}
