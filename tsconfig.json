@@ -14,11 +14,13 @@
     "allowJs": true,
     "checkJs": true,
     "isolatedModules": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+
+        /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.svelte"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
 }

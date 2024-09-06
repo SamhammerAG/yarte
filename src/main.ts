@@ -1,2 +1,3 @@
+import App from "./TipTap.svelte";
 
-import App from './TipTap.svelte';
+export default App;
