@@ -87,7 +87,7 @@
                     const images = Array.from(event.clipboardData.files).filter(
                       (file) => {
                         return file.type.includes("image/");
-                      }
+                      },
                     );
 
                     if (images.length === 0) {
@@ -167,6 +167,9 @@
 {/if}
 
 <style>
+  :global(.description > div) {
+    min-height: 300px;
+  }
   .wrapper {
     border: 1px solid #ccc;
     max-height: 200px;
