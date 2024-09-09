@@ -30,32 +30,37 @@
   import Highlight from "@tiptap/extension-highlight";
   import History from "@tiptap/extension-history";
 
-  export let content = "";
-  export let disabled = false;
-  export let toolbar = [""];
+  export let content: string = "";
+  export let disabled: boolean = false;
+  export let toolbar: string[] = [];
   export let imageUpload: (file: File) => Promise<string>;
-
-  const possibleActions = [
-    { key: "bold", action: Bold },
-    { key: "italic", action: Italic },
-    { key: "strike", action: Strike },
-  ];
+  export let activeButtons: string[] = [];
 
   const contentStore = writable(content);
 
   let element: HTMLElement;
   let editor: Editor;
 
+  $: content,
+    () => {
+      editor?.commands.setContent(content);
+    };
+
+  $: disabled,
+    () => {
+      editor?.setEditable(!disabled);
+    };
+
   onMount(() => {
-    editor = initliazieEditor();
+    initliazieEditor();
   });
 
   onDestroy(() => {
     editor.destroy();
   });
 
-  function initliazieEditor(): Editor {
-    return new Editor({
+  function initliazieEditor(): void {
+    editor = new Editor({
       element: element,
       editable: !disabled,
       extensions: [
@@ -87,7 +92,7 @@
                     const images = Array.from(event.clipboardData.files).filter(
                       (file) => {
                         return file.type.includes("image/");
-                      }
+                      },
                     );
 
                     if (images.length === 0) {
@@ -132,7 +137,6 @@
           types: ["heading", "paragraph"],
         }),
         ListItem,
-        ...getExtensions(),
       ],
       content: content,
       onCreate: () => {
@@ -142,21 +146,20 @@
         contentStore.set(editor.getHTML());
       },
       onSelectionUpdate: () => {
-        //update toolbar shit?
+        let newActiveButtons: string[] = toolbar.filter((key: string) =>
+          editor.isActive(key.toLowerCase()),
+        );
+
+        activeButtons = newActiveButtons;
       },
     });
-  }
-
-  function getExtensions(): Mark<any>[] {
-    const extensions: Mark<BoldOptions, any>[] = [];
-    const actions = possibleActions.filter(({ key }) => toolbar.includes(key));
-    extensions.push(...actions.map(({ action }) => action));
-    return extensions;
   }
 </script>
 
 <div id="yarte-editor">
-  <Toolbar {editor} {disabled} {toolbar} />
+  {#if toolbar.length > 0}
+    <Toolbar {editor} {disabled} {toolbar} {activeButtons} />
+  {/if}
   <div class="description" bind:this={element} />
 </div>
 
@@ -167,44 +170,10 @@
 {/if}
 
 <style>
-  :global(.description > div) {
+  :global(.tiptap) {
     min-height: 300px;
-  }
-  .wrapper {
+    word-wrap: break-word;
     border: 1px solid #ccc;
-    max-height: 200px;
-    display: inline-flex;
-    flex-direction: column;
-  }
-
-  .wrapper:focus-within {
-    border: 1px solid red;
-  }
-
-  .element-wrapper {
     padding: 1rem;
-    flex: 1 1 0%;
-    resize: both;
-    overflow: auto;
-  }
-
-  .element-wrapper :global(p:first-of-type) {
-    margin-top: 0;
-  }
-
-  .element-wrapper :global(p:last-of-type) {
-    margin-bottom: 0;
-  }
-
-  .element-wrapper > :global(.ProseMirror) {
-    outline: 0;
-  }
-
-  .json-output,
-  .html-output {
-    max-height: 200px;
-    overflow: hidden;
-    overflow-y: auto;
-    border: 1px solid #ccc;
   }
 </style>

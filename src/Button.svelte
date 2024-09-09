@@ -1,10 +1,15 @@
 <script lang="ts">
-    export let editor;
-    export let key;
-    export let disabled;
+    import type { Editor } from "@tiptap/core";
+
+    export let editor: Editor;
+    export let key: string;
+    export let disabled: boolean;
+    export let activeButtons: string[] = [];
 </script>
 
-<button {disabled} class:active={editor.isActive(key)} on:click>{key}</button>
+<button {disabled} class:active={activeButtons.includes(key)} on:click
+    >{key}</button
+>
 
 <style>
     button {

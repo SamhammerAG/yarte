@@ -10,6 +10,7 @@ export default defineConfig({
       formats: ["iife"],
       fileName: "yarte",
     },
+    sourcemap: true
   },
   plugins: [svelte()],
 });

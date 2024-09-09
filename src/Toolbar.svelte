@@ -1,32 +1,37 @@
 <script lang="ts">
-  import Actions from "./Actions";
+  import type { Editor } from "@tiptap/core";
   import Button from "./Button.svelte";
+  import Actions from "./Actions";
 
-  export let editor;
-  export let toolbar;
-  export let disabled;
+  export let editor: Editor;
+  export let toolbar: string[];
+  export let disabled: boolean;
+  export let activeButtons: string[] = [];
+
+  function getConfiguredToolbarItems(): [string, Function][] {
+    return Object.entries(Actions).filter(([key, _action]) =>
+      toolbar.includes(key.toLowerCase()),
+    );
+  }
+
+  console.log(toolbar);
+
+  function clicked(action: Function) {
+    action(editor);
+  }
 </script>
 
 {#if editor}
   <div class="toolbar">
-    <Button
-      {editor}
-      {disabled}
-      key="bold"
-      on:click={() => Actions.bold(editor)}
-    />
-    <Button
-      {editor}
-      {disabled}
-      key="italic"
-      on:click={() => Actions.italic(editor)}
-    />
-    <Button
-      {editor}
-      {disabled}
-      key="strike"
-      on:click={() => Actions.strike(editor)}
-    />
+    {#each getConfiguredToolbarItems() as item}
+      <Button
+        {editor}
+        {disabled}
+        {activeButtons}
+        key={item[0]}
+        on:click={() => clicked(item[1])}
+      />
+    {/each}
   </div>
 {/if}
 
@@ -34,6 +39,5 @@
   .toolbar {
     background: #ccc;
     padding: 2px;
-    min-height: 36px;
   }
 </style>
