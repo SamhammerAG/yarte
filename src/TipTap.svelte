@@ -37,6 +37,7 @@
       content: content,
       onUpdate: () => {
         contentStore.set(editor.getHTML());
+        console.log("updated");
       },
       onSelectionUpdate: () => {
         //update active buttons when cursor position changes
