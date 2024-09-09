@@ -7,8 +7,10 @@
     export let activeButtons: string[] = [];
 </script>
 
-<button {disabled} class:active={activeButtons.includes(key)} on:click
-    >{key}</button
+<button
+    {disabled}
+    class:active={activeButtons.includes(key.toLowerCase())}
+    on:click>{key}</button
 >
 
 <style>
