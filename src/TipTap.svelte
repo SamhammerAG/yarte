@@ -1,12 +1,12 @@
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
-  import { Editor, Mark } from "@tiptap/core";
+  import { Editor } from "@tiptap/core";
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import Strike from "@tiptap/extension-strike";
-  import Bold, { type BoldOptions } from "@tiptap/extension-bold";
+  import Bold from "@tiptap/extension-bold";
   import Italic from "@tiptap/extension-italic";
 
   import Image from "@tiptap/extension-image";
@@ -144,6 +144,7 @@
       },
       onUpdate: () => {
         contentStore.set(editor.getHTML());
+        console.log("updated");
       },
       onSelectionUpdate: () => {
         let newActiveButtons: string[] = toolbar.filter((key: string) =>
@@ -151,6 +152,7 @@
         );
 
         activeButtons = newActiveButtons;
+        console.log("selectedUpdated");
       },
     });
   }
