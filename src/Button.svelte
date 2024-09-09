@@ -8,23 +8,20 @@
     export let action: Function;
 
     function handleClick() {
-        if (activeButtons.includes(key.toLowerCase())) {
-            activeButtons = activeButtons.filter(
-                (button: string) => button !== key.toLowerCase(),
-            );
-            console.log(activeButtons);
-        } else {
-            activeButtons = [...activeButtons, key.toLowerCase()];
-            console.log(activeButtons);
-        }
-
         action(editor);
+
+        if (activeButtons.includes(key)) {
+            activeButtons = activeButtons.filter((k) => k !== key);
+            return;
+        } else {
+            activeButtons = [...activeButtons, key];
+        }
     }
 </script>
 
 <button
     {disabled}
-    class:active={activeButtons.includes(key.toLowerCase())}
+    class:active={activeButtons.includes(key)}
     on:click={() => handleClick()}>{key}</button
 >
 
