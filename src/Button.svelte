@@ -12,7 +12,6 @@
 
         if (activeButtons.includes(key)) {
             activeButtons = activeButtons.filter((k) => k !== key);
-            return;
         } else {
             activeButtons = [...activeButtons, key];
         }
