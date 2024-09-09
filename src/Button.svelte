@@ -5,12 +5,13 @@
     export let key: string;
     export let disabled: boolean;
     export let activeButtons: string[] = [];
+    export let action: Function;
 </script>
 
 <button
     {disabled}
     class:active={activeButtons.includes(key.toLowerCase())}
-    on:click>{key}</button
+    on:click={() => action(editor)}>{key}</button
 >
 
 <style>

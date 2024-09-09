@@ -29,7 +29,7 @@
         {disabled}
         {activeButtons}
         key={item[0]}
-        on:click={() => clicked(item[1])}
+        action={item[1]}
       />
     {/each}
   </div>
