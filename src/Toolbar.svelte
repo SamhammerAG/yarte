@@ -22,7 +22,7 @@
         {editor}
         {disabled}
         {activeButtons}
-        key={item[0]}
+        key={item[0].toLowerCase()}
         action={item[1]}
       />
     {/each}

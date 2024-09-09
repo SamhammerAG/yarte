@@ -41,15 +41,9 @@
   let element: HTMLElement;
   let editor: Editor;
 
-  $: content,
-    () => {
-      editor?.commands.setContent(content);
-    };
-
-  $: disabled,
-    () => {
-      editor?.setEditable(!disabled);
-    };
+  // execute everything after comma when before comma changes
+  $: content, editor && updateEditorContent();
+  $: disabled, editor && updateDisabled();
 
   onMount(() => {
     initliazieEditor();
@@ -139,22 +133,26 @@
         ListItem,
       ],
       content: content,
-      onCreate: () => {
-        //mal schauen
-      },
       onUpdate: () => {
         contentStore.set(editor.getHTML());
         console.log("updated");
       },
       onSelectionUpdate: () => {
-        let newActiveButtons: string[] = toolbar.filter((key: string) =>
+        //update active buttons when cursor position changes
+        activeButtons = toolbar.filter((key: string) =>
           editor.isActive(key.toLowerCase()),
         );
-
-        activeButtons = newActiveButtons;
-        console.log("selectedUpdated");
       },
     });
+  }
+
+  function updateEditorContent(): void {
+    editor.commands.setContent(content);
+    contentStore.set(editor.getHTML());
+  }
+
+  function updateDisabled(): void {
+    editor.setEditable(!disabled);
   }
 </script>
 
@@ -166,8 +164,6 @@
 </div>
 
 {#if editor}
-  <pre class="json-output">{JSON.stringify(editor.getJSON(), null, 2)}</pre>
-  <div class="html-output">{editor.getHTML()}</div>
   <div class="store-output">{$contentStore}</div>
 {/if}
 
@@ -177,5 +173,6 @@
     word-wrap: break-word;
     border: 1px solid #ccc;
     padding: 1rem;
+    margin-bottom: 3rem;
   }
 </style>
