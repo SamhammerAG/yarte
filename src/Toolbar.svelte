@@ -13,12 +13,6 @@
       toolbar.includes(key.toLowerCase()),
     );
   }
-
-  console.log(toolbar);
-
-  function clicked(action: Function) {
-    action(editor);
-  }
 </script>
 
 {#if editor}
