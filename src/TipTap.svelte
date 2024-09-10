@@ -1,14 +1,14 @@
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
-  import { Editor, Mark, Node } from "@tiptap/core";
+  import { Editor, Extension, Mark, Node } from "@tiptap/core";
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { onDestroy } from "svelte";
   import { writable } from "svelte/store";
   import Toolbar from "./Toolbar.svelte";
-  import Extensions from "./Extensions";
+  import ActionDefinitions from "./ActionDefinitions";
 
   export let content: string = "";
   export let disabled: boolean = false;
@@ -33,7 +33,7 @@
     editor = new Editor({
       element: element,
       editable: !disabled,
-      extensions: [Document, Paragraph, Text, ...getConfiguredExtensions()],
+      extensions: [Document, Paragraph, Text, ...getExtensions()],
       content: content,
       onUpdate: () => {
         contentStore.set(editor.getHTML());
@@ -47,10 +47,16 @@
     });
   }
 
-  function getConfiguredExtensions(): Array<Node<any> | Mark<any>> {
-    return Object.entries(Extensions)
-      .filter(([key, _extension]) => toolbar.includes(key.toLowerCase()))
-      .map(([_key, extension]) => extension);
+  function getExtensions(): Set<Node<any> | Mark<any> | Extension<any>> {
+    return new Set(
+      ActionDefinitions.getActions()
+        .filter((action) => toolbar.includes(action.key))
+        .flatMap((action) => [
+          ...action.extensions,
+          ...(action.subactions?.flatMap((subaction) => subaction.extensions) ??
+            []),
+        ]),
+    );
   }
 
   function updateContent(): void {
