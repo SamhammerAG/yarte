@@ -18,11 +18,15 @@
     }
 </script>
 
+<!-- ############################### <HTML> ############################## -->
+
 <button
     {disabled}
     class:active={activeButtons.includes(key)}
     on:click={() => handleClick()}>{key}</button
 >
+
+<!-- ############################## </HTML> ############################## -->
 
 <style>
     button {

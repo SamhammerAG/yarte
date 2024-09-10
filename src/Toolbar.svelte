@@ -16,6 +16,8 @@
     }
 </script>
 
+<!-- ############################### <HTML> ############################## -->
+
 {#if editor}
     <div class="toolbar">
         {#each getConfiguredToolbarActions() as action}
@@ -29,6 +31,8 @@
         {/each}
     </div>
 {/if}
+
+<!-- ############################## </HTML> ############################## -->
 
 <style>
     .toolbar {

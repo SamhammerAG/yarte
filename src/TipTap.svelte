@@ -69,6 +69,8 @@
   }
 </script>
 
+<!-- ############################## <HTML> ############################## -->
+
 <div id="yarte-editor">
   {#if toolbar.length > 0}
     <Toolbar {editor} {disabled} {toolbar} {activeButtons} />
@@ -77,6 +79,8 @@
 </div>
 
 <div class="store-output">{$contentStore}</div>
+
+<!-- ############################## </HTML> ############################## -->
 
 <style>
   :global(.tiptap) {
