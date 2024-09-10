@@ -21,7 +21,7 @@
   const contentStore = writable(content);
 
   // execute everything after comma when before comma changes
-  $: content, editor && updateEditorContent();
+  $: content, editor && updateContent();
   $: disabled, editor && updateDisabled();
   $: toolbar, initializeEditor();
 
@@ -53,7 +53,7 @@
       .map(([_key, extension]) => extension);
   }
 
-  function updateEditorContent(): void {
+  function updateContent(): void {
     editor.commands.setContent(content);
     contentStore.set(editor.getHTML());
   }
