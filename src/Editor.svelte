@@ -1,7 +1,7 @@
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
-  import { Editor, Extension, Mark, Node } from "@tiptap/core";
+  import { Editor, type Extension, type Mark, type Node } from "@tiptap/core";
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
@@ -23,13 +23,19 @@
   // execute everything after comma when before comma changes
   $: content, editor && updateContent();
   $: disabled, editor && updateDisabled();
-  $: toolbar, initializeEditor();
+  $: toolbar, toolbar.length > 0 && initializeEditor();
 
   onDestroy(() => {
     editor.destroy();
   });
 
   function initializeEditor(): void {
+    if (editor) {
+      editor.destroy();
+      activeButtons.length = 0;
+      contentStore.set("");
+    }
+
     editor = new Editor({
       element: element,
       editable: !disabled,
@@ -45,11 +51,13 @@
         );
       },
     });
+
+    contentStore.set(editor.getHTML());
   }
 
   function getExtensions(): Set<Node<any> | Mark<any> | Extension<any>> {
     return new Set(
-      ActionDefinitions.getActions()
+      ActionDefinitions.getActions({ imageUpload })
         .filter((action) => toolbar.includes(action.key))
         .flatMap((action) => [
           ...action.extensions,
@@ -73,7 +81,7 @@
 
 <div id="yarte-editor">
   {#if toolbar.length > 0}
-    <Toolbar {editor} {disabled} {toolbar} {activeButtons} />
+    <Toolbar {editor} {disabled} {toolbar} {activeButtons} {imageUpload} />
   {/if}
   <div class="description" bind:this={element} />
 </div>
@@ -89,5 +97,21 @@
     border: 1px solid #ccc;
     padding: 1rem;
     margin-bottom: 3rem;
+  }
+
+  * {
+    --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
+      rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+    --color: #166e67;
+    --gap: 0.5rem;
+    --radius: 5px;
+    --darkgray: rgba(61, 37, 20, 0.12);
+    --lightgray: rgba(61, 37, 20, 0.05);
+    --silver: rgba(61, 37, 20, 0.08);
+    --purple: #6a00f5;
+    --selected: #a6ccf7;
+    --hover: #f0f0f0;
+    --border: #ccced1;
+    --spacer: #ccced1;
   }
 </style>

@@ -1,3 +1,3 @@
-import App from "./TipTap.svelte";
+import App from "./Editor.svelte";
 
 export default App;

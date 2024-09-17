@@ -1,6 +1,8 @@
 
 import type { Editor } from "@tiptap/core";
 import type { Action } from "./types/Action";
+import type { ActionsContext } from "./types/ActionsContext";
+
 import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
 import Table from "@tiptap/extension-table";
@@ -19,6 +21,13 @@ import Link from "@tiptap/extension-link";
 import Strike from "@tiptap/extension-strike";
 import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
+import {
+    configureHighlight,
+    configureImage,
+    configureTable,
+    configureTextAlign,
+    extendImage
+} from "./EnrichExtensions";
 
 export default class ActionDefinitions {
 
@@ -75,7 +84,7 @@ export default class ActionDefinitions {
         key: "highlight",
         buttonIcon: "palette-line.svg",
         buttonAction: (editor: Editor, color: string) => editor.chain().focus().toggleHighlight({ color: color }).run(),
-        extensions: [Highlight.configure({ multicolor: true })]
+        extensions: [configureHighlight(Highlight)]
     };
 
     public static Link: Action = {
@@ -89,14 +98,14 @@ export default class ActionDefinitions {
         key: "table",
         buttonIcon: "table-line.svg",
         buttonAction: (editor: Editor) => editor.chain().focus().insertTable().run(),
-        extensions: [Table.configure({ resizable: true }), TableRow, TableCell, TableHeader]
+        extensions: [configureTable(Table), TableRow, TableCell, TableHeader]
     };
 
     public static TextAlign: Action = {
         key: "textAlign",
         buttonIcon: "align-left.svg",
         buttonAction: (editor: Editor, align: string) => editor.chain().focus().setTextAlign(align).run(),
-        extensions: [TextAlign.configure({ types: ["heading", "paragraph"] })],
+        extensions: [configureTextAlign(TextAlign)],
         subactions: [
             {
                 key: "left",
@@ -125,12 +134,14 @@ export default class ActionDefinitions {
         ]
     };
 
-    public static Image: Action = {
-        key: "image",
-        buttonIcon: "image-add-line.svg",
-        buttonAction: (editor: Editor, link: string) => editor.chain().focus().setImage({ src: link }).run(),
-        extensions: [Image]
-    };
+    public static Image: (uploadCallback: Function) => Action = (uploadCallback: Function) => {
+        return {
+            key: "image",
+            buttonIcon: "image-add-line.svg",
+            buttonAction: (editor: Editor, link: string) => editor.chain().focus().setImage({ src: link }).run(),
+            extensions: [extendImage(configureImage(Image), uploadCallback)]
+        }
+    }
 
     public static History: Action = {
         key: "history",
@@ -160,7 +171,7 @@ export default class ActionDefinitions {
         extensions: []
     };
 
-    public static getActions = (): Action[] => [
+    public static getActions = (context: ActionsContext): Action[] => [
         this.Bold,
         this.Italic,
         this.Strike,
@@ -172,6 +183,8 @@ export default class ActionDefinitions {
         this.TextAlign,
         this.BulletList,
         this.OrderedList,
-        this.Clear
+        this.Clear,
+        this.History,
+        this.Image(context.imageUpload)
     ];
 }

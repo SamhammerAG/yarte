@@ -6,6 +6,7 @@
   export let disabled: boolean;
   export let activeButtons: string[] = [];
   export let action: Function;
+  export let svgSrc: string;
 
   function handleClick() {
     action(editor);
@@ -23,8 +24,10 @@
 <button
   {disabled}
   class:active={activeButtons.includes(key)}
-  on:click={() => handleClick()}>{key}</button
+  on:click={() => handleClick()}
 >
+  <img src={svgSrc} alt={key} />
+</button>
 
 <!-- ############################## </HTML> ############################## -->
 
