@@ -49,6 +49,7 @@
         activeButtons = toolbar.filter((key: string) =>
           editor.isActive(key.toLowerCase()),
         );
+        console.log(activeButtons);
       },
     });
 
@@ -80,7 +81,7 @@
 <!-- ############################## <HTML> ############################## -->
 
 <div id="yarte-editor">
-  {#if toolbar.length > 0}
+  {#if toolbar.length > 0 && editor}
     <Toolbar {editor} {disabled} {toolbar} {activeButtons} {imageUpload} />
   {/if}
   <div class="description" bind:this={element} />
@@ -91,14 +92,6 @@
 <!-- ############################## </HTML> ############################## -->
 
 <style>
-  :global(.tiptap) {
-    min-height: 300px;
-    word-wrap: break-word;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin-bottom: 3rem;
-  }
-
   * {
     --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
       rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
@@ -113,5 +106,19 @@
     --hover: #f0f0f0;
     --border: #ccced1;
     --spacer: #ccced1;
+  }
+
+  #yarte-editor {
+    width: 50%;
+    min-width: 800px;
+    margin: 0 auto;
+  }
+
+  :global(.tiptap) {
+    min-height: 300px;
+    word-wrap: break-word;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 3rem;
   }
 </style>

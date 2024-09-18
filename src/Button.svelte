@@ -1,20 +1,19 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
+  import type { Action } from "./types/Action";
 
   export let editor: Editor;
-  export let key: string;
+  export let action: Action;
+  export let activeButtons: string[];
   export let disabled: boolean;
-  export let activeButtons: string[] = [];
-  export let action: Function;
-  export let svgSrc: string;
 
   function handleClick() {
-    action(editor);
+    action.buttonAction(editor);
 
-    if (activeButtons.includes(key)) {
-      activeButtons = activeButtons.filter((k) => k !== key);
+    if (activeButtons.includes(action.key)) {
+      activeButtons = activeButtons.filter((k) => k !== action.key);
     } else {
-      activeButtons = [...activeButtons, key];
+      activeButtons = [...activeButtons, action.key];
     }
   }
 </script>
@@ -23,21 +22,10 @@
 
 <button
   {disabled}
-  class:active={activeButtons.includes(key)}
+  class:active={activeButtons.includes(action.key)}
   on:click={() => handleClick()}
 >
-  <img src={svgSrc} alt={key} />
+  <img src={action.buttonIcon} alt={action.key} />
 </button>
 
 <!-- ############################## </HTML> ############################## -->
-
-<style>
-  button {
-    margin: 0;
-  }
-
-  button.active {
-    background: black;
-    color: white;
-  }
-</style>
