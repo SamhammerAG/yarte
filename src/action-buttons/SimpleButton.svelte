@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import type { Action } from "./types/Action";
+  import type { Action } from "../../types/Action";
 
   export let editor: Editor;
   export let action: Action;
@@ -18,14 +18,10 @@
   }
 </script>
 
-<!-- ############################### <HTML> ############################## -->
-
 <button
   {disabled}
   class:active={activeButtons.includes(action.key)}
-  on:click={() => handleClick()}
+  on:click={handleClick}
 >
   <img src={action.buttonIcon} alt={action.key} />
 </button>
-
-<!-- ############################## </HTML> ############################## -->

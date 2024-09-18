@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import type { Action } from "./types/Action";
-  import Button from "./Button.svelte";
+  import type { Action } from "../types/Action";
+  import Button from "./action-buttons/SimpleButton.svelte";
   import ActionDefinitions from "./ActionDefinitions";
-  import DropdownButton from "./DropdownButton.svelte";
+  import ExampleButton from "./action-buttons/ExampleButton.svelte";
+  import TextAlignButton from "./action-buttons/TextAlignButton.svelte";
 
   export let editor: Editor;
   export let toolbar: string[];
@@ -29,64 +30,18 @@
   }
 </script>
 
-<!-- ############################### <HTML> ############################## -->
-
 <div class="toolbar">
+  <ExampleButton
+    {disabled}
+    {activeButtons}
+    action={ActionDefinitions.TextAlign}
+  />
+
   {#each getConfiguredToolbarActions() as action}
-    {#if action.subactions}
-      <DropdownButton {editor} {disabled} {activeButtons} {action} />
+    {#if action.key === ActionDefinitions.TextAlign.key}
+      <TextAlignButton {editor} {disabled} {activeButtons} {action} />
     {:else}
       <Button {editor} {disabled} {activeButtons} {action} />
     {/if}
   {/each}
 </div>
-
-<!-- ############################## </HTML> ############################## -->
-
-<style>
-  .toolbar {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 10px;
-    margin: 0;
-    padding: 7px;
-    font-family: "Inter", sans-serif;
-    box-shadow: var(--shadow);
-  }
-
-  :global(.spacer) {
-    min-width: 1px;
-    width: 1px;
-    background: var(--spacer);
-  }
-
-  :global(button) {
-    display: flex;
-    background-color: white;
-    padding: 3px 6px 3px 6px;
-    align-items: center;
-    cursor: pointer;
-    border: 0;
-    border-radius: 3px;
-    position: relative;
-  }
-
-  :global(.active:not([disabled])) {
-    background: var(--selected);
-    border: 0;
-    box-shadow: none;
-    color: #222f3e;
-    position: relative;
-  }
-
-  :global(button img) {
-    width: 22px;
-    height: 22px;
-  }
-
-  :global(button:hover),
-  :global(button:focus) {
-    background-color: var(--hover);
-  }
-</style>

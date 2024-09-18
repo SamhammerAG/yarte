@@ -121,4 +121,70 @@
     padding: 1rem;
     margin-bottom: 3rem;
   }
+  :global(.toolbar) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    margin: 0;
+    padding: 7px;
+    font-family: "Inter", sans-serif;
+    box-shadow: var(--shadow);
+  }
+
+  :global(.spacer) {
+    min-width: 1px;
+    width: 1px;
+    background: var(--spacer);
+  }
+
+  :global(button) {
+    display: flex;
+    background-color: white;
+    padding: 3px 6px 3px 6px;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  :global(.active:not([disabled])) {
+    background: var(--selected);
+    border: 0;
+    box-shadow: none;
+    color: #222f3e;
+    position: relative;
+  }
+
+  :global(button img) {
+    width: 22px;
+    height: 22px;
+  }
+
+  :global(button:hover),
+  :global(button:focus) {
+    background-color: var(--hover);
+  }
+
+  :global(.dropdown-button > button::after) {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+  }
+
+  :global(.dropdown-button) {
+    position: relative;
+  }
+
+  :global(.dropdown-button .dropdown) {
+    position: absolute;
+  }
 </style>

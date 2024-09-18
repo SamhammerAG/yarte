@@ -1,7 +1,7 @@
 
 import type { Editor } from "@tiptap/core";
-import type { Action } from "./types/Action";
-import type { ActionsContext } from "./types/ActionsContext";
+import type { Action } from "../types/Action";
+import type { ActionsContext } from "../types/ActionsContext";
 import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
 import Table from "@tiptap/extension-table";
