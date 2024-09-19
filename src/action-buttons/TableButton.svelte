@@ -20,7 +20,7 @@
                 <button
                     class:hover={xPos >= i && yPos >= j}
                     on:mouseenter={() => ((xPos = i), (yPos = j))}
-                    on:click={() => action.buttonAction(editor, i, j)}
+                    on:click={() => action.buttonAction(editor, i + 1, j + 1)}
                 ></button>
             {/each}
         {/each}
