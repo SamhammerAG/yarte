@@ -9,7 +9,7 @@
     window.onload = () => {
       var editor = document.querySelector("yarte-editor");
 
-      editor.toolbar = ["color", "bold", "strike", "textAlign", "italic", "bulletList", "orderedList", "link", "highlight", "underline", "undo", "redo", "table", "image"];
+      editor.toolbar = ["bold", "italic", "underline", "strike", "textAlign", "|", "color", "highlight", "|", "clear", "|", "bulletList", "orderedList", "|", "link", "image", "table", "|", "undo", "redo",];
       editor.disabled = false;
       editor.content = "Hello World!";
     };

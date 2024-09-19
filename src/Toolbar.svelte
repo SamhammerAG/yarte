@@ -15,15 +15,17 @@
   export let activeButtons: string[] = [];
   export let imageUpload: Function;
 
-  function getConfiguredToolbarActions(): Action[] {
+  function getConfiguredToolbarActions(): (Action | "|")[] {
     const availableActions = ActionDefinitions.getActions({ imageUpload });
-    const configuredActions: Action[] = [];
+    const configuredActions: (Action | "|")[] = [];
 
     for (const key of toolbar) {
       const action = availableActions.find((a) => a.key === key);
 
       if (action) {
         configuredActions.push(action);
+      } else if (key === "|") {
+        configuredActions.push(key);
       } else {
         console.warn(`toolbar action not found: ${key}`);
       }
@@ -41,7 +43,9 @@
   />
 
   {#each getConfiguredToolbarActions() as action}
-    {#if action.key === ActionDefinitions.TextAlign.key}
+    {#if action === "|"}
+      <div class="spacer"></div>
+    {:else if action.key === ActionDefinitions.TextAlign.key}
       <TextAlignButton {editor} {disabled} {activeButtons} {action} />
     {:else if action.key === ActionDefinitions.Color.key || action.key === ActionDefinitions.Highlight.key}
       <ColorPickButton {editor} {disabled} {activeButtons} {action} />

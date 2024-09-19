@@ -110,7 +110,7 @@
 
   #yarte-editor {
     width: 50%;
-    min-width: 800px;
+    min-width: 1000px;
     margin: 0 auto;
   }
 
