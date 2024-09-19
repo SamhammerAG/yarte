@@ -5,6 +5,9 @@
   import ActionDefinitions from "./ActionDefinitions";
   import ExampleButton from "./action-buttons/ExampleButton.svelte";
   import TextAlignButton from "./action-buttons/TextAlignButton.svelte";
+  import ColorPickButton from "./action-buttons/ColorPickButton.svelte";
+  import HyperlinkButton from "./action-buttons/HyperlinkButton.svelte";
+  import TableButton from "./action-buttons/TableButton.svelte";
 
   export let editor: Editor;
   export let toolbar: string[];
@@ -40,6 +43,12 @@
   {#each getConfiguredToolbarActions() as action}
     {#if action.key === ActionDefinitions.TextAlign.key}
       <TextAlignButton {editor} {disabled} {activeButtons} {action} />
+    {:else if action.key === ActionDefinitions.Color.key || action.key === ActionDefinitions.Highlight.key}
+      <ColorPickButton {editor} {disabled} {activeButtons} {action} />
+    {:else if action.key === ActionDefinitions.Link.key}
+      <HyperlinkButton {editor} {disabled} {activeButtons} {action} />
+    {:else if action.key === ActionDefinitions.Table.key}
+      <TableButton {editor} {disabled} {activeButtons} {action} />
     {:else}
       <Button {editor} {disabled} {activeButtons} {action} />
     {/if}

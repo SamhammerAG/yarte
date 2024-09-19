@@ -186,5 +186,16 @@
 
   :global(.dropdown-button .dropdown) {
     position: absolute;
+    box-shadow: var(--shadow);
+    background-color: white;
+  }
+
+  :global(table) {
+    border-collapse: collapse;
+    border: 1px solid #ff0000;
+  }
+
+  :global(table td) {
+    border: 1px solid #ff0000;
   }
 </style>

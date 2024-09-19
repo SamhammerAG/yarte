@@ -78,6 +78,7 @@ export default class ActionDefinitions {
     key: "color",
     buttonIcon: this.imagePath + "font-color.svg",
     buttonAction: (editor: Editor, color: string) => editor.chain().focus().setColor(color).run(),
+    buttonAction2: (editor: Editor) => editor.chain().focus().unsetColor().run(),
     extensions: [Color, TextStyle]
   };
 
@@ -85,6 +86,7 @@ export default class ActionDefinitions {
     key: "highlight",
     buttonIcon: this.imagePath + "palette-line.svg",
     buttonAction: (editor: Editor, color: string) => editor.chain().focus().toggleHighlight({ color: color }).run(),
+    buttonAction2: (editor: Editor) => editor.chain().focus().unsetHighlight().run(),
     extensions: [configureHighlight(Highlight)]
   };
 
@@ -98,7 +100,7 @@ export default class ActionDefinitions {
   public static Table: Action = {
     key: "table",
     buttonIcon: this.imagePath + "table-line.svg",
-    buttonAction: (editor: Editor) => editor.chain().focus().insertTable().run(),
+    buttonAction: (editor: Editor, rows: number, cols: number) => editor.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run(),
     extensions: [configureTable(Table), TableRow, TableCell, TableHeader]
   };
 
