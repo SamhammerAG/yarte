@@ -5,5 +5,6 @@ export type Subaction = {
     buttonIcon: string;
     buttonAction: (editor: Editor, ...params: any[]) => void;
     extensions: Array<Node<any> | Mark<any> | Extension<any>>;
+    // TODO
     buttonAction2?: (editor: Editor, ...params: any[]) => void;
 };
