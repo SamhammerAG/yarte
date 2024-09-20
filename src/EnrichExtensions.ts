@@ -22,14 +22,9 @@ export const configureTextAlign = (extension: Extension<TextAlignOptions, any>):
   });
 }
 
-export const configureImage = (extension: Node<ImageOptions, any>): Node<ImageOptions, any> => {
-  return extension.configure({
-    inline: true
-  });
-}
-
 export const extendImage = (extension: Node<ImageOptions, any>, uploadCallback: Function): Node<ImageOptions, any> => {
   return extension.extend({
+    inine: true,
     addProseMirrorPlugins: () => {
       return [
         new Plugin({
@@ -59,7 +54,7 @@ export const extendImage = (extension: Node<ImageOptions, any>, uploadCallback: 
               const { schema } = view.state;
 
               for (const image of images) {
-                uploadCallback(image).then((img: File) => {
+                uploadCallback(image).then((img: String) => {
                   const node = schema.nodes.image.create({
                     src: img,
                   });

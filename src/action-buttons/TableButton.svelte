@@ -15,12 +15,12 @@
 
 <BaseDropdownButton {disabled} {activeButtons} {action}>
   <div slot="dropdown" class="dropdown">
-    {#each { length: tableGridSize } as _, i}
-      {#each { length: tableGridSize } as _, j}
+    {#each Array.from({ length: tableGridSize }).keys() as x}
+      {#each Array.from({ length: tableGridSize }).keys() as y}
         <button
-          class:hover={xPos >= i && yPos >= j}
-          on:mouseenter={() => ((xPos = i), (yPos = j))}
-          on:click={() => action.buttonAction(editor, i + 1, j + 1)}
+          class:hover={xPos >= x && yPos >= y}
+          on:mouseenter={() => ((xPos = x), (yPos = y))}
+          on:click={() => action.buttonAction(editor, x + 1, y + 1)}
         ></button>
       {/each}
     {/each}

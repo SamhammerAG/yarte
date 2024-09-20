@@ -1,5 +1,5 @@
 
-import type { Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import type { Action } from "../types/Action";
 import type { ActionsContext } from "../types/ActionsContext";
 import { Color } from "@tiptap/extension-color";
@@ -22,7 +22,6 @@ import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import {
   configureHighlight,
-  configureImage,
   configureTable,
   configureTextAlign,
   extendImage
@@ -107,7 +106,7 @@ export default class ActionDefinitions {
   public static TextAlign: Action = {
     key: "textAlign",
     buttonIcon: this.imagePath + "align-left.svg",
-    buttonAction: (editor: Editor, align: string) => editor.chain().focus().setTextAlign(align).run(),
+    buttonAction: () => { },
     extensions: [configureTextAlign(TextAlign)],
     subactions: [
       {
@@ -137,14 +136,13 @@ export default class ActionDefinitions {
     ]
   };
 
-  public static Image: (uploadCallback: Function) => Action = (uploadCallback: Function) => {
-    return {
-      key: "image",
-      buttonIcon: this.imagePath + "image-add-line.svg",
-      buttonAction: (editor: Editor, link: string) => editor.chain().focus().setImage({ src: link }).run(),
-      extensions: [extendImage(configureImage(Image), uploadCallback)]
-    }
-  }
+  public static Image = (uploadImageCallback: (file: File) => Promise<string>): Action => ({
+    key: "image",
+    buttonIcon: this.imagePath + "image-add-line.svg",
+    buttonAction: (editor: Editor, file: File) => uploadImageCallback(file).then((imageSrc: string) => editor.chain().focus().setImage({ src: imageSrc }).run()),
+    extensions: [extendImage(Image, uploadImageCallback)],
+  });
+
 
   public static Undo: Action = {
     key: "undo",

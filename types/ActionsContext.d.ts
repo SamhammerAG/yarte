@@ -1,3 +1,3 @@
 export type ActionsContext = {
-    imageUpload: Function
+  imageUpload: (file: File) => Promise<string>;
 };

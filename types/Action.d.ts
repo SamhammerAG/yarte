@@ -1,5 +1,5 @@
 import type { Subaction } from "./SubAction";
 
 export type Action = {
-    subactions?: Subaction[]
+  subactions?: Subaction[]
 } & Subaction;
