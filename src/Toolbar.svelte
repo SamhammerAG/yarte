@@ -1,9 +1,8 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import type { Action } from "../types/Action";
-  import Button from "./action-buttons/SimpleButton.svelte";
+  import SimpleButton from "./action-buttons/SimpleButton.svelte";
   import ActionDefinitions from "./ActionDefinitions";
-  import ExampleButton from "./action-buttons/ExampleButton.svelte";
   import TextAlignButton from "./action-buttons/TextAlignButton.svelte";
   import ColorPickButton from "./action-buttons/ColorPickButton.svelte";
   import HyperlinkButton from "./action-buttons/HyperlinkButton.svelte";
@@ -44,12 +43,6 @@
 </script>
 
 <div class="toolbar">
-  <ExampleButton
-    {disabled}
-    {activeButtons}
-    action={ActionDefinitions.TextAlign}
-  />
-
   {#each getConfiguredToolbarActions() as action}
     {#if action === "|"}
       <div class="spacer"></div>
@@ -64,7 +57,49 @@
     {:else if action.key === ActionDefinitions.Table.key}
       <TableButton {editor} {disabled} {activeButtons} {action} />
     {:else}
-      <Button {editor} {disabled} {activeButtons} {action} />
+      <SimpleButton {editor} {disabled} {activeButtons} {action} />
     {/if}
   {/each}
 </div>
+
+<style>
+  .toolbar {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.25rem;
+    box-shadow: var(--shadow);
+    background-color: var(--toolbar-color);
+    padding: 0.25rem;
+
+    & .spacer {
+      width: 1px;
+      margin: 0 0.25rem;
+      background-color: var(--icon-text-color);
+    }
+
+    & > button,
+    > .dropdown-wrapper > button {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 0.25rem;
+      border: none;
+      border-radius: 0.3rem;
+      background-color: var(--button-color);
+
+      &.active {
+        background-color: var(--button-active);
+      }
+
+      &:hover {
+        background-color: var(--button-hover);
+      }
+
+      & svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--icon-text-color);
+      }
+    }
+  }
+</style>

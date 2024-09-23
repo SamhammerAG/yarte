@@ -10,7 +10,5 @@
 </script>
 
 <BaseDropdownButton {disabled} {activeButtons} {action}>
-  <div slot="dropdown" class="dropdown">
-    <img src="https://tinyurl.com/25oqeflb" alt={action.key} />
-  </div>
+  <span>Hello World! :3</span>
 </BaseDropdownButton>

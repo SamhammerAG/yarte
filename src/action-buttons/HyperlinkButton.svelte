@@ -2,6 +2,8 @@
   import type { Editor } from "@tiptap/core";
   import BaseDropdownButton from "./BaseDropdownButton.svelte";
   import type { Action } from "../../types/Action";
+  import CheckIcon from "../../icons/check-line.svg?raw";
+  import CancelIcon from "../../icons/close-line.svg?raw";
 
   export let editor: Editor;
   export let disabled: boolean;
@@ -19,31 +21,66 @@
 </script>
 
 <BaseDropdownButton {disabled} {activeButtons} {action}>
-  <div slot="dropdown" class="dropdown">
+  <div class="hyperlink">
     <input
       type="text"
       placeholder="https://example.com"
       bind:value={hyperlink}
     />
-    <button on:click={setHyperlink}>
-      <img src="./icons/check-line.svg" alt={action.key} />
+    <button class="confirm" on:click={setHyperlink}>
+      {@html CheckIcon}
     </button>
-    <button on:click={() => editor.chain().focus()}
-      ><img src="./icons/close-line.svg" alt={action.key} /></button
-    >
+    <button class="decline" on:click={() => editor.chain().focus()}>
+      {@html CancelIcon}
+    </button>
   </div>
 </BaseDropdownButton>
 
-<!-- TODO -->
 <style>
-  .dropdown {
+  .hyperlink {
     display: flex;
     flex-flow: row wrap;
+    gap: 0.25rem;
     padding: 0.5rem;
-  }
+    background-color: var(--toolbar-color);
 
-  button,
-  input {
-    display: flex;
+    & button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0.25rem;
+      border: none;
+      border-radius: 0.3rem;
+      background-color: var(--button-color);
+      flex: 40%;
+
+      &:hover {
+        background-color: var(--button-hover);
+      }
+
+      &.confirm svg {
+        color: green;
+      }
+
+      &.decline svg {
+        color: red;
+      }
+
+      & svg {
+        width: 1rem;
+        height: 1rem;
+        color: var(--icon-text-color);
+      }
+    }
+
+    & input {
+      display: flex;
+      padding: 0.25rem;
+      flex: 100%;
+      background-color: var(--button-color);
+      color: var(--icon-text-color);
+      outline: none;
+    }
   }
 </style>

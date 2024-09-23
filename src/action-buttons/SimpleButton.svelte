@@ -23,5 +23,5 @@
   class:active={activeButtons.includes(action.key)}
   on:click={handleClick}
 >
-  <img src={action.buttonIcon} alt={action.key} />
+  {@html action.buttonIcon}
 </button>

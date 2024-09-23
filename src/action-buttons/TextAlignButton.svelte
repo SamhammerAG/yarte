@@ -20,11 +20,35 @@
 </script>
 
 <BaseDropdownButton {disabled} {activeButtons} {action}>
-  <div slot="dropdown" class="dropdown">
-    {#each getSubactions() as subaction}
-      <button {disabled} on:click={() => handleClick(subaction)}>
-        <img src={subaction.buttonIcon} alt={subaction.key} />
-      </button>
-    {/each}
-  </div>
+  {#each getSubactions() as subaction}
+    <button {disabled} on:click={() => handleClick(subaction)}>
+      {@html subaction.buttonIcon}
+    </button>
+  {/each}
 </BaseDropdownButton>
+
+<style>
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color);
+    border: none;
+    cursor: pointer;
+    padding: 0.625rem;
+
+    &:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
+
+    &:hover {
+      background-color: var(--button-hover);
+    }
+
+    & svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--icon-text-color);
+    }
+  }
+</style>

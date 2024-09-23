@@ -2,6 +2,7 @@
   import type { Editor } from "@tiptap/core";
   import BaseDropdownButton from "./BaseDropdownButton.svelte";
   import type { Action } from "../../types/Action";
+  import EraserIcon from "../../icons/eraser-line.svg?raw";
 
   export let editor: Editor;
   export let disabled: boolean;
@@ -25,8 +26,8 @@
 </script>
 
 <BaseDropdownButton {disabled} {activeButtons} {action}>
-  <div slot="dropdown" class="dropdown">
-    <button class="clear" on:click={clear}>Clear</button>
+  <div class="color-picker">
+    <button class="clear" on:click={clear}> {@html EraserIcon} Clear</button>
     {#each colors as color}
       <button
         style="background-color: {color};"
@@ -36,30 +37,50 @@
   </div>
 </BaseDropdownButton>
 
-<!-- TODO -->
 <style>
-  .dropdown {
-    position: absolute;
+  .color-picker {
     display: flex;
     flex-flow: row wrap;
-    gap: var(--gap);
-    width: 7.5rem;
-    background-color: white;
-    padding: var(--gap);
-  }
+    gap: 0.25rem;
+    width: 6.75rem;
+    background-color: var(--toolbar-color);
+    padding: 0.25rem;
 
-  .clear {
-    width: 100%;
-    text-align: center;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid black;
-  }
+    & button {
+      border: none;
+      border-radius: 0.3rem;
+    }
 
-  .dropdown button:not(:first-child) {
-    display: flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 0.5rem;
+    & .clear {
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem;
+      background-color: var(--button-color);
+      color: var(--icon-text-color);
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--button-hover);
+      }
+
+      & svg {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    & button:not(.clear) {
+      display: flex;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 1px solid var(--icon-text-color);
+
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
   }
 </style>

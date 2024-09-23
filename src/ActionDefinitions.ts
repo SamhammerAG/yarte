@@ -1,8 +1,8 @@
 
-import { Editor } from "@tiptap/core";
+import type { Editor } from "@tiptap/core";
 import type { Action } from "../types/Action";
 import type { ActionsContext } from "../types/ActionsContext";
-import { Color } from "@tiptap/extension-color";
+import Color from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -20,6 +20,24 @@ import Link from "@tiptap/extension-link";
 import Strike from "@tiptap/extension-strike";
 import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
+import BoldIcon from "../icons/bold.svg?raw";
+import ItalicIcon from "../icons/italic.svg?raw";
+import UnderlineIcon from "../icons/underline.svg?raw";
+import StrikeIcon from "../icons/strikethrough.svg?raw";
+import ListUnorderedIcon from "../icons/list-unordered.svg?raw";
+import ListOrdererdIcon from "../icons/list-ordered.svg?raw";
+import FontColorIcon from "../icons/font-color.svg?raw";
+import HighlightColorIcon from "../icons/palette-line.svg?raw";
+import LinkIcon from "../icons/link.svg?raw";
+import TableIcon from "../icons/table-line.svg?raw";
+import TextAlignRightIcon from "../icons/align-right.svg?raw";
+import TextAlignLeftIcon from "../icons/align-left.svg?raw";
+import TextAlignCenterIcon from "../icons/align-center.svg?raw";
+import TextAlignJustifyIcon from "../icons/align-justify.svg?raw";
+import ImageIcon from "../icons/image-add-line.svg?raw";
+import UndoIcon from "../icons/arrow-go-back-line.svg?raw";
+import RedoIcon from "../icons/arrow-go-forward-line.svg?raw";
+import ClearIcon from "../icons/format-clear.svg?raw";
 import {
   configureHighlight,
   configureTable,
@@ -29,53 +47,51 @@ import {
 
 export default class ActionDefinitions {
 
-  private static imagePath = "./icons/";
-
   public static Bold: Action = {
     key: "bold",
-    buttonIcon: this.imagePath + "bold.svg",
+    buttonIcon: BoldIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().toggleBold().run(),
     extensions: [Bold]
   };
 
   public static Italic: Action = {
     key: "italic",
-    buttonIcon: this.imagePath + "italic.svg",
+    buttonIcon: ItalicIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().toggleItalic().run(),
     extensions: [Italic]
   };
 
   public static Strike: Action = {
     key: "strike",
-    buttonIcon: this.imagePath + "strikethrough.svg",
+    buttonIcon: StrikeIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().toggleStrike().run(),
     extensions: [Strike]
   };
 
   public static Underline: Action = {
     key: "underline",
-    buttonIcon: this.imagePath + "underline.svg",
+    buttonIcon: UnderlineIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().toggleUnderline().run(),
     extensions: [Underline]
   };
 
   public static BulletList: Action = {
     key: "bulletList",
-    buttonIcon: this.imagePath + "list-unordered.svg",
+    buttonIcon: ListUnorderedIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().toggleBulletList().run(),
     extensions: [BulletList, ListItem]
   };
 
   public static OrderedList: Action = {
     key: "orderedList",
-    buttonIcon: this.imagePath + "list-ordered.svg",
+    buttonIcon: ListOrdererdIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().toggleOrderedList().run(),
     extensions: [OrderedList, ListItem]
   };
 
   public static Color: Action = {
     key: "color",
-    buttonIcon: this.imagePath + "font-color.svg",
+    buttonIcon: FontColorIcon,
     buttonAction: (editor: Editor, color: string) => editor.chain().focus().setColor(color).run(),
     buttonAction2: (editor: Editor) => editor.chain().focus().unsetColor().run(),
     extensions: [Color, TextStyle]
@@ -83,7 +99,7 @@ export default class ActionDefinitions {
 
   public static Highlight: Action = {
     key: "highlight",
-    buttonIcon: this.imagePath + "palette-line.svg",
+    buttonIcon: HighlightColorIcon,
     buttonAction: (editor: Editor, color: string) => editor.chain().focus().toggleHighlight({ color: color }).run(),
     buttonAction2: (editor: Editor) => editor.chain().focus().unsetHighlight().run(),
     extensions: [configureHighlight(Highlight)]
@@ -91,45 +107,45 @@ export default class ActionDefinitions {
 
   public static Link: Action = {
     key: "link",
-    buttonIcon: this.imagePath + "link.svg",
+    buttonIcon: LinkIcon,
     buttonAction: (editor: Editor, link: string) => editor.chain().focus().setLink({ href: link }).run(),
     extensions: [Link]
   };
 
   public static Table: Action = {
     key: "table",
-    buttonIcon: this.imagePath + "table-line.svg",
+    buttonIcon: TableIcon,
     buttonAction: (editor: Editor, rows: number, cols: number) => editor.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run(),
     extensions: [configureTable(Table), TableRow, TableCell, TableHeader]
   };
 
   public static TextAlign: Action = {
     key: "textAlign",
-    buttonIcon: this.imagePath + "align-left.svg",
+    buttonIcon: TextAlignLeftIcon,
     buttonAction: () => { },
     extensions: [configureTextAlign(TextAlign)],
     subactions: [
       {
         key: "left",
-        buttonIcon: this.imagePath + "align-left.svg",
+        buttonIcon: TextAlignLeftIcon,
         buttonAction: (editor: Editor) => editor.chain().focus().setTextAlign("left").run(),
         extensions: [TextStyle]
       },
       {
         key: "center",
-        buttonIcon: this.imagePath + "align-center.svg",
+        buttonIcon: TextAlignCenterIcon,
         buttonAction: (editor: Editor) => editor.chain().focus().setTextAlign("center").run(),
         extensions: [TextStyle]
       },
       {
         key: "right",
-        buttonIcon: this.imagePath + "align-right.svg",
+        buttonIcon: TextAlignRightIcon,
         buttonAction: (editor: Editor) => editor.chain().focus().setTextAlign("right").run(),
         extensions: [TextStyle]
       },
       {
         key: "justify",
-        buttonIcon: this.imagePath + "align-justify.svg",
+        buttonIcon: TextAlignJustifyIcon,
         buttonAction: (editor: Editor) => editor.chain().focus().setTextAlign("justify").run(),
         extensions: [TextStyle]
       }
@@ -138,29 +154,28 @@ export default class ActionDefinitions {
 
   public static Image = (uploadImageCallback: (file: File) => Promise<string>): Action => ({
     key: "image",
-    buttonIcon: this.imagePath + "image-add-line.svg",
+    buttonIcon: ImageIcon,
     buttonAction: (editor: Editor, file: File) => uploadImageCallback(file).then((imageSrc: string) => editor.chain().focus().setImage({ src: imageSrc }).run()),
     extensions: [extendImage(Image, uploadImageCallback)],
   });
 
-
   public static Undo: Action = {
     key: "undo",
-    buttonIcon: this.imagePath + "arrow-go-back-line.svg",
+    buttonIcon: UndoIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().undo().run(),
     extensions: [History]
-  }
+  };
 
   public static Redo: Action = {
     key: "redo",
-    buttonIcon: this.imagePath + "arrow-go-forward-line.svg",
+    buttonIcon: RedoIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().redo().run(),
     extensions: [History]
-  }
+  };
 
   public static Clear: Action = {
     key: "clear",
-    buttonIcon: this.imagePath + "format-clear.svg",
+    buttonIcon: ClearIcon,
     buttonAction: (editor: Editor) => editor.chain().focus().unsetAllMarks().run(),
     extensions: []
   };

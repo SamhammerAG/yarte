@@ -5,13 +5,21 @@
   <meta charset="UTF-8" />
   <title>YARTE Editor Test</title>
   <script type="module" src="dist/yarte.iife.js"></script>
+  <style>
+    yarte-editor {
+      display: flex;
+      margin-bottom: 5rem;
+    }
+  </style>
   <script lang="ts">
     window.onload = () => {
-      var editor = document.querySelector("yarte-editor");
+      var editor = document.querySelectorAll("yarte-editor");
 
-      editor.toolbar = ["bold", "italic", "underline", "strike", "textAlign", "|", "color", "highlight", "|", "clear", "|", "bulletList", "orderedList", "|", "link", "image", "table", "|", "undo", "redo",];
-      editor.disabled = false;
-      editor.content = "Hello World!";
+      editor[0].toolbar = ["bold", "italic", "underline", "strike", "textAlign", "|", "color", "highlight", "|", "clear", "|", "bulletList", "orderedList", "|", "link", "image", "table", "|", "undo", "redo",];
+      editor[0].content = "Hello World!";
+
+      editor[1].toolbar = ["bold", "italic", "underline", "strike", "textAlign", "|", "color", "highlight", "|", "clear", "|", "bulletList", "orderedList", "|", "link", "image", "table", "|", "undo", "redo",];
+      editor[1].content = "Hello Dark World!";
     };
 
   </script>
@@ -19,6 +27,7 @@
 
 <body>
   <yarte-editor></yarte-editor>
+  <yarte-editor darkmode></yarte-editor>
 </body>
 
 </html>

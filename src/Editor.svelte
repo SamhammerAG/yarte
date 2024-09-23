@@ -13,6 +13,7 @@
   export let content: string = "";
   export let disabled: boolean = false;
   export let toolbar: string[] = [];
+  export let darkmode: boolean = false;
   export let imageUpload: (file: File) => Promise<string>;
 
   let element: HTMLElement;
@@ -80,122 +81,61 @@
 
 <!-- ############################## <HTML> ############################## -->
 
-<div id="yarte-editor">
+<div id="yarte-editor" class:darkmode>
   {#if toolbar.length > 0 && editor}
     <Toolbar {editor} {disabled} {toolbar} {activeButtons} {imageUpload} />
   {/if}
   <div class="description" bind:this={element} />
 </div>
 
-<div class="store-output">{$contentStore}</div>
-
 <!-- ############################## </HTML> ############################## -->
 
 <style>
-  * {
+  #yarte-editor {
     --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
       rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
-    --color: #166e67;
-    --gap: 0.5rem;
-    --radius: 5px;
-    --darkgray: rgba(61, 37, 20, 0.12);
-    --lightgray: rgba(61, 37, 20, 0.05);
-    --silver: rgba(61, 37, 20, 0.08);
-    --purple: #6a00f5;
-    --selected: #a6ccf7;
-    --hover: #f0f0f0;
-    --border: #ccced1;
-    --spacer: #ccced1;
+
+    --toolbar-color: white;
+    --editor: white;
+    --icon-text-color: black;
+
+    --button-color: lightgray;
+    --button-active: lightgreen;
+    --button-hover: rgb(56, 221, 56);
+  }
+
+  #yarte-editor.darkmode {
+    --shadow: rgba(255, 255, 255, 0.05) 0px 6px 10px 0px,
+      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+
+    --toolbar-color: black;
+    --editor: rgb(71, 71, 71);
+    --icon-text-color: white;
+
+    --button-color: rgb(37, 37, 37);
+    --button-active: rgb(109, 4, 109);
+    --button-hover: rgb(139, 6, 139);
   }
 
   #yarte-editor {
-    width: 50%;
-    min-width: 1000px;
-    margin: 0 auto;
+    width: 800px;
   }
 
   :global(.tiptap) {
-    min-height: 300px;
-    word-wrap: break-word;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin-bottom: 3rem;
-  }
-  :global(.toolbar) {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 10px;
-    margin: 0;
-    padding: 7px;
-    font-family: "Inter", sans-serif;
-    box-shadow: var(--shadow);
-  }
+    height: 300px;
+    border: 1px solid black;
+    padding: 0 1rem;
+    outline: none;
 
-  :global(.spacer) {
-    min-width: 1px;
-    width: 1px;
-    background: var(--spacer);
-  }
+    /** Discuss if we want to keep this */
+    background-color: var(--editor);
+    color: var(--icon-text-color);
 
-  :global(button) {
-    display: flex;
-    background-color: white;
-    padding: 3px 6px 3px 6px;
-    align-items: center;
-    cursor: pointer;
-    border: 0;
-    border-radius: 3px;
-    position: relative;
-  }
-
-  :global(.active:not([disabled])) {
-    background: var(--selected);
-    border: 0;
-    box-shadow: none;
-    color: #222f3e;
-    position: relative;
-  }
-
-  :global(button img) {
-    width: 22px;
-    height: 22px;
-  }
-
-  :global(button:hover),
-  :global(button:focus) {
-    background-color: var(--hover);
-  }
-
-  :global(.dropdown-button > button::after) {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 0.255em;
-    vertical-align: 0.255em;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
-  }
-
-  :global(.dropdown-button) {
-    position: relative;
-  }
-
-  :global(.dropdown-button .dropdown) {
-    position: absolute;
-    box-shadow: var(--shadow);
-    background-color: white;
-  }
-
-  :global(table) {
-    border-collapse: collapse;
-    border: 1px solid #ff0000;
-  }
-
-  :global(table td) {
-    border: 1px solid #ff0000;
+    & table,
+    td {
+      border-collapse: collapse;
+      border: 1px solid var(--icon-text-color);
+    }
+    /***/
   }
 </style>
