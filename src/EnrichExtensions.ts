@@ -4,6 +4,7 @@ import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import type { TableOptions } from "@tiptap/extension-table";
 import type { HighlightOptions } from "@tiptap/extension-highlight";
 import { Plugin } from "@tiptap/pm/state";
+import type { LinkOptions } from "@tiptap/extension-link";
 
 export const configureHighlight = (extension: Mark<HighlightOptions, any>): Mark<HighlightOptions, any> => {
   return extension.configure({
@@ -19,6 +20,12 @@ export const configureTable = (extension: Node<TableOptions, any>): Node<TableOp
 export const configureTextAlign = (extension: Extension<TextAlignOptions, any>): Extension<TextAlignOptions, any> => {
   return extension.configure({
     types: ["heading", "paragraph"]
+  });
+}
+
+export const configureLink = (extension: Mark<LinkOptions, any>): Mark<LinkOptions, any> => {
+  return extension.configure({
+    openOnClick: false,
   });
 }
 

@@ -29,9 +29,4 @@
   input[type="file"] {
     display: none;
   }
-
-  .custom-file-upload {
-    display: flex;
-    cursor: pointer;
-  }
 </style>

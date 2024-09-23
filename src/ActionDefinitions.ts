@@ -41,6 +41,7 @@ import ClearIcon from "../icons/format-clear.svg?raw";
 import {
   configureHighlight,
   configureTable,
+  configureLink,
   configureTextAlign,
   extendImage
 } from "./EnrichExtensions";
@@ -109,7 +110,7 @@ export default class ActionDefinitions {
     key: "link",
     buttonIcon: LinkIcon,
     buttonAction: (editor: Editor, link: string) => editor.chain().focus().setLink({ href: link }).run(),
-    extensions: [Link]
+    extensions: [configureLink(Link)]
   };
 
   public static Table: Action = {
