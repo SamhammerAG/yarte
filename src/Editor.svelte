@@ -9,38 +9,49 @@
   import { writable } from "svelte/store";
   import Toolbar from "./Toolbar.svelte";
   import ActionDefinitions from "./ActionDefinitions";
+  import type { Action } from "../types/Action";
+  import type { ActionsContext } from "../types/ActionsContext";
 
   export let content: string = "";
   export let disabled: boolean = false;
   export let toolbar: string[] = [];
   export let darkmode: boolean = false;
-  export let imageUpload: (file: File) => Promise<string>;
+  export let imageUpload: (file: File) => Promise<string> = () =>
+    new Promise(() => {
+      console.log("Test");
+      return "test";
+    });
+
+  // update Editor if outside params change
+  $: content, editor && updateContent();
+  $: disabled, editor && updateDisabled();
+  $: toolbar, toolbar.length > 0 && initializeEditor();
 
   let element: HTMLElement;
   let editor: Editor;
   let activeButtons: string[] = [];
-  const contentStore = writable(content);
 
-  // execute everything after comma when before comma changes
-  $: content, editor && updateContent();
-  $: disabled, editor && updateDisabled();
-  $: toolbar, toolbar.length > 0 && initializeEditor();
+  const configuredActions: (Action | "|")[] = [];
+  const contentStore = writable(content);
 
   onDestroy(() => {
     editor.destroy();
   });
 
   function initializeEditor(): void {
-    if (editor) {
-      editor.destroy();
-      activeButtons.length = 0;
-      contentStore.set("");
-    }
+    if (editor) resetEditor(editor);
+
+    initializeActions();
 
     editor = new Editor({
       element: element,
       editable: !disabled,
-      extensions: [Document, Paragraph, Text, ...getExtensions()],
+      extensions: [
+        Document,
+        Paragraph,
+        Text,
+        ...getExtensions({ imageUpload }),
+      ],
       content: content,
       onUpdate: () => {
         contentStore.set(editor.getHTML());
@@ -57,15 +68,29 @@
     contentStore.set(editor.getHTML());
   }
 
-  function getExtensions(): Set<Node<any> | Mark<any> | Extension<any>> {
+  function initializeActions(): void {
+    var availableActions = ActionDefinitions.getActions();
+
+    toolbar.forEach((key: string) => {
+      const action = availableActions.find((a) => a.key === key);
+
+      if (action) {
+        configuredActions.push(action);
+      } else if (key === "|") {
+        configuredActions.push(key);
+      } else {
+        console.log(`Action '${key}' not found`);
+      }
+    });
+  }
+
+  function getExtensions(
+    context: ActionsContext,
+  ): Set<Mark<any> | Node<any> | Extension<any>> {
     return new Set(
-      ActionDefinitions.getActions({ imageUpload })
-        .filter((action) => toolbar.includes(action.key))
-        .flatMap((action) => [
-          ...action.extensions,
-          ...(action.subactions?.flatMap((subaction) => subaction.extensions) ??
-            []),
-        ]),
+      configuredActions
+        .filter((a) => a !== "|")
+        .flatMap((a) => a.extensions(context)),
     );
   }
 
@@ -77,13 +102,26 @@
   function updateDisabled(): void {
     editor.setEditable(!disabled);
   }
+
+  function resetEditor(editor: Editor): void {
+    editor.destroy();
+    activeButtons.length = 0;
+    configuredActions.length = 0;
+    contentStore.set("");
+  }
 </script>
 
 <!-- ############################## <HTML> ############################## -->
 
 <div id="yarte-editor" class:darkmode>
-  {#if toolbar.length > 0 && editor}
-    <Toolbar {editor} {disabled} {toolbar} {activeButtons} {imageUpload} />
+  {#if configuredActions.length > 0 && editor}
+    <Toolbar
+      {editor}
+      {disabled}
+      {configuredActions}
+      {activeButtons}
+      {imageUpload}
+    />
   {/if}
   <div class="description" bind:this={element} />
 </div>

@@ -1,19 +1,19 @@
 <script lang="ts">
-  import type { Action } from "../../types/Action";
-
   export let disabled: boolean;
   export let activeButtons: string[];
-  export let action: Action;
+  export let key: string;
+  export let icon: string;
 
   let active: boolean = false;
 
   function toggleDropdown() {
     active = !active;
     activeButtons = active
-      ? [...activeButtons, action.key]
-      : activeButtons.filter((k) => k !== action.key);
+      ? [...activeButtons, key]
+      : activeButtons.filter((k) => k !== key);
   }
 
+  //close dropdown when user clicks outside
   function handleFocusOut({ relatedTarget, currentTarget }: FocusEvent) {
     if (
       relatedTarget instanceof HTMLElement &&
@@ -29,7 +29,7 @@
 
 <div class="dropdown-wrapper" on:focusout={handleFocusOut}>
   <button {disabled} class:active on:click={toggleDropdown}>
-    {@html action.buttonIcon}
+    {@html icon}
   </button>
 
   {#if active}

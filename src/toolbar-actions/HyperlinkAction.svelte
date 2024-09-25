@@ -1,26 +1,24 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import BaseDropdownButton from "./BaseDropdownButton.svelte";
-  import type { Action } from "../../types/Action";
+  import DropdownButton from "./base/DropdownButton.svelte";
+  import LinkIcon from "../../icons/link.svg?raw";
   import CheckIcon from "../../icons/check-line.svg?raw";
   import CancelIcon from "../../icons/close-line.svg?raw";
 
+  export let key: string;
   export let editor: Editor;
   export let disabled: boolean;
   export let activeButtons: string[];
-  export let action: Action;
 
   let hyperlink: string = "";
 
   function setHyperlink() {
-    if (action.buttonAction) {
-      action.buttonAction(editor, hyperlink);
-      hyperlink = "";
-    }
+    editor.chain().focus().setLink({ href: hyperlink }).run();
+    hyperlink = "";
   }
 </script>
 
-<BaseDropdownButton {disabled} {activeButtons} {action}>
+<DropdownButton {key} {disabled} {activeButtons} icon={LinkIcon}>
   <div class="hyperlink">
     <input
       type="text"
@@ -34,7 +32,7 @@
       {@html CancelIcon}
     </button>
   </div>
-</BaseDropdownButton>
+</DropdownButton>
 
 <style>
   .hyperlink {

@@ -1,32 +1,40 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import BaseDropdownButton from "./BaseDropdownButton.svelte";
-  import type { Action } from "../../types/Action";
+  import DropdownButton from "./base/DropdownButton.svelte";
+  import TableIcon from "../../icons/table-line.svg?raw";
 
+  export let key: string;
   export let editor: Editor;
   export let disabled: boolean;
   export let activeButtons: string[];
-  export let action: Action;
 
   const tableGridSize: number = 10;
   let xPos: number = 0;
   let yPos: number = 0;
+
+  function createTable(rows: number, cols: number) {
+    editor
+      .chain()
+      .focus()
+      .insertTable({ rows, cols, withHeaderRow: false })
+      .run();
+  }
 </script>
 
-<BaseDropdownButton {disabled} {activeButtons} {action}>
+<DropdownButton {key} {disabled} {activeButtons} icon={TableIcon}>
   <div class="table">
     {#each Array.from({ length: tableGridSize }).keys() as x}
       {#each Array.from({ length: tableGridSize }).keys() as y}
         <button
           class:highlight={xPos >= x && yPos >= y}
           on:mouseenter={() => ((xPos = x), (yPos = y))}
-          on:click={() => action.buttonAction(editor, x + 1, y + 1)}
-        ></button>
+          on:click={() => createTable(x + 1, y + 1)}
+        />
       {/each}
     {/each}
   </div>
-  <div class="display">{xPos} x {yPos}</div>
-</BaseDropdownButton>
+  <div class="display">{xPos + 1} x {yPos + 1}</div>
+</DropdownButton>
 
 <style>
   .table {

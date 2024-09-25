@@ -1,14 +1,17 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import BaseDropdownButton from "./BaseDropdownButton.svelte";
-  import type { Action } from "../../types/Action";
+  import DropdownButton from "./base/DropdownButton.svelte";
+  import FontHighlightIcon from "../../icons/palette-line.svg?raw";
   import EraserIcon from "../../icons/eraser-line.svg?raw";
 
   export let editor: Editor;
   export let disabled: boolean;
   export let activeButtons: string[];
-  export let action: Action;
+  export let key: string;
 
+  const setColor = (color: string) =>
+    editor.chain().focus().toggleHighlight({ color }).run();
+  const clearColor = () => editor.chain().focus().unsetHighlight().run();
   const colors: string[] = [
     "#E91313",
     "#118800",
@@ -17,25 +20,22 @@
     "#fc7999",
     "#FDFD77",
   ];
-
-  function clear() {
-    if (action.buttonAction2) {
-      action.buttonAction2(editor);
-    }
-  }
 </script>
 
-<BaseDropdownButton {disabled} {activeButtons} {action}>
+<DropdownButton {key} {disabled} {activeButtons} icon={FontHighlightIcon}>
   <div class="color-picker">
-    <button class="clear" on:click={clear}> {@html EraserIcon} Clear</button>
+    <button class="clear" on:click={clearColor}>
+      {@html EraserIcon} Clear
+    </button>
+
     {#each colors as color}
       <button
         style="background-color: {color};"
-        on:click={() => action.buttonAction(editor, color)}
-      ></button>
+        on:click={() => setColor(color)}
+      />
     {/each}
   </div>
-</BaseDropdownButton>
+</DropdownButton>
 
 <style>
   .color-picker {
