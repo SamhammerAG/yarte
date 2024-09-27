@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import type { Action } from "../types/Action";
-  import ActionDefinitions from "./ActionDefinitions";
 
   export let editor: Editor;
   export let configuredActions: (Action | "|")[];
@@ -14,15 +13,6 @@
   {#each configuredActions as action}
     {#if action === "|"}
       <div class="spacer"></div>
-    {:else if action.key === ActionDefinitions.Image.key}
-      <svelte:component
-        this={action.component}
-        {editor}
-        {disabled}
-        {activeButtons}
-        key={action.key}
-        {imageUpload}
-      />
     {:else}
       <svelte:component
         this={action.component}
@@ -30,6 +20,7 @@
         {disabled}
         {activeButtons}
         key={action.key}
+        {imageUpload}
       />
     {/if}
   {/each}

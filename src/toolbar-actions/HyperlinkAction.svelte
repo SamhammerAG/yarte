@@ -12,13 +12,31 @@
 
   let hyperlink: string = "";
 
-  function setHyperlink() {
-    editor.chain().focus().setLink({ href: hyperlink }).run();
-    hyperlink = "";
+  function initHyperlink(): void {
+    hyperlink = editor.getAttributes("link").href ?? "";
+  }
+
+  function setHyperlink(): void {
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: hyperlink })
+      .run();
+  }
+
+  function removeHyperlink(): void {
+    editor.chain().focus().unsetLink().run();
   }
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={LinkIcon}>
+<DropdownButton
+  {key}
+  {disabled}
+  {activeButtons}
+  callback={initHyperlink}
+  icon={LinkIcon}
+>
   <div class="hyperlink">
     <input
       type="text"
@@ -28,7 +46,7 @@
     <button class="confirm" on:click={setHyperlink}>
       {@html CheckIcon}
     </button>
-    <button class="decline" on:click={() => editor.chain().focus()}>
+    <button class="decline" on:click={removeHyperlink}>
       {@html CancelIcon}
     </button>
   </div>

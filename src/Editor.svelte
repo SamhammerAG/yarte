@@ -6,7 +6,6 @@
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { onDestroy } from "svelte";
-  import { writable } from "svelte/store";
   import Toolbar from "./Toolbar.svelte";
   import ActionDefinitions from "./ActionDefinitions";
   import type { Action } from "../types/Action";
@@ -32,7 +31,6 @@
   let activeButtons: string[] = [];
 
   const configuredActions: (Action | "|")[] = [];
-  const contentStore = writable(content);
 
   onDestroy(() => {
     editor.destroy();
@@ -53,19 +51,13 @@
         ...getExtensions({ imageUpload }),
       ],
       content: content,
-      onUpdate: () => {
-        contentStore.set(editor.getHTML());
-      },
-      onSelectionUpdate: () => {
-        //update active buttons when cursor position changes
+      onTransaction: () => {
         activeButtons = toolbar.filter((key: string) =>
           editor.isActive(key.toLowerCase()),
         );
-        console.log(activeButtons);
+        console.log("UPDATED");
       },
     });
-
-    contentStore.set(editor.getHTML());
   }
 
   function initializeActions(): void {
@@ -96,7 +88,6 @@
 
   function updateContent(): void {
     editor.commands.setContent(content);
-    contentStore.set(editor.getHTML());
   }
 
   function updateDisabled(): void {
@@ -107,7 +98,6 @@
     editor.destroy();
     activeButtons.length = 0;
     configuredActions.length = 0;
-    contentStore.set("");
   }
 </script>
 

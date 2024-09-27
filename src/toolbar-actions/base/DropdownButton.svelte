@@ -3,14 +3,13 @@
   export let activeButtons: string[];
   export let key: string;
   export let icon: string;
+  export let callback: Function = () => {};
 
   let active: boolean = false;
 
   function toggleDropdown() {
     active = !active;
-    activeButtons = active
-      ? [...activeButtons, key]
-      : activeButtons.filter((k) => k !== key);
+    callback();
   }
 
   //close dropdown when user clicks outside
@@ -28,7 +27,11 @@
 </script>
 
 <div class="dropdown-wrapper" on:focusout={handleFocusOut}>
-  <button {disabled} class:active on:click={toggleDropdown}>
+  <button
+    {disabled}
+    class:active={activeButtons.includes(key) || active}
+    on:click={toggleDropdown}
+  >
     {@html icon}
   </button>
 
