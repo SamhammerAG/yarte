@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { clickOutside } from "../../utils/click-outside";
+
   export let disabled: boolean;
   export let activeButtons: string[];
   export let key: string;
@@ -11,22 +13,13 @@
     active = !active;
     callback();
   }
-
-  //close dropdown when user clicks outside
-  function handleFocusOut({ relatedTarget, currentTarget }: FocusEvent) {
-    if (
-      relatedTarget instanceof HTMLElement &&
-      currentTarget instanceof HTMLElement &&
-      currentTarget.contains(relatedTarget)
-    ) {
-      return;
-    }
-
-    active = false;
-  }
 </script>
 
-<div class="dropdown-wrapper" on:focusout={handleFocusOut}>
+<div
+  class="dropdown-wrapper"
+  use:clickOutside
+  on:outclick={() => (active = false)}
+>
   <button
     {disabled}
     class:active={activeButtons.includes(key) || active}

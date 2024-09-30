@@ -2,19 +2,27 @@
 
 <script lang="ts">
   import { Editor, type Extension, type Mark, type Node } from "@tiptap/core";
+  import BubbleMenu from "@tiptap/extension-bubble-menu";
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { onDestroy } from "svelte";
   import Toolbar from "./Toolbar.svelte";
   import ActionDefinitions from "./ActionDefinitions";
+  import HyperLinkMenu from "./bubble-menus/HyperLinkMenu.svelte";
   import type { Action } from "../types/Action";
   import type { ActionsContext } from "../types/ActionsContext";
+
+  //noch verbessern
+  import { showLinkBubbleMenu } from "./stores";
 
   export let content: string = "";
   export let disabled: boolean = false;
   export let toolbar: string[] = [];
   export let darkmode: boolean = false;
+  export let bubbleMenuLinks: HTMLElement;
+  export let bubbleMenuTables: HTMLElement;
+
   export let imageUpload: (file: File) => Promise<string> = () =>
     new Promise(() => {
       console.log("Test");
@@ -48,6 +56,21 @@
         Document,
         Paragraph,
         Text,
+        BubbleMenu.configure({
+          pluginKey: "bubbleHyperlink",
+          shouldShow: ({ editor }) => {
+            return editor.isActive("link") || $showLinkBubbleMenu;
+          },
+          element: bubbleMenuLinks,
+          tippyOptions: {
+            placement: "bottom",
+          },
+        }),
+        BubbleMenu.configure({
+          pluginKey: "bubbleTable",
+          shouldShow: ({ editor }) => editor.isActive("table"),
+          element: bubbleMenuTables,
+        }),
         ...getExtensions({ imageUpload }),
       ],
       content: content,
@@ -55,7 +78,7 @@
         activeButtons = toolbar.filter((key: string) =>
           editor.isActive(key.toLowerCase()),
         );
-        console.log("UPDATED");
+        console.log(activeButtons);
       },
     });
   }
@@ -114,6 +137,16 @@
     />
   {/if}
   <div class="description" bind:this={element} />
+</div>
+<div bind:this={bubbleMenuLinks}>
+  {#if editor}
+    <HyperLinkMenu {editor} />
+  {/if}
+</div>
+<div bind:this={bubbleMenuTables}>
+  {#if editor}
+    <HyperLinkMenu {editor} />
+  {/if}
 </div>
 
 <!-- ############################## </HTML> ############################## -->
