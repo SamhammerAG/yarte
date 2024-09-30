@@ -40,13 +40,7 @@
   }
 </script>
 
-<div
-  class="bubble-menu"
-  on:loadeddata={() => console.log("loaded")}
-  on:change={() => console.log("change")}
-  use:clickOutside
-  on:outclick={outsideclick}
->
+<div class="bubble-menu" use:clickOutside on:outclick={outsideclick}>
   {#if editMode}
     <input
       bind:value={hyperlink}
