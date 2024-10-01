@@ -14,7 +14,7 @@
   import type { ActionsContext } from "../types/ActionsContext";
 
   //noch verbessern
-  import { showLinkBubbleMenu } from "./stores";
+  import { showLinkBubbleMenu, currentFocusLink } from "./stores";
 
   export let content: string = "";
   export let disabled: boolean = false;
@@ -58,13 +58,18 @@
         Text,
         BubbleMenu.configure({
           pluginKey: "bubbleHyperlink",
+          tippyOptions: {
+            delay: 100,
+            animation: "fade",
+            placement: "bottom",
+            onShow: () => {
+              $currentFocusLink = editor.getAttributes("link").href;
+            },
+          },
           shouldShow: ({ editor }) => {
             return editor.isActive("link") || $showLinkBubbleMenu;
           },
           element: bubbleMenuLinks,
-          tippyOptions: {
-            placement: "bottom",
-          },
         }),
         BubbleMenu.configure({
           pluginKey: "bubbleTable",
@@ -78,7 +83,6 @@
         activeButtons = toolbar.filter((key: string) =>
           editor.isActive(key.toLowerCase()),
         );
-        console.log(activeButtons);
       },
     });
   }
@@ -139,11 +143,6 @@
   <div class="description" bind:this={element} />
 </div>
 <div bind:this={bubbleMenuLinks}>
-  {#if editor}
-    <HyperLinkMenu {editor} />
-  {/if}
-</div>
-<div bind:this={bubbleMenuTables}>
   {#if editor}
     <HyperLinkMenu {editor} />
   {/if}

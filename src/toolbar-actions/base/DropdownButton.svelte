@@ -13,13 +13,13 @@
     active = !active;
     callback();
   }
+  //close dropdown when user clicks outside
+  function outsideclick() {
+    active = false;
+  }
 </script>
 
-<div
-  class="dropdown-wrapper"
-  use:clickOutside
-  on:outclick={() => (active = false)}
->
+<div class="dropdown-wrapper" use:clickOutside on:outclick={outsideclick}>
   <button
     {disabled}
     class:active={activeButtons.includes(key) || active}

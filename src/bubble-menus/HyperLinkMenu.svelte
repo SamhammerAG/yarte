@@ -3,26 +3,21 @@
   import CheckIcon from "../../icons/check-line.svg?raw";
   import CancelIcon from "../../icons/close-line.svg?raw";
   import LinkIcon from "../../icons/link.svg?raw";
-  import { showLinkBubbleMenu } from "../stores";
+  import { showLinkBubbleMenu, currentFocusLink } from "../stores";
   import { clickOutside } from "../utils/click-outside";
 
   export let editor: Editor;
 
   let editMode: boolean;
-  let hyperlink: string = "";
 
   function setHyperlink() {
     editor
       .chain()
       .focus()
       .extendMarkRange("link")
-      .setLink({ href: hyperlink })
+      .setLink({ href: $currentFocusLink })
       .run();
     editMode = false;
-  }
-
-  $: if ($showLinkBubbleMenu) {
-    hyperlink = getHyperlink();
   }
 
   function unsetHyperlink() {
@@ -30,12 +25,7 @@
     $showLinkBubbleMenu = false;
   }
 
-  function getHyperlink(): string {
-    return editor.getAttributes("link").href || "";
-  }
-
   function outsideclick() {
-    console.log("wann?!?");
     $showLinkBubbleMenu = false;
   }
 </script>
@@ -43,7 +33,7 @@
 <div class="bubble-menu" use:clickOutside on:outclick={outsideclick}>
   {#if editMode}
     <input
-      bind:value={hyperlink}
+      bind:value={$currentFocusLink}
       type="text"
       placeholder="https://example.com"
     />
@@ -54,8 +44,12 @@
       {@html CancelIcon}
     </button>
   {:else}
-    <a href={hyperlink} title={hyperlink}>
-      <span>{hyperlink !== "" ? hyperlink : "This link has no URL"}</span>
+    <a href={$currentFocusLink} title={$currentFocusLink}>
+      <span
+        >{$currentFocusLink !== ""
+          ? $currentFocusLink
+          : "This link has no URL"}</span
+      >
     </a>
     <button on:click={() => (editMode = true)}>
       {@html LinkIcon}
