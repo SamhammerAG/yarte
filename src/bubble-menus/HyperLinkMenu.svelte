@@ -8,48 +8,49 @@
 
   export let editor: Editor;
 
-  let editMode: boolean;
-  let inputValue: string = "";
+  let isEditMode = false;
+  let inputUrl = "";
 
-  function setHyperlink() {
+  function setLink() {
     editor
       .chain()
       .focus()
       .extendMarkRange("link")
-      .setLink({ href: inputValue })
+      .setLink({ href: inputUrl })
       .run();
-    editMode = false;
-    $currentFocusLink = inputValue;
-    inputValue = "";
+    isEditMode = false;
+    inputUrl = "";
     $showLinkBubbleMenu = false;
+    $currentFocusLink = inputUrl;
   }
 
-  function unsetHyperlink() {
+  function removeLink() {
     editor.chain().focus().unsetLink().run();
     $showLinkBubbleMenu = false;
   }
 
-  function decline() {
+  function cancelEditMode() {
     if ($currentFocusLink === undefined) editor.chain().focus().run();
-    editMode = false;
+    isEditMode = false;
   }
-  function outsideclick() {
+
+  function outsideClick() {
     $showLinkBubbleMenu = false;
   }
 </script>
 
-<div class="bubble-menu" use:clickOutside on:outclick={outsideclick}>
-  {#if editMode || $currentFocusLink === undefined}
+<div class="bubble-menu" use:clickOutside on:outclick={outsideClick}>
+  {#if isEditMode || $currentFocusLink === undefined}
     <input
-      bind:value={inputValue}
+      bind:value={inputUrl}
       id="link-input"
       type="text"
       placeholder="https://example.com"
     />
-    <button class="confirm" on:click={setHyperlink}>
+    <button class="confirm" on:click={setLink}>
       {@html CheckIcon}
     </button>
-    <button class="decline" on:click={decline}>
+    <button class="decline" on:click={cancelEditMode}>
       {@html CancelIcon}
     </button>
   {:else}
@@ -60,10 +61,10 @@
           : $currentFocusLink}
       </span>
     </a>
-    <button on:click={() => (editMode = true)}>
+    <button on:click={() => (isEditMode = true)}>
       {@html LinkIcon}
     </button>
-    <button on:click={unsetHyperlink}>
+    <button on:click={removeLink}>
       {@html LinkIcon}
     </button>
   {/if}
@@ -88,6 +89,7 @@
       }
     }
   }
+
   button {
     display: flex;
     align-items: center;
@@ -98,10 +100,6 @@
     border-radius: 0.3rem;
     background-color: var(--button-color);
     flex: 40%;
-
-    &:hover {
-      background-color: var(--button-hover);
-    }
 
     & svg {
       width: 1rem;
