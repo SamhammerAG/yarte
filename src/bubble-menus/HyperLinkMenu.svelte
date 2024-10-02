@@ -9,15 +9,19 @@
   export let editor: Editor;
 
   let editMode: boolean;
+  let inputValue: string = "";
 
   function setHyperlink() {
     editor
       .chain()
       .focus()
       .extendMarkRange("link")
-      .setLink({ href: $currentFocusLink })
+      .setLink({ href: inputValue })
       .run();
     editMode = false;
+    $currentFocusLink = inputValue;
+    inputValue = "";
+    $showLinkBubbleMenu = false;
   }
 
   function unsetHyperlink() {
@@ -25,31 +29,36 @@
     $showLinkBubbleMenu = false;
   }
 
+  function decline() {
+    if ($currentFocusLink === undefined) editor.chain().focus().run();
+    editMode = false;
+  }
   function outsideclick() {
     $showLinkBubbleMenu = false;
   }
 </script>
 
 <div class="bubble-menu" use:clickOutside on:outclick={outsideclick}>
-  {#if editMode}
+  {#if editMode || $currentFocusLink === undefined}
     <input
-      bind:value={$currentFocusLink}
+      bind:value={inputValue}
+      id="link-input"
       type="text"
       placeholder="https://example.com"
     />
     <button class="confirm" on:click={setHyperlink}>
       {@html CheckIcon}
     </button>
-    <button class="decline" on:click={() => (editMode = false)}>
+    <button class="decline" on:click={decline}>
       {@html CancelIcon}
     </button>
   {:else}
     <a href={$currentFocusLink} title={$currentFocusLink}>
       <span
-        >{$currentFocusLink !== ""
-          ? $currentFocusLink
-          : "This link has no URL"}</span
-      >
+        >{$currentFocusLink === "" || $currentFocusLink === null
+          ? "This link has no URL"
+          : $currentFocusLink}
+      </span>
     </a>
     <button on:click={() => (editMode = true)}>
       {@html LinkIcon}
