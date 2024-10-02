@@ -21,7 +21,6 @@
   export let toolbar: string[] = [];
   export let darkmode: boolean = false;
   export let bubbleMenuLinks: HTMLElement;
-  export let bubbleMenuTables: HTMLElement;
 
   export let imageUpload: (file: File) => Promise<string> = () =>
     new Promise(() => {
@@ -59,7 +58,7 @@
         BubbleMenu.configure({
           pluginKey: "bubbleHyperlink",
           tippyOptions: {
-            delay: 100,
+            hideOnClick: true,
             animation: "fade",
             placement: "bottom",
             onShow: () => {
@@ -70,11 +69,6 @@
             return editor.isActive("link") || $showLinkBubbleMenu;
           },
           element: bubbleMenuLinks,
-        }),
-        BubbleMenu.configure({
-          pluginKey: "bubbleTable",
-          shouldShow: ({ editor }) => editor.isActive("table"),
-          element: bubbleMenuTables,
         }),
         ...getExtensions({ imageUpload }),
       ],

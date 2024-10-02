@@ -18,20 +18,23 @@
       .extendMarkRange("link")
       .setLink({ href: inputUrl })
       .run();
+
+    $currentFocusLink = inputUrl;
+    $showLinkBubbleMenu = false;
     isEditMode = false;
     inputUrl = "";
-    $showLinkBubbleMenu = false;
-    $currentFocusLink = inputUrl;
   }
 
   function removeLink() {
     editor.chain().focus().unsetLink().run();
+    inputUrl = "";
     $showLinkBubbleMenu = false;
   }
 
   function cancelEditMode() {
     if ($currentFocusLink === undefined) editor.chain().focus().run();
     isEditMode = false;
+    inputUrl = "";
   }
 
   function outsideClick() {

@@ -11,7 +11,7 @@
 
   const action = () => {
     $showLinkBubbleMenu = true;
-    editor.chain().focus();
+    editor.chain().focus().run();
   };
 </script>
 
