@@ -9,9 +9,15 @@
   export let editor: Editor;
 
   let isEditMode = false;
-  let inputUrl = "";
+  $: inputUrl = isEditMode ? $currentFocusLink : "";
 
-  function setLink() {
+  function toggleEditMode() {
+    isEditMode = !isEditMode;
+    if (isEditMode && $currentFocusLink === undefined)
+      editor.chain().focus().run();
+  }
+
+  function saveLink() {
     editor
       .chain()
       .focus()
@@ -22,19 +28,11 @@
     $currentFocusLink = inputUrl;
     $showLinkBubbleMenu = false;
     isEditMode = false;
-    inputUrl = "";
   }
 
   function removeLink() {
     editor.chain().focus().unsetLink().run();
-    inputUrl = "";
     $showLinkBubbleMenu = false;
-  }
-
-  function cancelEditMode() {
-    if ($currentFocusLink === undefined) editor.chain().focus().run();
-    isEditMode = false;
-    inputUrl = "";
   }
 
   function outsideClick() {
@@ -46,14 +44,13 @@
   {#if isEditMode || $currentFocusLink === undefined}
     <input
       bind:value={inputUrl}
-      id="link-input"
       type="text"
       placeholder="https://example.com"
     />
-    <button class="confirm" on:click={setLink}>
+    <button class="confirm" on:click={saveLink}>
       {@html CheckIcon}
     </button>
-    <button class="decline" on:click={cancelEditMode}>
+    <button class="decline" on:click={toggleEditMode}>
       {@html CancelIcon}
     </button>
   {:else}
@@ -64,7 +61,7 @@
           : $currentFocusLink}
       </span>
     </a>
-    <button on:click={() => (isEditMode = true)}>
+    <button on:click={toggleEditMode}>
       {@html LinkIcon}
     </button>
     <button on:click={removeLink}>
