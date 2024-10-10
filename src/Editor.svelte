@@ -1,7 +1,15 @@
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
-  import { Editor, type Extension, type Mark, type Node } from "@tiptap/core";
+  import {
+    Editor,
+    posToDOMRect,
+    type Extension,
+    type Mark,
+    type Node,
+  } from "@tiptap/core";
+
+  import { type Node as ProsemirrorNode } from "prosemirror-model";
   import BubbleMenu from "@tiptap/extension-bubble-menu";
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
@@ -12,15 +20,16 @@
   import HyperLinkMenu from "./bubble-menus/HyperLinkMenu.svelte";
   import type { Action } from "../types/Action";
   import type { ActionsContext } from "../types/ActionsContext";
-
-  //noch verbessern
   import { showLinkBubbleMenu, currentFocusLink } from "./stores";
+  import TableMenu from "./bubble-menus/TableMenu.svelte";
+  import Gapcursor from "@tiptap/extension-gapcursor";
 
   export let content: string = "";
   export let disabled: boolean = false;
   export let toolbar: string[] = [];
   export let darkmode: boolean = false;
   export let bubbleMenuLinks: HTMLElement;
+  export let bubbleMenuTable: HTMLElement;
 
   export let imageUpload: (file: File) => Promise<string> = () =>
     new Promise(() => {
@@ -55,11 +64,12 @@
         Document,
         Paragraph,
         Text,
+        Gapcursor,
         BubbleMenu.configure({
-          pluginKey: "bubbleHyperlink",
+          pluginKey: "bubbleMenuHyperlink",
           tippyOptions: {
             hideOnClick: true,
-            animation: "fade",
+            animation: true,
             placement: "bottom",
             onShow: () => {
               $currentFocusLink = editor.getAttributes("link").href;
@@ -70,6 +80,32 @@
           },
           element: bubbleMenuLinks,
         }),
+        BubbleMenu.configure({
+          pluginKey: "bubbleMenuTable",
+          tippyOptions: {
+            animation: true,
+            placement: "bottom",
+            getReferenceClientRect: () => {
+              const { state, view } = editor;
+              const { from, to } = view.state.selection;
+              var tableNode: HTMLElement[] = [];
+
+              state.doc.nodesBetween(from, to, (_node, pos, parent) => {
+                if (parent === state.doc) {
+                  tableNode.push(view.nodeDOM(pos) as HTMLElement);
+                }
+              });
+
+              if (tableNode[0]) {
+                return tableNode[0].getBoundingClientRect();
+              }
+
+              return posToDOMRect(view, from, to);
+            },
+          },
+          shouldShow: ({ editor }) => editor.isActive("table"),
+          element: bubbleMenuTable,
+        }),
         ...getExtensions({ imageUpload }),
       ],
       content: content,
@@ -79,6 +115,25 @@
         );
       },
     });
+  }
+
+  function findLastTableNode(node: ProsemirrorNode): ProsemirrorNode | null {
+    let tableNode: ProsemirrorNode | null = null;
+
+    function traverse(currentNode: ProsemirrorNode) {
+      if (currentNode.type.name === "table") {
+        tableNode = currentNode;
+      }
+
+      if (currentNode.content && currentNode.content.childCount > 0) {
+        currentNode.content.descendants((child) => {
+          traverse(child);
+        });
+      }
+    }
+
+    traverse(node);
+    return tableNode;
   }
 
   function initializeActions(): void {
@@ -137,9 +192,10 @@
   <div class="description" bind:this={element} />
 </div>
 <div bind:this={bubbleMenuLinks}>
-  {#if editor}
-    <HyperLinkMenu {editor} />
-  {/if}
+  <HyperLinkMenu {editor} />
+</div>
+<div bind:this={bubbleMenuTable}>
+  <TableMenu {editor} />
 </div>
 
 <!-- ############################## </HTML> ############################## -->
@@ -185,11 +241,65 @@
     background-color: var(--editor);
     color: var(--icon-text-color);
 
-    & table,
-    td {
+    & table {
       border-collapse: collapse;
-      border: 1px solid var(--icon-text-color);
+      margin: 0;
+      overflow: hidden;
+      table-layout: fixed;
+      width: 100%;
+
+      & td,
+      & th {
+        border: 1px solid var(--icon-text-color);
+        box-sizing: border-box;
+        min-width: 1em;
+        padding: 6px 8px;
+        position: relative;
+        vertical-align: top;
+
+        & > * {
+          margin-bottom: 0;
+        }
+      }
+      & th {
+        background-color: rgba(61, 37, 20, 0.05);
+        font-weight: bold;
+        text-align: left;
+      }
+
+      & .selectedCell:after {
+        background: rgba(61, 37, 20, 0.08);
+        content: "";
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: 2;
+      }
+
+      & .column-resize-handle {
+        background-color: #6a00f5;
+        bottom: -2px;
+        pointer-events: none;
+        position: absolute;
+        right: -2px;
+        top: 0;
+        width: 4px;
+      }
     }
-    /***/
+
+    & .tableWrapper {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+
+    &.resize-cursor {
+      cursor: ew-resize;
+      cursor: col-resize;
+
+      /***/
+    }
   }
 </style>

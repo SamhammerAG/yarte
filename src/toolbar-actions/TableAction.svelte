@@ -7,6 +7,7 @@
   export let editor: Editor;
   export let disabled: boolean;
   export let activeButtons: string[];
+  $: active = false;
 
   const tableGridSize: number = 10;
   let xPos: number = 0;
@@ -18,10 +19,11 @@
       .focus()
       .insertTable({ rows, cols, withHeaderRow: false })
       .run();
+    active = false;
   }
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={TableIcon}>
+<DropdownButton {key} {disabled} {activeButtons} icon={TableIcon} bind:active>
   <div class="table">
     {#each Array.from({ length: tableGridSize }).keys() as x}
       {#each Array.from({ length: tableGridSize }).keys() as y}

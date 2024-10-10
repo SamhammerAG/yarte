@@ -10,28 +10,47 @@
   export let editor: Editor;
   export let disabled: boolean;
   export let activeButtons: string[];
+  $: active = false;
 
   const textAlignments: { icon: string; action: Function }[] = [
     {
       icon: TextAlignLeftIcon,
-      action: () => editor.chain().focus().setTextAlign("left").run(),
+      action: () => {
+        editor.chain().focus().setTextAlign("left").run();
+        active = false;
+      },
     },
     {
       icon: TextAlignCenterIcon,
-      action: () => editor.chain().focus().setTextAlign("center").run(),
+      action: () => {
+        editor.chain().focus().setTextAlign("center").run();
+        active = false;
+      },
     },
     {
       icon: TextAlignRightIcon,
-      action: () => editor.chain().focus().setTextAlign("right").run(),
+      action: () => {
+        editor.chain().focus().setTextAlign("right").run();
+        active = false;
+      },
     },
     {
       icon: TextAlignJustifyIcon,
-      action: () => editor.chain().focus().setTextAlign("justify").run(),
+      action: () => {
+        editor.chain().focus().setTextAlign("justify").run();
+        active = false;
+      },
     },
   ];
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon}>
+<DropdownButton
+  {key}
+  {disabled}
+  {activeButtons}
+  icon={TextAlignLeftIcon}
+  bind:active
+>
   {#each textAlignments as alignment}
     <button {disabled} on:click={() => alignment.action()}>
       {@html alignment.icon}

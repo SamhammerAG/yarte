@@ -6,8 +6,7 @@
   export let key: string;
   export let icon: string;
   export let callback: Function = () => {};
-
-  let active: boolean = false;
+  export let active: boolean = false;
 
   function toggleDropdown() {
     active = !active;

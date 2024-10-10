@@ -15,7 +15,7 @@ export const configureHighlight = (extension: Mark<HighlightOptions, any>): Mark
 export const configureTable = (extension: Node<TableOptions, any>): Node<TableOptions, any> => {
   return extension.configure({
     resizable: true
-  })
+  });
 }
 export const configureTextAlign = (extension: Extension<TextAlignOptions, any>): Extension<TextAlignOptions, any> => {
   return extension.configure({

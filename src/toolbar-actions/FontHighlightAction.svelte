@@ -8,10 +8,16 @@
   export let disabled: boolean;
   export let activeButtons: string[];
   export let key: string;
+  $: active = false;
 
-  const setColor = (color: string) =>
+  const setColor = (color: string) => {
     editor.chain().focus().toggleHighlight({ color }).run();
-  const clearColor = () => editor.chain().focus().unsetHighlight().run();
+    active = false;
+  };
+  const clearColor = () => {
+    editor.chain().focus().unsetHighlight().run();
+    active = false;
+  };
   const colors: string[] = [
     "#E91313",
     "#118800",
@@ -22,7 +28,13 @@
   ];
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={FontHighlightIcon}>
+<DropdownButton
+  {key}
+  {disabled}
+  {activeButtons}
+  icon={FontHighlightIcon}
+  bind:active
+>
   <div class="color-picker">
     <button class="clear" on:click={clearColor}>
       {@html EraserIcon} Clear
