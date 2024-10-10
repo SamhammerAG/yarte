@@ -7,9 +7,9 @@
     type Extension,
     type Mark,
     type Node,
+    NodePos,
   } from "@tiptap/core";
 
-  import { type Node as ProsemirrorNode } from "prosemirror-model";
   import BubbleMenu from "@tiptap/extension-bubble-menu";
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
@@ -87,20 +87,15 @@
             placement: "bottom",
             getReferenceClientRect: () => {
               const { state, view } = editor;
-              const { from, to } = view.state.selection;
-              var tableNode: HTMLElement[] = [];
 
-              state.doc.nodesBetween(from, to, (_node, pos, parent) => {
-                if (parent === state.doc) {
-                  tableNode.push(view.nodeDOM(pos) as HTMLElement);
-                }
-              });
+              const myNodePos = new NodePos(state.selection.$anchor, editor);
+              let tableElement = findParentTableFromPos(myNodePos);
 
-              if (tableNode[0]) {
-                return tableNode[0].getBoundingClientRect();
+              if (tableElement) {
+                return tableElement.getBoundingClientRect();
               }
 
-              return posToDOMRect(view, from, to);
+              return posToDOMRect(view, 0, 0);
             },
           },
           shouldShow: ({ editor }) => editor.isActive("table"),
@@ -117,23 +112,15 @@
     });
   }
 
-  function findLastTableNode(node: ProsemirrorNode): ProsemirrorNode | null {
-    let tableNode: ProsemirrorNode | null = null;
-
-    function traverse(currentNode: ProsemirrorNode) {
-      if (currentNode.type.name === "table") {
-        tableNode = currentNode;
-      }
-
-      if (currentNode.content && currentNode.content.childCount > 0) {
-        currentNode.content.descendants((child) => {
-          traverse(child);
-        });
-      }
+  function findParentTableFromPos(nodePos: NodePos): Element | null {
+    if (nodePos.node.type.name === "table") {
+      return nodePos.element;
     }
-
-    traverse(node);
-    return tableNode;
+    const parentNode = nodePos.parent;
+    if (parentNode) {
+      return findParentTableFromPos(parentNode);
+    }
+    return null;
   }
 
   function initializeActions(): void {
