@@ -192,18 +192,27 @@
     --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
       rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
 
+    --box-shadow: 0 1rem 1rem -0.625rem rgba(34, 47, 62, 0.15),
+      0 0 2.5rem 1px rgba(34, 47, 62, 0.15);
     --toolbar-color: white;
     --editor: white;
     --icon-text-color: black;
 
-    --button-color: lightgray;
-    --button-active: lightgreen;
-    --button-hover: rgb(56, 221, 56);
+    --popout-border-radius: 8px;
+    --button-border-radius: 4px;
+
+    --table-size-selector: #d4d4fc;
+    --button-color: white;
+    --button-active: #a6ccf7;
+    --button-hover: #e2e2e2;
   }
 
   #yarte-editor.darkmode {
     --shadow: rgba(255, 255, 255, 0.05) 0px 6px 10px 0px,
       rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+
+    --popout-border-radius: 8px;
+    --button-border-radius: 4px;
 
     --toolbar-color: black;
     --editor: rgb(71, 71, 71);
@@ -215,18 +224,31 @@
   }
 
   #yarte-editor {
-    width: 800px;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background-color: var(--editor);
+    color: var(--icon-text-color);
+    border-radius: var(--popout-border-radius);
+
+    &.readonly {
+      opacity: 0.6;
+    }
   }
 
   :global(.tiptap) {
-    height: 300px;
-    border: 1px solid black;
-    padding: 0 1rem;
-    outline: none;
+    min-height: 300px;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    transition: opacity 0.15s;
+    outline: 2px solid #006ce7;
 
     /** Discuss if we want to keep this */
-    background-color: var(--editor);
-    color: var(--icon-text-color);
 
     & table {
       border-collapse: collapse;

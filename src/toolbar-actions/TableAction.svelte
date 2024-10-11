@@ -43,14 +43,15 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    gap: 0.125rem;
-    padding: 0.5rem;
 
     & button {
+      border-color: #eee;
+      border-style: solid;
+      border-width: 0 1px 1px 0;
+      box-sizing: border-box;
       width: 1rem;
       height: 1rem;
       background-color: var(--button-color);
-      border: none;
 
       &:hover,
       &.highlight {

@@ -3,6 +3,7 @@
   import CheckIcon from "../../icons/check-line.svg?raw";
   import CancelIcon from "../../icons/close-line.svg?raw";
   import LinkIcon from "../../icons/link.svg?raw";
+  import UnlinkIcon from "../../icons/link-unlink-m.svg?raw";
   import { showLinkBubbleMenu, currentFocusLink } from "../stores";
   import { clickOutside } from "../utils/click-outside";
 
@@ -65,7 +66,7 @@
       {@html LinkIcon}
     </button>
     <button on:click={removeLink}>
-      {@html LinkIcon}
+      {@html UnlinkIcon}
     </button>
   {/if}
 </div>
@@ -74,12 +75,15 @@
   .bubble-menu {
     background-color: #fff;
     border: 1px solid #3d25140d;
-    border-radius: 0.7rem;
+    border-radius: var(--popout-border-radius);
     box-shadow:
       0px 12px 33px 0px rgba(0, 0, 0, 0.06),
       0px 3.618px 9.949px 0px rgba(0, 0, 0, 0.04);
     display: flex;
-    padding: 0.2rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
 
     & button {
       background-color: unset;
@@ -97,13 +101,13 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 0.3rem;
+    border-radius: var(--popout-border-radius);
     background-color: var(--button-color);
     flex: 40%;
 
     & svg {
-      width: 1rem;
-      height: 1rem;
+      width: 1.125rem;
+      height: 1.125rem;
       color: var(--icon-text-color);
     }
   }
@@ -111,7 +115,6 @@
   & input {
     display: flex;
     padding: 0.25rem;
-    flex: 100%;
     background-color: var(--button-color);
     color: var(--icon-text-color);
     outline: none;

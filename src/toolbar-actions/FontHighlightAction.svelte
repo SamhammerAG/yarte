@@ -60,7 +60,7 @@
 
     & button {
       border: none;
-      border-radius: 0.3rem;
+      border-radius: var(--popout-border-radius);
     }
 
     & .clear {
@@ -79,8 +79,8 @@
       }
 
       & svg {
-        width: 1rem;
-        height: 1rem;
+        width: 1.125rem;
+        height: 1.125rem;
       }
     }
 

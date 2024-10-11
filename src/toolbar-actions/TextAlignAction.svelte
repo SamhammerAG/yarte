@@ -77,8 +77,8 @@
     }
 
     & svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1.125rem;
+      height: 1.125rem;
       color: var(--icon-text-color);
     }
   }

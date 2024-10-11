@@ -19,6 +19,7 @@
 <button
   {disabled}
   class:active={activeButtons.includes(key)}
+  class={key}
   on:click={handleClick}
 >
   {@html icon}

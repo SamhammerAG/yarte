@@ -51,6 +51,7 @@
       position: absolute;
       box-shadow: var(--shadow);
       background-color: var(--toolbar-color);
+      border-radius: var(--popout-border-radius);
     }
   }
 </style>

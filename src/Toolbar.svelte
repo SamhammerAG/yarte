@@ -29,26 +29,31 @@
 <style>
   .toolbar {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 0.25rem;
+    margin: 0;
+    font-family: "Inter", sans-serif;
     box-shadow: var(--shadow);
     background-color: var(--toolbar-color);
-    padding: 0.25rem;
+    padding: 0 11px 0 12px;
+    z-index: 90;
 
     & .spacer {
       width: 1px;
-      margin: 0 0.25rem;
+      margin: 0.25rem 0.25rem;
       background-color: var(--icon-text-color);
     }
 
     & > button,
-    > .dropdown-wrapper > button {
+    & > .dropdown-wrapper > button {
       display: flex;
       align-items: center;
       cursor: pointer;
-      padding: 0.25rem;
+      margin: 6px 1px 5px 0;
+      height: 28px;
       border: none;
-      border-radius: 0.3rem;
+      border-radius: var(--button-border-radius);
       background-color: var(--button-color);
 
       &.active {
@@ -60,9 +65,9 @@
       }
 
       & svg {
-        width: 1.25rem;
-        height: 1.25rem;
-        color: var(--icon-text-color);
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: var(--icon-text-color);
       }
     }
   }
