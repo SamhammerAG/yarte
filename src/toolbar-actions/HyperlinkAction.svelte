@@ -10,7 +10,7 @@
   export let key: string;
 
   const action = () => {
-    $showLinkBubbleMenu = true;
+    showLinkBubbleMenu.set(true);
     editor.chain().focus().run();
   };
 </script>

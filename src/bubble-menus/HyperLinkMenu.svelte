@@ -27,17 +27,18 @@
       .run();
 
     $currentFocusLink = inputUrl;
-    $showLinkBubbleMenu = false;
+    showLinkBubbleMenu.set(false);
     isEditMode = false;
   }
 
   function removeLink() {
     editor.chain().focus().unsetLink().run();
-    $showLinkBubbleMenu = false;
+    showLinkBubbleMenu.set(false);
   }
 
   function outsideClick() {
-    $showLinkBubbleMenu = false;
+    showLinkBubbleMenu.set(false);
+    console.log($showLinkBubbleMenu);
   }
 </script>
 

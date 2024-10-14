@@ -15,8 +15,8 @@
 <div class="table-bubble-menu">
   <div class="table-toolbar">
     <div class="toolbar-button-group">
-      <button on:click={() => editor.commands.toggleHeaderColumn()}>
-        Col Header
+      <button on:click={() => editor.commands.toggleHeaderCell()}>
+        Toggle Header
       </button>
       <button on:click={() => editor.commands.deleteTable()}>
         {@html DeleteTableIcon}

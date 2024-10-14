@@ -68,8 +68,6 @@
         BubbleMenu.configure({
           pluginKey: "bubbleMenuHyperlink",
           tippyOptions: {
-            hideOnClick: true,
-            animation: true,
             placement: "bottom",
             onShow: () => {
               $currentFocusLink = editor.getAttributes("link").href;
