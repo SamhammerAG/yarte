@@ -12,10 +12,13 @@
   let isEditMode = false;
   $: inputUrl = isEditMode ? $currentFocusLink : "";
 
-  function toggleEditMode() {
-    isEditMode = !isEditMode;
-    if (isEditMode && $currentFocusLink === undefined)
-      editor.chain().focus().run();
+  function enterEditMode() {
+    isEditMode = true;
+  }
+
+  function declineEdit() {
+    isEditMode = false;
+    if ($currentFocusLink === undefined) editor.chain().focus().run();
   }
 
   function saveLink() {
@@ -38,7 +41,6 @@
 
   function outsideClick() {
     showLinkBubbleMenu.set(false);
-    console.log($showLinkBubbleMenu);
   }
 </script>
 
@@ -52,7 +54,7 @@
     <button class="confirm" on:click={saveLink}>
       {@html CheckIcon}
     </button>
-    <button class="decline" on:click={toggleEditMode}>
+    <button class="decline" on:click={declineEdit}>
       {@html CancelIcon}
     </button>
   {:else}
@@ -63,7 +65,7 @@
           : $currentFocusLink}
       </span>
     </a>
-    <button on:click={toggleEditMode}>
+    <button on:click={enterEditMode}>
       {@html LinkIcon}
     </button>
     <button on:click={removeLink}>

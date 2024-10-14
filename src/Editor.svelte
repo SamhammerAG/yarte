@@ -73,9 +73,8 @@
               $currentFocusLink = editor.getAttributes("link").href;
             },
           },
-          shouldShow: ({ editor }) => {
-            return editor.isActive("link") || $showLinkBubbleMenu;
-          },
+          shouldShow: ({ editor }) =>
+            editor.isActive("link") || $showLinkBubbleMenu,
           element: bubbleMenuLinks,
         }),
         BubbleMenu.configure({
