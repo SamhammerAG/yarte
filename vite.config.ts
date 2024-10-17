@@ -8,7 +8,6 @@ export default defineConfig({
     lib: {
       name: "yarte",
       entry: "./src/main.ts",
-      formats: ["iife"],
       fileName: "yarte",
     },
     sourcemap: true

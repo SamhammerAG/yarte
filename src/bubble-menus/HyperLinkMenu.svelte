@@ -29,7 +29,7 @@
       .setLink({ href: inputUrl })
       .run();
 
-    $currentFocusLink = inputUrl;
+    currentFocusLink.set(inputUrl);
     showLinkBubbleMenu.set(false);
     isEditMode = false;
   }
@@ -58,7 +58,12 @@
       {@html CancelIcon}
     </button>
   {:else}
-    <a href={$currentFocusLink} title={$currentFocusLink}>
+    <a
+      href={$currentFocusLink}
+      title={$currentFocusLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <span
         >{$currentFocusLink === "" || $currentFocusLink === null
           ? "This link has no URL"

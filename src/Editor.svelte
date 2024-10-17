@@ -14,7 +14,7 @@
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import Toolbar from "./Toolbar.svelte";
   import ActionDefinitions from "./ActionDefinitions";
   import HyperLinkMenu from "./bubble-menus/HyperLinkMenu.svelte";
@@ -25,26 +25,25 @@
   import Gapcursor from "@tiptap/extension-gapcursor";
 
   export let content: string = "";
-  export let disabled: boolean = false;
+  export let readOnly: boolean = false;
   export let toolbar: string[] = [];
   export let darkmode: boolean = false;
-  export let bubbleMenuLinks: HTMLElement;
-  export let bubbleMenuTable: HTMLElement;
-
   export let imageUpload: (file: File) => Promise<string> = () =>
     new Promise(() => {
       console.log("Test");
       return "test";
     });
 
-  // update Editor if outside params change
-  $: content, editor && updateContent();
-  $: disabled, editor && updateDisabled();
-  $: toolbar, toolbar.length > 0 && initializeEditor();
-
-  let element: HTMLElement;
+  let bubbleMenuLinks: HTMLElement;
+  let bubbleMenuTable: HTMLElement;
+  let description: HTMLElement;
   let editor: Editor;
   let activeButtons: string[] = [];
+
+  // update Editor if outside params change
+  $: content, editor && updateContent();
+  $: readOnly, editor && updateDisabled();
+  $: toolbar, toolbar.length > 0 && initializeEditor();
 
   const configuredActions: (Action | "|")[] = [];
 
@@ -52,14 +51,21 @@
     editor.destroy();
   });
 
+  onMount(() => {
+    initializeEditor();
+  });
+
   function initializeEditor(): void {
     if (editor) resetEditor(editor);
+    console.log("Initialized");
 
     initializeActions();
 
+    console.log(description, editor);
+
     editor = new Editor({
-      element: element,
-      editable: !disabled,
+      element: description,
+      editable: !readOnly,
       extensions: [
         Document,
         Paragraph,
@@ -107,6 +113,7 @@
         );
       },
     });
+    console.log(description, editor);
   }
 
   function findParentTableFromPos(nodePos: NodePos): Element | null {
@@ -151,7 +158,7 @@
   }
 
   function updateDisabled(): void {
-    editor.setEditable(!disabled);
+    editor.setEditable(!readOnly);
   }
 
   function resetEditor(editor: Editor): void {
@@ -164,22 +171,24 @@
 <!-- ############################## <HTML> ############################## -->
 
 <div id="yarte-editor" class:darkmode>
-  {#if configuredActions.length > 0 && editor}
-    <Toolbar
-      {editor}
-      {disabled}
-      {configuredActions}
-      {activeButtons}
-      {imageUpload}
-    />
+  {#if editor}
+    {#if configuredActions.length > 0}
+      <Toolbar
+        {editor}
+        disabled={readOnly}
+        {configuredActions}
+        {activeButtons}
+        {imageUpload}
+      />
+    {/if}
+    <div class="description" bind:this={description} />
+    <div bind:this={bubbleMenuLinks}>
+      <HyperLinkMenu {editor} />
+    </div>
+    <div bind:this={bubbleMenuTable}>
+      <TableMenu {editor} />
+    </div>
   {/if}
-  <div class="description" bind:this={element} />
-</div>
-<div bind:this={bubbleMenuLinks}>
-  <HyperLinkMenu {editor} />
-</div>
-<div bind:this={bubbleMenuTable}>
-  <TableMenu {editor} />
 </div>
 
 <!-- ############################## </HTML> ############################## -->

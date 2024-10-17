@@ -1,5 +1,5 @@
 import type { ImageOptions } from "@tiptap/extension-image";
-import type { Extension, Node, Mark } from "@tiptap/core";
+import { type Extension, type Node, type Mark } from "@tiptap/core";
 import type { TextAlignOptions } from "@tiptap/extension-text-align";
 import type { TableOptions } from "@tiptap/extension-table";
 import type { HighlightOptions } from "@tiptap/extension-highlight";
@@ -31,7 +31,6 @@ export const configureLink = (extension: Mark<LinkOptions, any>): Mark<LinkOptio
 
 export const extendImage = (extension: Node<ImageOptions, any>, uploadCallback: Function): Node<ImageOptions, any> => {
   return extension.extend({
-    inine: true,
     addProseMirrorPlugins: () => {
       return [
         new Plugin({
@@ -66,7 +65,7 @@ export const extendImage = (extension: Node<ImageOptions, any>, uploadCallback: 
                     src: img,
                   });
                   const transaction =
-                    view.state.tr.replaceSelectionWith(node);
+                    view.state.tr.insert(view.state.selection.from, node);
                   view.dispatch(transaction);
                 });
               }
