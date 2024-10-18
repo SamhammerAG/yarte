@@ -18,7 +18,10 @@
 
   function declineEdit() {
     isEditMode = false;
-    if ($currentFocusLink === undefined) editor.chain().focus().run();
+    if ($currentFocusLink === undefined) {
+      showLinkBubbleMenu.set(false);
+      editor.chain().focus();
+    }
   }
 
   function saveLink() {

@@ -12,9 +12,10 @@
 
   import BubbleMenu from "@tiptap/extension-bubble-menu";
   import Document from "@tiptap/extension-document";
+  import Focus from "@tiptap/extension-focus";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
-  import { onDestroy, onMount } from "svelte";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import Toolbar from "./Toolbar.svelte";
   import ActionDefinitions from "./ActionDefinitions";
   import HyperLinkMenu from "./bubble-menus/HyperLinkMenu.svelte";
@@ -34,6 +35,8 @@
       return "test";
     });
 
+  const dispatch = createEventDispatcher();
+
   let bubbleMenuLinks: HTMLElement;
   let bubbleMenuTable: HTMLElement;
   let description: HTMLElement;
@@ -45,7 +48,7 @@
   $: readOnly, editor && updateDisabled();
   $: toolbar, toolbar.length > 0 && initializeEditor();
 
-  const configuredActions: (Action | "|")[] = [];
+  let configuredActions: (Action | "|")[] = [];
 
   onDestroy(() => {
     editor.destroy();
@@ -61,16 +64,18 @@
 
     initializeActions();
 
-    console.log(description, editor);
-
     editor = new Editor({
       element: description,
       editable: !readOnly,
+      autofocus: true,
       extensions: [
         Document,
         Paragraph,
         Text,
         Gapcursor,
+        Focus.configure({
+          mode: "shallowest",
+        }),
         BubbleMenu.configure({
           pluginKey: "bubbleMenuHyperlink",
           tippyOptions: {
@@ -107,13 +112,22 @@
         ...getExtensions({ imageUpload }),
       ],
       content: content,
+      onUpdate: () => {
+        contentChanged();
+      },
       onTransaction: () => {
         activeButtons = toolbar.filter((key: string) =>
           editor.isActive(key.toLowerCase()),
         );
       },
     });
-    console.log(description, editor);
+  }
+
+  function contentChanged(): void {
+    dispatch("contentChange", {
+      html: editor.getHTML(),
+      json: editor.getJSON(),
+    });
   }
 
   function findParentTableFromPos(nodePos: NodePos): Element | null {
@@ -242,6 +256,11 @@
     &.readonly {
       opacity: 0.6;
     }
+  }
+
+  :global(.has-focus) {
+    outline: 3px solid #b4d7ff;
+    border-radius: 3px;
   }
 
   :global(.tiptap) {
