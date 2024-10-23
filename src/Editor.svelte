@@ -44,7 +44,7 @@
 
   // update Editor if outside params change
   $: content, editor && updateContent();
-  $: readOnly, editor && updateDisabled();
+  $: readOnly, editor && updateReadOnly();
   $: toolbar, toolbar.length > 0 && initializeEditor();
 
   let configuredActions: (Action | "|")[] = [];
@@ -65,7 +65,6 @@
     editor = new Editor({
       element: description,
       editable: !readOnly,
-      autofocus: true,
       extensions: [
         Document,
         Paragraph,
@@ -81,7 +80,8 @@
             },
           },
           shouldShow: ({ editor }) =>
-            editor.isActive("link") || $showLinkBubbleMenu,
+            editor.isEditable &&
+            (editor.isActive("link") || $showLinkBubbleMenu),
           element: bubbleMenuLinks,
         }),
         BubbleMenu.configure({
@@ -101,7 +101,8 @@
               return posToDOMRect(view, 0, 0);
             },
           },
-          shouldShow: ({ editor }) => editor.isActive("table"),
+          shouldShow: ({ editor }) =>
+            editor.isEditable && editor.isActive("table"),
           element: bubbleMenuTable,
         }),
         ...getExtensions({ imageUpload }),
@@ -166,7 +167,7 @@
     editor.commands.setContent(content);
   }
 
-  function updateDisabled(): void {
+  function updateReadOnly(): void {
     editor.setEditable(!readOnly);
   }
 
@@ -179,7 +180,7 @@
 
 <!-- ############################## <HTML> ############################## -->
 
-<div id="yarte-editor" class:darkmode>
+<div id="yarte-editor" class:darkmode class:readOnly>
   {#if configuredActions.length > 0}
     <Toolbar
       {editor}
@@ -220,6 +221,10 @@
     --button-color: white;
     --button-active: #a6ccf7;
     --button-hover: #e2e2e2;
+
+    &.readOnly {
+      opacity: 0.6;
+    }
   }
 
   #yarte-editor.darkmode {
@@ -236,10 +241,13 @@
     --button-color: rgb(37, 37, 37);
     --button-active: rgb(109, 4, 109);
     --button-hover: rgb(139, 6, 139);
+    &.readOnly {
+      opacity: 0.6;
+    }
   }
 
   #yarte-editor {
-    height: 700px;
+    height: 500px;
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -247,10 +255,6 @@
     background-color: var(--editor);
     color: var(--icon-text-color);
     border-radius: var(--popout-border-radius);
-
-    &.readonly {
-      opacity: 0.6;
-    }
   }
 
   .overflow-fix {
