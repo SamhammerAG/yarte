@@ -74,6 +74,7 @@
         BubbleMenu.configure({
           pluginKey: "bubbleMenuHyperlink",
           tippyOptions: {
+            hideOnClick: true,
             placement: "bottom",
             onShow: () => {
               $currentFocusLink = editor.getAttributes("link").href;
@@ -86,7 +87,6 @@
         BubbleMenu.configure({
           pluginKey: "bubbleMenuTable",
           tippyOptions: {
-            animation: true,
             placement: "bottom",
             getReferenceClientRect: () => {
               const { state, view } = editor;
@@ -189,12 +189,14 @@
       {imageUpload}
     />
   {/if}
-  <div class="description" bind:this={description} />
-  <div bind:this={bubbleMenuLinks}>
-    <HyperLinkMenu {editor} />
-  </div>
-  <div bind:this={bubbleMenuTable}>
-    <TableMenu {editor} />
+  <div class="overflow-fix">
+    <div class="description" bind:this={description}></div>
+    <div bind:this={bubbleMenuLinks}>
+      <HyperLinkMenu {editor} />
+    </div>
+    <div bind:this={bubbleMenuTable}>
+      <TableMenu {editor} />
+    </div>
   </div>
 </div>
 
@@ -237,10 +239,10 @@
   }
 
   #yarte-editor {
+    height: 700px;
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    overflow: hidden;
     box-shadow: var(--box-shadow);
     background-color: var(--editor);
     color: var(--icon-text-color);
@@ -251,21 +253,18 @@
     }
   }
 
-  :global(.has-focus) {
-    outline: 3px solid #b4d7ff;
-    border-radius: 3px;
+  .overflow-fix {
+    position: relative;
+    overflow: auto;
   }
 
   :global(.tiptap) {
-    min-height: 300px;
-    max-height: 500px;
+    outline: none;
+    overflow: auto;
     word-wrap: break-word;
     white-space: break-spaces;
-    overflow: auto;
-    position: relative;
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: opacity 0.15s;
-    outline: 2px solid #006ce7;
 
     /** Discuss if we want to keep this */
 
