@@ -272,7 +272,6 @@
       border-collapse: collapse;
       margin: 0;
       overflow: hidden;
-
       table-layout: fixed;
       width: 100%;
 
