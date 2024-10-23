@@ -1,12 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samhammer Rich Text Editor</title>
-    <script type="module" src="./index.ts"></script>
-  </head>
-  <body>
-    <rich-text-editor toolbar="color, bold, strike ,textalign, italic,bulletlist,orderedlist,link,highlight, underline ,undo,redo, table, image" content="Tiptap supports syntax highlighting in code blocks. This example shows you how to create a text editor with syntax highlighting using Tiptap & the CodeBlockLowlight extension." id="1"></rich-text-editor>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>YARTE Editor Test</title>
+  <script type="module" src="dist/yarte.js"></script>
+  <style>
+    yarte-editor {
+      display: flex;
+      margin-bottom: 5rem;
+    }
+  </style>
+  <script lang="ts">
+
+    window.onload = () => {
+      var editor = document.querySelectorAll("yarte-editor");
+
+      editor[0].toolbar = ["bold", "italic", "underline", "strike", "textAlign", "|", "color", "highlight", "|", "clear", "|", "bulletList", "orderedList", "|", "link", "image", "table", "|", "undo", "redo",];
+      editor[0].content = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea reb";
+
+      editor[1].toolbar = ["bold", "italic", "underline", "strike", "textAlign", "|", "color", "highlight", "|", "clear", "|", "bulletList", "orderedList", "|", "link", "image", "table", "|", "undo", "redo",];
+      editor[1].content = "Hello Dark World!";
+    };
+
+  </script>
+</head>
+
+<body>
+  <yarte-editor></yarte-editor>
+  <yarte-editor darkmode></yarte-editor>
+</body>
+
 </html>
