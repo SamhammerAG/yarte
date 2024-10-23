@@ -12,7 +12,6 @@
 
   import BubbleMenu from "@tiptap/extension-bubble-menu";
   import Document from "@tiptap/extension-document";
-  import Focus from "@tiptap/extension-focus";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
@@ -72,9 +71,6 @@
         Paragraph,
         Text,
         Gapcursor,
-        Focus.configure({
-          mode: "shallowest",
-        }),
         BubbleMenu.configure({
           pluginKey: "bubbleMenuHyperlink",
           tippyOptions: {
@@ -262,9 +258,10 @@
 
   :global(.tiptap) {
     min-height: 300px;
+    max-height: 500px;
     word-wrap: break-word;
     white-space: break-spaces;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: opacity 0.15s;
