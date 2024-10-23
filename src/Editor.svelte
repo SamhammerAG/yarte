@@ -60,7 +60,6 @@
 
   function initializeEditor(): void {
     if (editor) resetEditor(editor);
-    console.log("Initialized");
 
     initializeActions();
 
@@ -185,24 +184,22 @@
 <!-- ############################## <HTML> ############################## -->
 
 <div id="yarte-editor" class:darkmode>
-  {#if editor}
-    {#if configuredActions.length > 0}
-      <Toolbar
-        {editor}
-        disabled={readOnly}
-        {configuredActions}
-        {activeButtons}
-        {imageUpload}
-      />
-    {/if}
-    <div class="description" bind:this={description} />
-    <div bind:this={bubbleMenuLinks}>
-      <HyperLinkMenu {editor} />
-    </div>
-    <div bind:this={bubbleMenuTable}>
-      <TableMenu {editor} />
-    </div>
+  {#if configuredActions.length > 0}
+    <Toolbar
+      {editor}
+      disabled={readOnly}
+      {configuredActions}
+      {activeButtons}
+      {imageUpload}
+    />
   {/if}
+  <div class="description" bind:this={description} />
+  <div bind:this={bubbleMenuLinks}>
+    <HyperLinkMenu {editor} />
+  </div>
+  <div bind:this={bubbleMenuTable}>
+    <TableMenu {editor} />
+  </div>
 </div>
 
 <!-- ############################## </HTML> ############################## -->
