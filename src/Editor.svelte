@@ -1,28 +1,14 @@
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
-  import {
-    Editor,
-    posToDOMRect,
-    type Extension,
-    type Mark,
-    type Node,
-    NodePos,
-  } from "@tiptap/core";
-
-  import BubbleMenu from "@tiptap/extension-bubble-menu";
+  import { Editor, type Extensions } from "@tiptap/core";
   import Document from "@tiptap/extension-document";
   import Focus from "@tiptap/extension-focus";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import Toolbar from "./Toolbar.svelte";
-  import ActionDefinitions from "./ActionDefinitions";
-  import HyperLinkMenu from "./bubble-menus/HyperLinkMenu.svelte";
   import type { Action } from "../types/Action";
-  import type { ActionsContext } from "../types/ActionsContext";
-  import { showLinkBubbleMenu, currentFocusLink } from "./stores";
-  import TableMenu from "./bubble-menus/TableMenu.svelte";
   import Gapcursor from "@tiptap/extension-gapcursor";
 
   export let content: string = "";
@@ -36,9 +22,6 @@
     });
 
   const dispatch = createEventDispatcher();
-
-  let bubbleMenuLinks: HTMLElement;
-  let bubbleMenuTable: HTMLElement;
   let description: HTMLElement;
   let editor: Editor;
   let activeButtons: string[] = [];
@@ -61,8 +44,6 @@
   function initializeEditor(): void {
     if (editor) resetEditor(editor);
 
-    initializeActions();
-
     editor = new Editor({
       element: description,
       editable: !readOnly,
@@ -75,40 +56,7 @@
         Focus.configure({
           mode: "shallowest",
         }),
-        BubbleMenu.configure({
-          pluginKey: "bubbleMenuHyperlink",
-          tippyOptions: {
-            placement: "bottom",
-            onShow: () => {
-              $currentFocusLink = editor.getAttributes("link").href;
-            },
-          },
-          shouldShow: ({ editor }) =>
-            editor.isActive("link") || $showLinkBubbleMenu,
-          element: bubbleMenuLinks,
-        }),
-        BubbleMenu.configure({
-          pluginKey: "bubbleMenuTable",
-          tippyOptions: {
-            animation: true,
-            placement: "bottom",
-            getReferenceClientRect: () => {
-              const { state, view } = editor;
-
-              const myNodePos = new NodePos(state.selection.$anchor, editor);
-              let tableElement = findParentTableFromPos(myNodePos);
-
-              if (tableElement) {
-                return tableElement.getBoundingClientRect();
-              }
-
-              return posToDOMRect(view, 0, 0);
-            },
-          },
-          shouldShow: ({ editor }) => editor.isActive("table"),
-          element: bubbleMenuTable,
-        }),
-        ...getExtensions({ imageUpload }),
+        ...getExtensions(),
       ],
       content: content,
       onUpdate: () => {
@@ -129,41 +77,8 @@
     });
   }
 
-  function findParentTableFromPos(nodePos: NodePos): Element | null {
-    if (nodePos.node.type.name === "table") {
-      return nodePos.element;
-    }
-    const parentNode = nodePos.parent;
-    if (parentNode) {
-      return findParentTableFromPos(parentNode);
-    }
-    return null;
-  }
-
-  function initializeActions(): void {
-    var availableActions = ActionDefinitions.getActions();
-
-    toolbar.forEach((key: string) => {
-      const action = availableActions.find((a) => a.key === key);
-
-      if (action) {
-        configuredActions.push(action);
-      } else if (key === "|") {
-        configuredActions.push(key);
-      } else {
-        console.log(`Action '${key}' not found`);
-      }
-    });
-  }
-
-  function getExtensions(
-    context: ActionsContext,
-  ): Set<Mark<any> | Node<any> | Extension<any>> {
-    return new Set(
-      configuredActions
-        .filter((a) => a !== "|")
-        .flatMap((a) => a.extensions(context)),
-    );
+  function getExtensions(): Extensions {
+    return []; //TODO
   }
 
   function updateContent(): void {
@@ -194,12 +109,6 @@
     />
   {/if}
   <div class="description" bind:this={description} />
-  <div bind:this={bubbleMenuLinks}>
-    <HyperLinkMenu {editor} />
-  </div>
-  <div bind:this={bubbleMenuTable}>
-    <TableMenu {editor} />
-  </div>
 </div>
 
 <!-- ############################## </HTML> ############################## -->

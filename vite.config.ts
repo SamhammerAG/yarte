@@ -5,12 +5,12 @@ import svgLoader from "vite-svg-loader";
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    outDir: "dist",
     lib: {
       name: "yarte",
       entry: "./src/main.ts",
       fileName: "yarte",
     },
-    sourcemap: true
   },
   plugins: [svelte(), svgLoader()],
 });
