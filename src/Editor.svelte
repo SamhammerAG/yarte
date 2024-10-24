@@ -257,6 +257,20 @@
     border-radius: var(--popout-border-radius);
   }
 
+  .overflow-fix::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  .overflow-fix::-webkit-scrollbar-thumb {
+    background: #b0b5ba;
+    border-radius: 0.5rem;
+  }
+  .overflow-fix::-webkit-scrollbar-track {
+    background: #efefef;
+  }
+  .overflow-fix::-webkit-scrollbar-thumb:hover {
+    background: #a6ccf7;
+  }
   .overflow-fix {
     position: relative;
     overflow: auto;
@@ -269,7 +283,6 @@
     white-space: break-spaces;
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: opacity 0.15s;
-
     /** Discuss if we want to keep this */
 
     & table {
