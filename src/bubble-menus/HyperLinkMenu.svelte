@@ -47,17 +47,17 @@
   }
 </script>
 
-<div class="bubble-menu" use:clickOutside on:outclick={outsideClick}>
+<div class="bubble-menu" use:clickOutside onoutclick={outsideClick}>
   {#if isEditMode || $currentFocusLink === undefined}
     <input
       bind:value={inputUrl}
       type="text"
       placeholder="https://example.com"
     />
-    <button class="confirm" on:click={saveLink}>
+    <button class="confirm" onclick={saveLink}>
       {@html CheckIcon}
     </button>
-    <button class="decline" on:click={declineEdit}>
+    <button class="decline" onclick={declineEdit}>
       {@html CancelIcon}
     </button>
   {:else}
@@ -73,10 +73,10 @@
           : $currentFocusLink}
       </span>
     </a>
-    <button on:click={enterEditMode}>
+    <button onclick={enterEditMode}>
       {@html LinkIcon}
     </button>
-    <button on:click={removeLink}>
+    <button onclick={removeLink}>
       {@html UnlinkIcon}
     </button>
   {/if}
@@ -115,15 +115,9 @@
     border-radius: var(--popout-border-radius);
     background-color: var(--button-color);
     flex: 40%;
-
-    & svg {
-      width: 1.125rem;
-      height: 1.125rem;
-      color: var(--icon-text-color);
-    }
   }
 
-  & input {
+  input {
     display: flex;
     padding: 0.25rem;
     background-color: var(--button-color);

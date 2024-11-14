@@ -24,15 +24,25 @@
   import TableMenu from "./bubble-menus/TableMenu.svelte";
   import Gapcursor from "@tiptap/extension-gapcursor";
 
-  export let content: string = "";
-  export let readOnly: boolean = false;
-  export let toolbar: string[] = [];
-  export let darkmode: boolean = false;
-  export let imageUpload: (file: File) => Promise<string> = () =>
-    new Promise(() => {
-      console.log("Test");
-      return "test";
-    });
+  interface Props {
+    content?: string;
+    readOnly?: boolean;
+    toolbar?: string[];
+    darkmode?: boolean;
+    imageUpload?: (file: File) => Promise<string>;
+  }
+
+  let {
+    content = "",
+    readOnly = false,
+    toolbar = [],
+    darkmode = false,
+    imageUpload = () =>
+      new Promise(() => {
+        console.log("Test");
+        return "test";
+      }),
+  }: Props = $props();
 
   const dispatch = createEventDispatcher();
 
@@ -40,14 +50,9 @@
   let bubbleMenuTable: HTMLElement;
   let description: HTMLElement;
   let editor: Editor;
-  let activeButtons: string[] = [];
 
-  // update Editor if outside params change
-  $: content, editor && updateContent();
-  $: readOnly, editor && updateReadOnly();
-  $: toolbar, toolbar.length > 0 && initializeEditor();
-
-  let configuredActions: (Action | "|")[] = [];
+  let activeButtons: string[] = $state([]);
+  let configuredActions: (Action | "|")[] = $state([]);
 
   onDestroy(() => {
     editor.destroy();
@@ -61,7 +66,6 @@
     if (editor) resetEditor(editor);
 
     initializeActions();
-
     editor = new Editor({
       element: description,
       editable: !readOnly,
@@ -176,6 +180,17 @@
     activeButtons.length = 0;
     configuredActions.length = 0;
   }
+  // update Editor if outside params change
+  $effect(() => {
+    content, editor && updateContent();
+  });
+  $effect(() => {
+    readOnly, editor && updateReadOnly();
+  });
+
+  $effect(() => {
+    toolbar, toolbar.length > 0 && initializeEditor();
+  });
 </script>
 
 <!-- ############################## <HTML> ############################## -->
@@ -276,6 +291,12 @@
     overflow: auto;
   }
 
+  :global(svg) {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--icon-text-color);
+  }
+
   :global(.tiptap) {
     outline: none;
     overflow: auto;
@@ -285,15 +306,15 @@
     transition: opacity 0.15s;
     /** Discuss if we want to keep this */
 
-    & table {
+    :global(table) {
       border-collapse: collapse;
       margin: 0;
       overflow: hidden;
       table-layout: fixed;
       width: 100%;
 
-      & td,
-      & th {
+      :global(td),
+      :global(th) {
         border: 1px solid var(--icon-text-color);
         box-sizing: border-box;
         min-width: 1em;
@@ -301,17 +322,17 @@
         position: relative;
         vertical-align: top;
 
-        & > * {
+        > * {
           margin-bottom: 0;
         }
       }
-      & th {
+      :global(th) {
         background-color: rgba(61, 37, 20, 0.05);
         font-weight: bold;
         text-align: left;
       }
 
-      & .selectedCell:after {
+      :global(.selectedCell:after) {
         background: rgba(61, 37, 20, 0.08);
         content: "";
         left: 0;
@@ -323,7 +344,7 @@
         z-index: 2;
       }
 
-      & .column-resize-handle {
+      :global(.column-resize-handle) {
         background-color: #6a00f5;
         bottom: -2px;
         pointer-events: none;

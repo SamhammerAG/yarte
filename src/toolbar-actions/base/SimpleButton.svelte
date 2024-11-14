@@ -1,9 +1,19 @@
 <script lang="ts">
-  export let activeButtons: string[];
-  export let disabled: boolean;
-  export let key: string;
-  export let action: Function;
-  export let icon: string;
+  interface Props {
+    activeButtons: string[];
+    disabled: boolean;
+    key: string;
+    action: Function;
+    icon: string;
+  }
+
+  let {
+    activeButtons = $bindable(),
+    disabled = $bindable(),
+    key = $bindable(),
+    action = $bindable(),
+    icon = $bindable(),
+  }: Props = $props();
 
   function handleClick() {
     action();
@@ -20,7 +30,7 @@
   {disabled}
   class:active={activeButtons.includes(key)}
   class={key}
-  on:click={handleClick}
+  onclick={handleClick}
 >
   {@html icon}
 </button>

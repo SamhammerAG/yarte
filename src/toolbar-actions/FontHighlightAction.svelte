@@ -4,11 +4,21 @@
   import FontHighlightIcon from "../../icons/palette-line.svg?raw";
   import EraserIcon from "../../icons/eraser-line.svg?raw";
 
-  export let editor: Editor;
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  export let key: string;
-  $: active = false;
+  interface Props {
+    editor: Editor;
+    disabled: boolean;
+    activeButtons: string[];
+    key: string;
+  }
+
+  let {
+    editor,
+    disabled,
+    activeButtons,
+    key
+  }: Props = $props();
+  let active = $state(false);
+  
 
   const setColor = (color: string) => {
     editor.chain().focus().toggleHighlight({ color }).run();
@@ -36,15 +46,15 @@
   bind:active
 >
   <div class="color-picker">
-    <button class="clear" on:click={clearColor}>
+    <button class="clear" onclick={clearColor}>
       {@html EraserIcon} Clear
     </button>
 
     {#each colors as color}
       <button
         style="background-color: {color};"
-        on:click={() => setColor(color)}
-      />
+        onclick={() => setColor(color)}
+></button>
     {/each}
   </div>
 </DropdownButton>

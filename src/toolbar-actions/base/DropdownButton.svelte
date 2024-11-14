@@ -1,12 +1,26 @@
 <script lang="ts">
+    import type { Snippet } from "svelte";
   import { clickOutside } from "../../utils/click-outside";
 
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  export let key: string;
-  export let icon: string;
-  export let callback: Function = () => {};
-  export let active: boolean = false;
+  interface Props {
+    disabled: boolean;
+    activeButtons: string[];
+    key: string;
+    icon: string;
+    callback?: Function;
+    active?: boolean;
+    children: Snippet;
+  }
+
+  let {
+    disabled,
+    activeButtons,
+    key,
+    icon,
+    callback = () => {},
+    active = $bindable(false),
+    children
+  }: Props = $props();
 
   function toggleDropdown() {
     active = !active;
@@ -18,18 +32,18 @@
   }
 </script>
 
-<div class="dropdown-wrapper" use:clickOutside on:outclick={outsideclick}>
+<div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
   <button
     {disabled}
     class:active={activeButtons.includes(key) || active}
-    on:click={toggleDropdown}
+    onclick={toggleDropdown}
   >
     {@html icon}
   </button>
 
   {#if active}
     <div class="dropdown">
-      <slot></slot>
+      {@render children()}
     </div>
   {/if}
 </div>

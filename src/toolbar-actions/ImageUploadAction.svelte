@@ -3,16 +3,18 @@
   import SimpleButton from "./base/SimpleButton.svelte";
   import ImageIcon from "../../icons/image-add-line.svg?raw";
 
-  export let key: string;
-  export let editor: Editor;
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  export let imageUpload: (file: File) => Promise<string>;
+  interface Props {
+    key: string;
+    editor: Editor;
+    disabled: boolean;
+    activeButtons: string[];
+    imageUpload: (file: File) => Promise<string>;
+  }
 
-  let files: FileList;
+  let { key, editor, disabled, activeButtons, imageUpload }: Props = $props();
+
+  let files: FileList = $state(new FileList());
   let input: HTMLInputElement;
-
-  $: files, files?.length > 0 && processImages();
 
   function processImages() {
     for (const file of files) {
@@ -23,6 +25,9 @@
 
     input.value = "";
   }
+  $effect(() => {
+    files?.length > 0 && processImages();
+  });
 </script>
 
 <SimpleButton

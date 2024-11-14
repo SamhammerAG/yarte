@@ -2,11 +2,21 @@
   import type { Editor } from "@tiptap/core";
   import type { Action } from "../types/Action";
 
-  export let editor: Editor;
-  export let configuredActions: (Action | "|")[];
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  export let imageUpload: (file: File) => Promise<string>;
+  interface Props {
+    editor: Editor;
+    configuredActions: (Action | "|")[];
+    disabled: boolean;
+    activeButtons: string[];
+    imageUpload: (file: File) => Promise<string>;
+  }
+
+  let {
+    editor,
+    configuredActions,
+    disabled,
+    activeButtons,
+    imageUpload,
+  }: Props = $props();
 </script>
 
 <div class="toolbar">
@@ -14,8 +24,7 @@
     {#if action === "|"}
       <div class="spacer"></div>
     {:else}
-      <svelte:component
-        this={action.component}
+      <action.component
         {editor}
         {disabled}
         {activeButtons}
@@ -39,14 +48,14 @@
     padding: 0 11px 0 12px;
     z-index: 90;
 
-    & .spacer {
+    .spacer {
       width: 1px;
       margin: 0.25rem 0.25rem;
       background-color: var(--icon-text-color);
     }
 
-    & > button,
-    & > .dropdown-wrapper > button {
+    > button,
+    > .dropdown-wrapper > button {
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -56,15 +65,15 @@
       border-radius: var(--button-border-radius);
       background-color: var(--button-color);
 
-      &.active {
+      .active {
         background-color: var(--button-active);
       }
 
-      &:hover {
+      :hover {
         background-color: var(--button-hover);
       }
 
-      & svg {
+      svg {
         width: 1.5rem;
         height: 1.5rem;
         fill: var(--icon-text-color);
