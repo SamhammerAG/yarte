@@ -1,3 +1,4 @@
+<!-- svelte-ignore non_reactive_update -->
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
@@ -14,7 +15,7 @@
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import { onDestroy, onMount, untrack } from "svelte";
   import Toolbar from "./Toolbar.svelte";
   import ActionDefinitions from "./ActionDefinitions";
   import HyperLinkMenu from "./bubble-menus/HyperLinkMenu.svelte";
@@ -25,11 +26,11 @@
   import Gapcursor from "@tiptap/extension-gapcursor";
 
   interface Props {
-    content?: string;
-    readOnly?: boolean;
-    toolbar?: string[];
-    darkmode?: boolean;
-    imageUpload?: (file: File) => Promise<string>;
+    content: string;
+    readOnly: boolean;
+    toolbar: string[];
+    darkmode: boolean;
+    imageUpload: (file: File) => Promise<string>;
   }
 
   let {
@@ -44,12 +45,16 @@
       }),
   }: Props = $props();
 
-  const dispatch = createEventDispatcher();
-
   let bubbleMenuLinks: HTMLElement;
   let bubbleMenuTable: HTMLElement;
   let description: HTMLElement;
-  let editor: Editor;
+
+  let editor: Editor = $state(
+    new Editor({
+      element: undefined,
+      extensions: [Document, Text, Paragraph],
+    }),
+  );
 
   let activeButtons: string[] = $state([]);
   let configuredActions: (Action | "|")[] = $state([]);
@@ -124,10 +129,14 @@
   }
 
   function contentChanged(): void {
-    dispatch("contentChange", {
-      html: editor.getHTML(),
-      json: editor.getJSON(),
-    });
+    $host().dispatchEvent(
+      new CustomEvent("contentChange", {
+        detail: {
+          html: editor.getHTML(),
+          json: editor.getJSON(),
+        },
+      }),
+    );
   }
 
   function findParentTableFromPos(nodePos: NodePos): Element | null {
@@ -180,21 +189,22 @@
     activeButtons.length = 0;
     configuredActions.length = 0;
   }
+
   // update Editor if outside params change
   $effect(() => {
-    content, editor && updateContent();
+    if (content) editor && updateContent();
   });
   $effect(() => {
-    readOnly, editor && updateReadOnly();
+    if (readOnly) editor && updateReadOnly();
   });
-
   $effect(() => {
-    toolbar, toolbar.length > 0 && initializeEditor();
+    if (toolbar.length > 0) {
+      untrack(() => initializeEditor());
+    }
   });
 </script>
 
 <!-- ############################## <HTML> ############################## -->
-
 <div id="yarte-editor" class:darkmode class:readOnly>
   {#if configuredActions.length > 0}
     <Toolbar

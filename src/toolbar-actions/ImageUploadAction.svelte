@@ -13,7 +13,8 @@
 
   let { key, editor, disabled, activeButtons, imageUpload }: Props = $props();
 
-  let files: FileList = $state(new FileList());
+  // svelte-ignore non_reactive_update
+  let files: FileList;
   let input: HTMLInputElement;
 
   function processImages() {
