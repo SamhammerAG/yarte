@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Snippet } from "svelte";
+  import type { Snippet } from "svelte";
   import { clickOutside } from "../../utils/click-outside";
 
   interface Props {
@@ -19,7 +19,7 @@
     icon,
     callback = () => {},
     active = $bindable(false),
-    children
+    children,
   }: Props = $props();
 
   function toggleDropdown() {

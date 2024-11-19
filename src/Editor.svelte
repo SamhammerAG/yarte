@@ -294,6 +294,7 @@
     background: #a6ccf7;
   }
   .overflow-fix {
+    padding: 1rem 1.5rem 5rem 1.5rem;
     position: relative;
     overflow: auto;
   }
@@ -309,7 +310,6 @@
     overflow: auto;
     word-wrap: break-word;
     white-space: break-spaces;
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: opacity 0.15s;
     /** Discuss if we want to keep this */
 
