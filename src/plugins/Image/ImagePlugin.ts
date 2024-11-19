@@ -52,6 +52,7 @@ export const ImagePlugin: (uploadCallback: Function) => EditorPlugin = (uploadCa
           ];
         },
       })
-    ]
+    ],
+    name: "image",
   }
 };

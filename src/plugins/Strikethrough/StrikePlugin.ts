@@ -4,5 +4,6 @@ import StrikeAction from "./StrikeAction.svelte";
 
 export const StrikePlugin: EditorPlugin = {
     extensions: [Strike],
-    toolbarButton: StrikeAction
+    toolbarButton: StrikeAction,
+    name: "strike"
 }

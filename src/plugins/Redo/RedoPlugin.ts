@@ -4,5 +4,6 @@ import RedoAction from "./RedoAction.svelte";
 
 export const RedoPlugin: EditorPlugin = {
     toolbarButton: RedoAction,
-    extensions: [History]
+    extensions: [History],
+    name: "redo"
 };

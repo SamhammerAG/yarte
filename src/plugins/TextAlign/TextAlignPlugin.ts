@@ -7,5 +7,6 @@ export const TextAlignPlugin: EditorPlugin = {
     toolbarButton: TextAlignAction,
     extensions: [TextAlign.configure({
         types: ["heading", "paragraph"]
-    })]
+    })],
+    name: "textAlignment"
 };

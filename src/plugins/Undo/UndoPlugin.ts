@@ -5,5 +5,6 @@ import UndoAction from "./UndoAction.svelte";
 
 export const UndoPlugin: EditorPlugin = {
     toolbarButton: UndoAction,
-    extensions: [History]
+    extensions: [History],
+    name: "undo"
 };

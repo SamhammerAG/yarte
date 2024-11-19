@@ -7,37 +7,36 @@
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
-  import Toolbar from "./Toolbar.svelte";
   import type { Action } from "../types/Action";
   import Gapcursor from "@tiptap/extension-gapcursor";
+  import type { EditorPlugin } from "../types/EditorPlugin";
 
   export let content: string = "";
-  export let readOnly: boolean = false;
-  export let toolbar: string[] = [];
+  export let disabled: boolean = false;
   export let darkmode: boolean = false;
-  export let imageUpload: (file: File) => Promise<string> = () =>
-    new Promise(() => {
-      console.log("Test");
-      return "test";
-    });
+  export let plugins: EditorPlugin[] = [];
 
-  const dispatch = createEventDispatcher();
   let description: HTMLElement;
   let editor: Editor;
   let activeButtons: string[] = [];
 
   // update Editor if outside params change
   $: content, editor && updateContent();
-  $: readOnly, editor && updateDisabled();
-  $: toolbar, toolbar.length > 0 && initializeEditor();
+  $: disabled, editor && updateDisabled();
+  $: plugins,
+    (console.log("computed-blubber: ", plugins) ?? true) || initializeEditor();
 
   let configuredActions: (Action | "|")[] = [];
+  const dispatch = createEventDispatcher();
 
   onDestroy(() => {
     editor.destroy();
   });
 
   onMount(() => {
+    console.log("onmount-blubber: ", plugins);
+    console.log("onmount-toolbar: ", toolbar);
+
     initializeEditor();
   });
 
@@ -46,7 +45,7 @@
 
     editor = new Editor({
       element: description,
-      editable: !readOnly,
+      editable: !disabled,
       autofocus: true,
       extensions: [
         Document,
@@ -63,9 +62,9 @@
         contentChanged();
       },
       onTransaction: () => {
-        activeButtons = toolbar.filter((key: string) =>
-          editor.isActive(key.toLowerCase()),
-        );
+        activeButtons = plugins
+          .map((p) => p.name)
+          .filter((key: string) => editor.isActive(key.toLowerCase()));
       },
     });
   }
@@ -78,7 +77,7 @@
   }
 
   function getExtensions(): Extensions {
-    return []; //TODO
+    return plugins.flatMap((plugin) => plugin.extensions);
   }
 
   function updateContent(): void {
@@ -86,7 +85,7 @@
   }
 
   function updateDisabled(): void {
-    editor.setEditable(!readOnly);
+    editor.setEditable(!disabled);
   }
 
   function resetEditor(editor: Editor): void {
@@ -99,15 +98,17 @@
 <!-- ############################## <HTML> ############################## -->
 
 <div id="yarte-editor" class:darkmode>
-  {#if configuredActions.length > 0}
-    <Toolbar
-      {editor}
-      disabled={readOnly}
-      {configuredActions}
-      {activeButtons}
-      {imageUpload}
-    />
-  {/if}
+  <div class="toolbar">
+    {#each plugins as plugin}
+      <svelte:component
+        this={plugin.toolbarButton}
+        key={plugin.name}
+        {editor}
+        {disabled}
+        {activeButtons}
+      />
+    {/each}
+  </div>
   <div class="description" bind:this={description} />
 </div>
 
@@ -240,6 +241,50 @@
       cursor: col-resize;
 
       /***/
+    }
+  }
+  .toolbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    box-shadow: var(--shadow);
+    background-color: var(--toolbar-color);
+    padding: 0 11px 0 12px;
+    z-index: 90;
+
+    & .spacer {
+      width: 1px;
+      margin: 0.25rem 0.25rem;
+      background-color: var(--icon-text-color);
+    }
+
+    & > button,
+    & > .dropdown-wrapper > button {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin: 6px 1px 5px 0;
+      height: 28px;
+      border: none;
+      border-radius: var(--button-border-radius);
+      background-color: var(--button-color);
+
+      &.active {
+        background-color: var(--button-active);
+      }
+
+      &:hover {
+        background-color: var(--button-hover);
+      }
+
+      & svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: var(--icon-text-color);
+      }
     }
   }
 </style>

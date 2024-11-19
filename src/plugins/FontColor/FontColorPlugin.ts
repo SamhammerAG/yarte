@@ -7,4 +7,5 @@ import type { EditorPlugin } from "../../../types/EditorPlugin";
 export const FontColorPlugin: EditorPlugin = {
     toolbarButton: FontColorAction,
     extensions: [Color, TextStyle],
+    name: "fontColor"
 };

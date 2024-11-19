@@ -6,4 +6,5 @@ import BoldAction from "./BoldAction.svelte";
 export const BoldPlugin: EditorPlugin = {
     toolbarButton: BoldAction,
     extensions: [Bold],
+    name: "bold"
 }

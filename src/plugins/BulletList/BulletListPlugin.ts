@@ -6,5 +6,6 @@ import ListItem from "@tiptap/extension-list-item";
 
 export const BulletListPlugin: EditorPlugin = {
     toolbarButton: BulletListAction,
-    extensions: [BulletList, ListItem]
+    extensions: [BulletList, ListItem],
+    name: "bulletList"
 };

@@ -14,6 +14,7 @@ export const TablePlugin: (getReferenceClientRect: Function, shouldShow: Functio
             toolbarButton: TableAction,
             bubbleMenu: TableMenu,
             extensions: [getTableExtension(), TableRow, TableCell, TableHeader, getConfiguredBubbleMenu(getReferenceClientRect, shouldShow, element)],
+            name: "table"
         }
     };
 

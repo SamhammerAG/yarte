@@ -4,5 +4,6 @@ import UnderlineAction from "./UnderlineAction.svelte";
 
 export const UnderlinePlugin: EditorPlugin = {
     extensions: [Underline],
-    toolbarButton: UnderlineAction
+    toolbarButton: UnderlineAction,
+    name: "underline"
 }

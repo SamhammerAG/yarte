@@ -7,4 +7,5 @@ import ListItem from "@tiptap/extension-list-item";
 export const OrderedListPlugin: EditorPlugin = {
     toolbarButton: NumberedListAction,
     extensions: [OrderedList, ListItem],
+    name: "orderedList"
 }

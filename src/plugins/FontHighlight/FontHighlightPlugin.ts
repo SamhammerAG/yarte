@@ -7,5 +7,6 @@ export const FontHighlightPlugin: EditorPlugin = {
     toolbarButton: FontHighlightAction,
     extensions: [Highlight.configure({
         multicolor: true
-    })]
+    })],
+    name: "fontHighlight"
 };

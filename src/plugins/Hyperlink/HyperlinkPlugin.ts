@@ -11,7 +11,8 @@ export const HyperlinkPlugin: (setCurrentLink: Function, shouldShow: Function, e
             bubbleMenu: HyperLinkMenu,
             extensions: [
                 getLinkExtension(),
-                getConfiguredBubbleMenu(setCurrentLink, shouldShow, element)]
+                getConfiguredBubbleMenu(setCurrentLink, shouldShow, element)],
+            name: "hyperlink"
         }
     };
 
