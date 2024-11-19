@@ -69,7 +69,7 @@
         background-color: var(--button-active);
       }
 
-      :hover {
+      &:hover {
         background-color: var(--button-hover);
       }
 
