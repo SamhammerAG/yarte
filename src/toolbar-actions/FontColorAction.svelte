@@ -11,14 +11,8 @@
     key: string;
   }
 
-  let {
-    editor,
-    disabled,
-    activeButtons,
-    key
-  }: Props = $props();
+  let { editor, disabled, activeButtons, key }: Props = $props();
   let active = $state(false);
-  
 
   const setColor = (color: string) => {
     editor.chain().focus().setColor(color).run();
@@ -55,7 +49,8 @@
       <button
         style="background-color: {color};"
         onclick={() => setColor(color)}
-></button>
+        aria-label={color}
+      ></button>
     {/each}
   </div>
 </DropdownButton>
@@ -69,12 +64,12 @@
     background-color: var(--toolbar-color);
     padding: 0.25rem;
 
-    & button {
+    button {
       border: none;
       border-radius: var(--popout-border-radius);
     }
 
-    & .clear {
+    .clear {
       width: 100%;
       text-align: center;
       padding: 0.5rem;
@@ -89,13 +84,13 @@
         background-color: var(--button-hover);
       }
 
-      & svg {
+      :global(svg) {
         width: 1.125rem;
         height: 1.125rem;
       }
     }
 
-    & button:not(.clear) {
+    button:not(.clear) {
       display: flex;
       width: 1.5rem;
       height: 1.5rem;

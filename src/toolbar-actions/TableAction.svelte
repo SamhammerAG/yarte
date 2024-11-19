@@ -10,14 +10,8 @@
     activeButtons: string[];
   }
 
-  let {
-    key,
-    editor,
-    disabled,
-    activeButtons
-  }: Props = $props();
+  let { key, editor, disabled, activeButtons }: Props = $props();
   let active = $state(false);
-  
 
   const tableGridSize: number = 10;
   let xPos: number = $state(0);
@@ -41,7 +35,8 @@
           class:highlight={xPos >= x && yPos >= y}
           onmouseenter={() => ((xPos = x), (yPos = y))}
           onclick={() => createTable(x + 1, y + 1)}
-></button>
+          aria-label="Create table with {x + 1} rows and {y + 1} columns"
+        ></button>
       {/each}
     {/each}
   </div>

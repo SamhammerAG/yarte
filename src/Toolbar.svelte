@@ -54,8 +54,8 @@
       background-color: var(--icon-text-color);
     }
 
-    > button,
-    > .dropdown-wrapper > button {
+    :global(> button),
+    :global(> .dropdown-wrapper > button) {
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -65,7 +65,7 @@
       border-radius: var(--button-border-radius);
       background-color: var(--button-color);
 
-      .active {
+      &.active {
         background-color: var(--button-active);
       }
 
@@ -73,7 +73,7 @@
         background-color: var(--button-hover);
       }
 
-      svg {
+      :global(svg) {
         width: 1.5rem;
         height: 1.5rem;
         fill: var(--icon-text-color);

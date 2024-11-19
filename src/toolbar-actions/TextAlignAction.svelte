@@ -13,14 +13,8 @@
     activeButtons: string[];
   }
 
-  let {
-    key,
-    editor,
-    disabled,
-    activeButtons
-  }: Props = $props();
+  let { key, editor, disabled, activeButtons }: Props = $props();
   let active = $state(false);
-  
 
   const textAlignments: { icon: string; action: Function }[] = [
     {
@@ -86,7 +80,7 @@
       background-color: var(--button-hover);
     }
 
-    & svg {
+    :global(svg) {
       width: 1.125rem;
       height: 1.125rem;
       color: var(--icon-text-color);

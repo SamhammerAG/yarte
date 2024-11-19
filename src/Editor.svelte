@@ -246,10 +246,6 @@
     --button-color: white;
     --button-active: #a6ccf7;
     --button-hover: #e2e2e2;
-
-    &.readOnly {
-      opacity: 0.6;
-    }
   }
 
   #yarte-editor.darkmode {
@@ -266,9 +262,6 @@
     --button-color: rgb(37, 37, 37);
     --button-active: rgb(109, 4, 109);
     --button-hover: rgb(139, 6, 139);
-    &.readOnly {
-      opacity: 0.6;
-    }
   }
 
   #yarte-editor {
@@ -280,6 +273,10 @@
     background-color: var(--editor);
     color: var(--icon-text-color);
     border-radius: var(--popout-border-radius);
+
+    :global(.readOnly) {
+      opacity: 0.6;
+    }
   }
 
   .overflow-fix::-webkit-scrollbar {
