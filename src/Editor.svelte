@@ -3,7 +3,6 @@
 <script lang="ts">
   import { Editor, type Extensions } from "@tiptap/core";
   import Document from "@tiptap/extension-document";
-  import Focus from "@tiptap/extension-focus";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
@@ -22,9 +21,8 @@
 
   // update Editor if outside params change
   $: content, editor && updateContent();
-  $: disabled, editor && updateDisabled();
-  $: plugins,
-    (console.log("computed-blubber: ", plugins) ?? true) || initializeEditor();
+  $: readOnly, editor && updateReadOnly();
+  $: toolbar, toolbar.length > 0 && initializeEditor();
 
   let configuredActions: (Action | "|")[] = [];
   const dispatch = createEventDispatcher();
@@ -45,8 +43,7 @@
 
     editor = new Editor({
       element: description,
-      editable: !disabled,
-      autofocus: true,
+      editable: !readOnly,
       extensions: [
         Document,
         Paragraph,
@@ -84,8 +81,8 @@
     editor.commands.setContent(content);
   }
 
-  function updateDisabled(): void {
-    editor.setEditable(!disabled);
+  function updateReadOnly(): void {
+    editor.setEditable(!readOnly);
   }
 
   function resetEditor(editor: Editor): void {
@@ -132,6 +129,10 @@
     --button-color: white;
     --button-active: #a6ccf7;
     --button-hover: #e2e2e2;
+
+    &.readOnly {
+      opacity: 0.6;
+    }
   }
 
   #yarte-editor.darkmode {
@@ -148,38 +149,48 @@
     --button-color: rgb(37, 37, 37);
     --button-active: rgb(109, 4, 109);
     --button-hover: rgb(139, 6, 139);
-  }
-
-  #yarte-editor {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
-    background-color: var(--editor);
-    color: var(--icon-text-color);
-    border-radius: var(--popout-border-radius);
-
-    &.readonly {
+    &.readOnly {
       opacity: 0.6;
     }
   }
 
-  :global(.has-focus) {
-    outline: 3px solid #b4d7ff;
-    border-radius: 3px;
+  #yarte-editor {
+    height: 500px;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    box-shadow: var(--box-shadow);
+    background-color: var(--editor);
+    color: var(--icon-text-color);
+    border-radius: var(--popout-border-radius);
+  }
+
+  .overflow-fix::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  .overflow-fix::-webkit-scrollbar-thumb {
+    background: #b0b5ba;
+    border-radius: 0.5rem;
+  }
+  .overflow-fix::-webkit-scrollbar-track {
+    background: #efefef;
+  }
+  .overflow-fix::-webkit-scrollbar-thumb:hover {
+    background: #a6ccf7;
+  }
+  .overflow-fix {
+    position: relative;
+    overflow: auto;
   }
 
   :global(.tiptap) {
-    min-height: 300px;
+    outline: none;
+    overflow: auto;
     word-wrap: break-word;
     white-space: break-spaces;
-    overflow: hidden;
-    position: relative;
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: opacity 0.15s;
-    outline: 2px solid #006ce7;
-
     /** Discuss if we want to keep this */
 
     & table {
