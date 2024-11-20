@@ -3,10 +3,19 @@
     import SimpleButton from "../../base/SimpleButton.svelte";
     import UnderlineIcon from "../../../icons/underline.svg?raw";
 
-    export let editor: Editor;
-    export let disabled: boolean;
-    export let activeButtons: string[];
-    export let key: string;
+    interface Props {
+        editor: Editor;
+        disabled: boolean;
+        activeButtons: string[];
+        key: string;
+    }
+
+    let {
+        editor,
+        disabled,
+        activeButtons,
+        key
+    }: Props = $props();
 
     const action = () => editor.chain().focus().toggleUnderline().run();
 </script>

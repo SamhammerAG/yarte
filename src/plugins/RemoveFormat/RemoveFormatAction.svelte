@@ -3,10 +3,19 @@
     import ClearIcon from "../../../icons/format-clear.svg?raw";
     import SimpleButton from "../../base/SimpleButton.svelte";
 
-    export let editor: Editor;
-    export let disabled: boolean;
-    export let activeButtons: string[];
-    export let key: string;
+    interface Props {
+        editor: Editor;
+        disabled: boolean;
+        activeButtons: string[];
+        key: string;
+    }
+
+    let {
+        editor,
+        disabled,
+        activeButtons,
+        key
+    }: Props = $props();
 
     const action = () => editor.chain().focus().unsetAllMarks().run();
 </script>

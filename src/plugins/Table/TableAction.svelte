@@ -3,15 +3,19 @@
   import DropdownButton from "../../Base/DropdownButton.svelte";
   import TableIcon from "../../../icons/table-line.svg?raw";
 
-  export let key: string;
-  export let editor: Editor;
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  $: active = false;
+  interface Props {
+    key: string;
+    editor: Editor;
+    disabled: boolean;
+    activeButtons: string[];
+  }
+
+  let { key, editor, disabled, activeButtons }: Props = $props();
+  let active = $state(false);
 
   const tableGridSize: number = 10;
-  let xPos: number = 0;
-  let yPos: number = 0;
+  let xPos: number = $state(0);
+  let yPos: number = $state(0);
 
   function createTable(rows: number, cols: number) {
     editor
@@ -29,9 +33,10 @@
       {#each Array.from({ length: tableGridSize }).keys() as y}
         <button
           class:highlight={xPos >= x && yPos >= y}
-          on:mouseenter={() => ((xPos = x), (yPos = y))}
-          on:click={() => createTable(x + 1, y + 1)}
-        />
+          onmouseenter={() => ((xPos = x), (yPos = y))}
+          onclick={() => createTable(x + 1, y + 1)}
+          aria-label="Create table with {x + 1} rows and {y + 1} columns"
+        ></button>
       {/each}
     {/each}
   </div>

@@ -9,38 +9,42 @@
   import InsertRowTopIcon from "../../../icons/insert-row-top.svg?raw";
   import InsertRowBottomIcon from "../../../icons/insert-row-bottom.svg?raw";
 
-  export let editor: Editor;
+  interface Props {
+    editor: Editor;
+  }
+
+  let { editor }: Props = $props();
 </script>
 
 <div class="table-bubble-menu">
   <div class="table-toolbar">
     <div class="toolbar-button-group">
-      <button on:click={() => editor.commands.toggleHeaderCell()}>
+      <button onclick={() => editor.commands.toggleHeaderCell()}>
         Toggle Header
       </button>
-      <button on:click={() => editor.commands.deleteTable()}>
+      <button onclick={() => editor.commands.deleteTable()}>
         {@html DeleteTableIcon}
       </button>
     </div>
     <div class="toolbar-button-group">
-      <button on:click={() => editor.commands.addRowBefore()}>
+      <button onclick={() => editor.commands.addRowBefore()}>
         {@html InsertRowTopIcon}
       </button>
-      <button on:click={() => editor.commands.addRowAfter()}>
+      <button onclick={() => editor.commands.addRowAfter()}>
         {@html InsertRowBottomIcon}
       </button>
-      <button on:click={() => editor.commands.deleteRow()}>
+      <button onclick={() => editor.commands.deleteRow()}>
         {@html DeleteRowIcon}
       </button>
     </div>
     <div class="toolbar-button-group">
-      <button on:click={() => editor.commands.addColumnBefore()}>
+      <button onclick={() => editor.commands.addColumnBefore()}>
         {@html InsertColumnLeftIcon}
       </button>
-      <button on:click={() => editor.commands.addColumnAfter()}>
+      <button onclick={() => editor.commands.addColumnAfter()}>
         {@html InsertColumnRightIcon}
       </button>
-      <button on:click={() => editor.commands.deleteColumn()}>
+      <button onclick={() => editor.commands.deleteColumn()}>
         {@html DeleteColumnIcon}
       </button>
     </div>
@@ -80,11 +84,6 @@
 
           &:hover {
             background-color: var(--button-hover);
-          }
-          & svg {
-            width: 1.125rem;
-            height: 1.125rem;
-            color: var(--icon-text-color);
           }
         }
       }

@@ -1,3 +1,4 @@
+<!-- svelte-ignore non_reactive_update -->
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
@@ -5,27 +6,37 @@
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import { onDestroy, onMount, untrack } from "svelte";
+
   import type { Action } from "../types/Action";
   import Gapcursor from "@tiptap/extension-gapcursor";
   import type { EditorPlugin } from "../types/EditorPlugin";
 
-  export let content: string = "";
-  export let disabled: boolean = false;
-  export let darkmode: boolean = false;
-  export let plugins: EditorPlugin[] = [];
+  interface Props {
+    content: string;
+    readOnly: boolean;
+    darkmode: boolean;
+    plugins: EditorPlugin[];
+  }
+
+  let {
+    content = "",
+    readOnly = false,
+    darkmode = false,
+    plugins = [],
+  }: Props = $props();
 
   let description: HTMLElement;
-  let editor: Editor;
-  let activeButtons: string[] = [];
 
-  // update Editor if outside params change
-  $: content, editor && updateContent();
-  $: readOnly, editor && updateReadOnly();
-  $: toolbar, toolbar.length > 0 && initializeEditor();
+  let editor: Editor = $state(
+    new Editor({
+      element: undefined,
+      extensions: [Document, Text, Paragraph],
+    }),
+  );
 
-  let configuredActions: (Action | "|")[] = [];
-  const dispatch = createEventDispatcher();
+  let activeButtons: string[] = $state([]);
+  let configuredActions: (Action | "|")[] = $state([]);
 
   onDestroy(() => {
     editor.destroy();
@@ -44,16 +55,7 @@
     editor = new Editor({
       element: description,
       editable: !readOnly,
-      extensions: [
-        Document,
-        Paragraph,
-        Text,
-        Gapcursor,
-        Focus.configure({
-          mode: "shallowest",
-        }),
-        ...getExtensions(),
-      ],
+      extensions: [Document, Paragraph, Text, Gapcursor, ...getExtensions()],
       content: content,
       onUpdate: () => {
         contentChanged();
@@ -67,10 +69,14 @@
   }
 
   function contentChanged(): void {
-    dispatch("contentChange", {
-      html: editor.getHTML(),
-      json: editor.getJSON(),
-    });
+    $host().dispatchEvent(
+      new CustomEvent("contentChange", {
+        detail: {
+          html: editor.getHTML(),
+          json: editor.getJSON(),
+        },
+      }),
+    );
   }
 
   function getExtensions(): Extensions {
@@ -90,6 +96,19 @@
     activeButtons.length = 0;
     configuredActions.length = 0;
   }
+
+  // update Editor if outside params change
+  $effect(() => {
+    if (content) editor && updateContent();
+  });
+  $effect(() => {
+    if (readOnly) editor && updateReadOnly();
+  });
+  $effect(() => {
+    if (plugins.length > 0) {
+      untrack(() => initializeEditor());
+    }
+  });
 </script>
 
 <!-- ############################## <HTML> ############################## -->
@@ -97,16 +116,18 @@
 <div id="yarte-editor" class:darkmode>
   <div class="toolbar">
     {#each plugins as plugin}
-      <svelte:component
+      <plugin
         this={plugin.toolbarButton}
         key={plugin.name}
         {editor}
-        {disabled}
+        {readOnly}
         {activeButtons}
-      />
+      ></plugin>
     {/each}
   </div>
-  <div class="description" bind:this={description} />
+  <div class="overflow-fix">
+    <div class="description" bind:this={description}></div>
+  </div>
 </div>
 
 <!-- ############################## </HTML> ############################## -->
@@ -129,10 +150,6 @@
     --button-color: white;
     --button-active: #a6ccf7;
     --button-hover: #e2e2e2;
-
-    &.readOnly {
-      opacity: 0.6;
-    }
   }
 
   #yarte-editor.darkmode {
@@ -149,9 +166,6 @@
     --button-color: rgb(37, 37, 37);
     --button-active: rgb(109, 4, 109);
     --button-hover: rgb(139, 6, 139);
-    &.readOnly {
-      opacity: 0.6;
-    }
   }
 
   #yarte-editor {
@@ -163,6 +177,10 @@
     background-color: var(--editor);
     color: var(--icon-text-color);
     border-radius: var(--popout-border-radius);
+
+    :global(.readOnly) {
+      opacity: 0.6;
+    }
   }
 
   .overflow-fix::-webkit-scrollbar {
@@ -180,8 +198,15 @@
     background: #a6ccf7;
   }
   .overflow-fix {
+    padding: 1rem 1.5rem 5rem 1.5rem;
     position: relative;
     overflow: auto;
+  }
+
+  :global(svg) {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--icon-text-color);
   }
 
   :global(.tiptap) {
@@ -189,19 +214,18 @@
     overflow: auto;
     word-wrap: break-word;
     white-space: break-spaces;
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
     transition: opacity 0.15s;
     /** Discuss if we want to keep this */
 
-    & table {
+    :global(table) {
       border-collapse: collapse;
       margin: 0;
       overflow: hidden;
       table-layout: fixed;
       width: 100%;
 
-      & td,
-      & th {
+      :global(td),
+      :global(th) {
         border: 1px solid var(--icon-text-color);
         box-sizing: border-box;
         min-width: 1em;
@@ -209,17 +233,17 @@
         position: relative;
         vertical-align: top;
 
-        & > * {
+        > * {
           margin-bottom: 0;
         }
       }
-      & th {
+      :global(th) {
         background-color: rgba(61, 37, 20, 0.05);
         font-weight: bold;
         text-align: left;
       }
 
-      & .selectedCell:after {
+      :global(.selectedCell:after) {
         background: rgba(61, 37, 20, 0.08);
         content: "";
         left: 0;
@@ -231,7 +255,7 @@
         z-index: 2;
       }
 
-      & .column-resize-handle {
+      :global(.column-resize-handle) {
         background-color: #6a00f5;
         bottom: -2px;
         pointer-events: none;

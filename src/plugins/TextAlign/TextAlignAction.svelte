@@ -6,11 +6,15 @@
   import TextAlignJustifyIcon from "../../../icons/align-justify.svg?raw";
   import DropdownButton from "../../Base/DropdownButton.svelte";
 
-  export let key: string;
-  export let editor: Editor;
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  $: active = false;
+  interface Props {
+    key: string;
+    editor: Editor;
+    disabled: boolean;
+    activeButtons: string[];
+  }
+
+  let { key, editor, disabled, activeButtons }: Props = $props();
+  let active = $state(false);
 
   const textAlignments: { icon: string; action: Function }[] = [
     {
@@ -52,7 +56,7 @@
   bind:active
 >
   {#each textAlignments as alignment}
-    <button {disabled} on:click={() => alignment.action()}>
+    <button {disabled} onclick={() => alignment.action()}>
       {@html alignment.icon}
     </button>
   {/each}
@@ -76,7 +80,7 @@
       background-color: var(--button-hover);
     }
 
-    & svg {
+    :global(svg) {
       width: 1.125rem;
       height: 1.125rem;
       color: var(--icon-text-color);

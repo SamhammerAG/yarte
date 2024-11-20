@@ -4,11 +4,15 @@
   import EraserIcon from "../../../icons/eraser-line.svg?raw";
   import DropdownButton from "../../Base/DropdownButton.svelte";
 
-  export let editor: Editor;
-  export let disabled: boolean;
-  export let activeButtons: string[];
-  export let key: string;
-  $: active = false;
+  interface Props {
+    editor: Editor;
+    disabled: boolean;
+    activeButtons: string[];
+    key: string;
+  }
+
+  let { editor, disabled, activeButtons, key }: Props = $props();
+  let active = $state(false);
 
   const setColor = (color: string) => {
     editor.chain().focus().setColor(color).run();
@@ -37,15 +41,16 @@
   bind:active
 >
   <div class="color-picker">
-    <button class="clear" on:click={clearColor}>
+    <button class="clear" onclick={clearColor}>
       {@html EraserIcon} Clear
     </button>
 
     {#each colors as color}
       <button
         style="background-color: {color};"
-        on:click={() => setColor(color)}
-      />
+        onclick={() => setColor(color)}
+        aria-label={color}
+      ></button>
     {/each}
   </div>
 </DropdownButton>
@@ -59,12 +64,12 @@
     background-color: var(--toolbar-color);
     padding: 0.25rem;
 
-    & button {
+    button {
       border: none;
       border-radius: var(--popout-border-radius);
     }
 
-    & .clear {
+    .clear {
       width: 100%;
       text-align: center;
       padding: 0.5rem;
@@ -79,13 +84,13 @@
         background-color: var(--button-hover);
       }
 
-      & svg {
+      :global(svg) {
         width: 1.125rem;
         height: 1.125rem;
       }
     }
 
-    & button:not(.clear) {
+    button:not(.clear) {
       display: flex;
       width: 1.5rem;
       height: 1.5rem;
