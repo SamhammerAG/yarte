@@ -8,7 +8,6 @@ import { showLinkBubbleMenu, currentFocusLink } from "./stores";
 import { get } from "svelte/store";
 
 export class HyperlinkPlugin extends EditorPlugin {
-    public bubbleMenuElement: HTMLElement;
 
     public toolbarButton: { component: any; properties?: any } = {
         component: HyperlinkAction,
@@ -18,33 +17,33 @@ export class HyperlinkPlugin extends EditorPlugin {
     public extensions: Extensions = [];
     public name = "hyperlink";
 
-    constructor(editor: Editor, element: HTMLElement) {
+    constructor(editor: Editor) {
         super(editor);
 
-        this.bubbleMenuElement = element;
         this.extensions = [
-            getLinkExtension(),
-            getConfiguredBubbleMenu(this.editor, this.bubbleMenuElement),
+            this.getLinkExtension(),
+            this.getConfiguredBubbleMenu(this.editor),
         ];
+    }
+
+    private getLinkExtension() {
+        return Link.configure({
+            openOnClick: false,
+        });
+    }
+
+    private getConfiguredBubbleMenu(editor: Editor) {
+        return BubbleMenu.configure({
+            pluginKey: "bubbleMenuHyperlink",
+            tippyOptions: {
+                placement: "bottom",
+                onShow: () => currentFocusLink.set(editor.getAttributes("link").href),
+            },
+            shouldShow: ({ editor }) =>
+                editor.isEditable &&
+                (editor.isActive("link") || get(showLinkBubbleMenu)),
+            element: this.bubbleMenuElement,
+        });
     }
 }
 
-function getLinkExtension() {
-    return Link.configure({
-        openOnClick: false,
-    });
-}
-
-function getConfiguredBubbleMenu(editor: Editor, element: HTMLElement) {
-    return BubbleMenu.configure({
-        pluginKey: "bubbleMenuHyperlink",
-        tippyOptions: {
-            placement: "bottom",
-            onShow: () => currentFocusLink.set(editor.getAttributes("link").href),
-        },
-        shouldShow: ({ editor }) =>
-            editor.isEditable &&
-            (editor.isActive("link") || get(showLinkBubbleMenu)),
-        element: element,
-    });
-}

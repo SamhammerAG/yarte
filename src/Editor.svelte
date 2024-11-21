@@ -131,6 +131,12 @@
   </div>
   <div class="overflow-fix">
     <div class="description" bind:this={description}></div>
+    {#each plugins.filter((p) => p.bubbleMenu) as plugin}
+      <div bind:this={plugin.bubbleMenuElement}>
+        <plugin.bubbleMenu {editor} />
+      </div>
+      {console.log(plugin)}
+    {/each}
   </div>
 </div>
 

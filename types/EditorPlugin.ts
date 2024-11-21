@@ -8,10 +8,15 @@ export class EditorPlugin {
     public toolbarButton: { component: any, customProperties?: any } = { component: null };
     public extensions: Extensions = [];
 
+    public bubbleMenuElement?: HTMLElement;
     public bubbleMenu?: any;
 
     constructor(editor: Editor) {
         this.editor = editor;
+    }
+
+    public getExtensions(): Extensions {
+        return this.extensions; //HIER WEITERMACHEN!°=!==! PROPELLER!
     }
 }
 
