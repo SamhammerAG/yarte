@@ -3,12 +3,12 @@ import { EditorPlugin } from "../../../types/EditorPlugin";
 import UnderlineAction from "./UnderlineAction.svelte";
 
 export class UnderlinePlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: UnderlineAction
     };
 
-    protected extensions = [Underline];
-    protected name = "underline";
+    public extensions = [Underline];
+    public name = "underline";
 }
 
 /*

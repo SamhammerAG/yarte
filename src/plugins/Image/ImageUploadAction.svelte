@@ -8,17 +8,11 @@
     editor: Editor;
     disabled: boolean;
     activeButtons: string[];
-    propeller: { callback: Function };
-    //imageUpload: (file: File) => Promise<string>;
+    customProperties: { imageUpload: (file: File) => Promise<string> };
   }
 
-  let {
-    key,
-    editor,
-    disabled,
-    activeButtons,
-    propeller /*imageUpload*/,
-  }: Props = $props();
+  let { key, editor, disabled, activeButtons, customProperties }: Props =
+    $props();
 
   let input: HTMLInputElement;
 
@@ -29,8 +23,8 @@
 
     for (const file of target.files ?? []) {
       console.log(file);
-      propeller
-        .callback(file)
+      customProperties
+        .imageUpload(file)
         .then((imageSrc: string) =>
           editor.chain().focus().setImage({ src: imageSrc }).run(),
         );

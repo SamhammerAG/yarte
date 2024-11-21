@@ -7,10 +7,18 @@
   import { showLinkBubbleMenu, currentFocusLink } from "./stores";
   import { clickOutside } from "../../utils/click-outside";
 
-  export let editor: Editor;
+  interface Props {
+    editor: Editor;
+  }
 
-  let isEditMode = false;
-  $: inputUrl = isEditMode ? $currentFocusLink : "";
+  let { editor }: Props = $props();
+
+  let isEditMode = $state(false);
+  let inputUrl = $state("");
+
+  $effect(() => {
+    inputUrl = isEditMode ? $currentFocusLink : "";
+  });
 
   function enterEditMode() {
     isEditMode = true;

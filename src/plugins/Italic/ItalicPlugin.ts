@@ -4,12 +4,12 @@ import { EditorPlugin } from "../../../types/EditorPlugin";
 
 
 export class ItalicPlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: ItalicAction,
     };
 
-    protected extensions = [Italic];
-    protected name = "italic";
+    public extensions = [Italic];
+    public name = "italic";
 }
 
 /*

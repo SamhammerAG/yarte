@@ -4,12 +4,12 @@ import UndoAction from "./UndoAction.svelte";
 
 
 export class UndoPlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: UndoAction
     };
 
-    protected extensions = [History];
-    protected name = "undo";
+    public extensions = [History];
+    public name = "undo";
 }
 
 /*

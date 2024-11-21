@@ -6,20 +6,22 @@ import type { Editor } from "@tiptap/core";
 
 
 export class ImagePlugin extends EditorPlugin {
-  protected name: string = "image";
-  protected toolbarButton: { component: any, properties?: any } = {
+  public name: string = "image";
+  public toolbarButton: { component: any, customProperties?: any } = {
     component: ImageUploadAction,
   };
 
-  protected uploadCallback: Function;
 
-  constructor(editor: Editor, uploadCallback: Function) {
+
+  constructor(editor: Editor, uploadCallback: (file: File) => Promise<string>) {
     super(editor);
 
-    this.uploadCallback = uploadCallback;
+    this.toolbarButton.customProperties = {
+      imageUpload: uploadCallback
+    };
   }
 
-  protected extensions = [
+  public extensions = [
     Image.extend({
       addProseMirrorPlugins: () => {
         return [
@@ -50,7 +52,7 @@ export class ImagePlugin extends EditorPlugin {
                 const { schema } = view.state;
 
                 for (const image of images) {
-                  this.uploadCallback(image).then((img: String) => {
+                  this.toolbarButton.customProperties.imageUpload(image).then((img: String) => {
                     const node = schema.nodes.image.create({
                       src: img,
                     });

@@ -20,13 +20,29 @@
     window.onload = () => {
       var $editor = document.querySelectorAll("yarte-editor");
 
+      let propeller = (file) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            console.log("urltoimage");
+            resolve("urltoimage");
+          })
+        })
+
+      }
       $editor[0].initCallback = (editor => {
-        return [new BoldPlugin(editor), new ItalicPlugin(editor), new StrikePlugin(editor), new UnderlinePlugin(editor)]
+        return [
+          new BoldPlugin(editor),
+          new ItalicPlugin(editor),
+          new StrikePlugin(editor),
+          new UnderlinePlugin(editor),
+          new FontColorPlugin(editor),
+          new FontHighlightPlugin(editor),
+          new HyperlinkPlugin(editor),
+          new ImagePlugin(editor, propeller)];
       });
 
       $editor[0].content = "Hello World!";
     };
-
   </script>
 </head>
 

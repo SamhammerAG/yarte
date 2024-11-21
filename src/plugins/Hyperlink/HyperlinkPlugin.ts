@@ -5,17 +5,18 @@ import HyperLinkMenu from "./HyperLinkMenu.svelte";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
 import type { Editor, Extensions } from "@tiptap/core";
 import { showLinkBubbleMenu, currentFocusLink } from "./stores";
+import { get } from "svelte/store";
 
 export class HyperlinkPlugin extends EditorPlugin {
-    protected bubbleMenuElement: HTMLElement;
+    public bubbleMenuElement: HTMLElement;
 
-    protected toolbarButton: { component: any; properties?: any } = {
+    public toolbarButton: { component: any; properties?: any } = {
         component: HyperlinkAction,
     };
 
-    protected bubbleMenu = HyperLinkMenu;
-    protected extensions: Extensions = [];
-    protected name = "hyperlink";
+    public bubbleMenu = HyperLinkMenu;
+    public extensions: Extensions = [];
+    public name = "hyperlink";
 
     constructor(editor: Editor, element: HTMLElement) {
         super(editor);
@@ -39,12 +40,11 @@ function getConfiguredBubbleMenu(editor: Editor, element: HTMLElement) {
         pluginKey: "bubbleMenuHyperlink",
         tippyOptions: {
             placement: "bottom",
-            onShow: () =>
-                (/*$currentFocusLink = */editor.getAttributes("link").href),
+            onShow: () => currentFocusLink.set(editor.getAttributes("link").href),
         },
         shouldShow: ({ editor }) =>
             editor.isEditable &&
-            (editor.isActive("link")/* || $showLinkBubbleMenu*/),
+            (editor.isActive("link") || get(showLinkBubbleMenu)),
         element: element,
     });
 }

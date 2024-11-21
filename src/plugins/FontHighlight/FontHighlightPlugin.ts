@@ -4,15 +4,15 @@ import FontHighlightAction from "./FontHighlightAction.svelte";
 
 
 export class FontHighlightPlugin extends EditorPlugin {
-    protected toolbarButton: { component: any; properties?: any; } = {
+    public toolbarButton: { component: any; properties?: any; } = {
         component: FontHighlightAction
     };
 
-    protected extensions = [Highlight.configure({
+    public extensions = [Highlight.configure({
         multicolor: true
     })];
 
-    protected name = "fontHighlight"
+    public name = "fontHighlight"
 }
 
 /*

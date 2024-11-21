@@ -4,15 +4,15 @@ import TextAlignAction from "./TextAlignAction.svelte";
 
 
 export class TextAlignPlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: TextAlignAction,
     };
 
-    protected extensions = [TextAlign.configure({
+    public extensions = [TextAlign.configure({
         types: ["heading", "paragraph"]
     })];
 
-    protected name = "textAlignment"
+    public name = "textAlignment"
 }
 
 /*

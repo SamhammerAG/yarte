@@ -4,11 +4,11 @@ import type { Editor, Extensions } from "@tiptap/core";
 export class EditorPlugin {
 
     protected editor: Editor;
-    protected name: string = "";
-    protected toolbarButton: { component: any, properties?: any } = { component: null };
-    protected extensions: Extensions = [];
+    public name: string = "";
+    public toolbarButton: { component: any, customProperties?: any } = { component: null };
+    public extensions: Extensions = [];
 
-    protected bubbleMenu?: any;
+    public bubbleMenu?: any;
 
     constructor(editor: Editor) {
         this.editor = editor;

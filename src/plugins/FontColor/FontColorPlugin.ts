@@ -7,12 +7,12 @@ import { EditorPlugin } from "../../../types/EditorPlugin";
 
 export class FontColorPlugin extends EditorPlugin {
 
-    protected toolbarButton: { component: any; properties?: any; } = {
+    public toolbarButton: { component: any; properties?: any; } = {
         component: FontColorAction
     };
 
-    protected extensions = [Color, TextStyle];
-    protected name = "fontColor";
+    public extensions = [Color, TextStyle];
+    public name = "fontColor";
 }
 
 /*

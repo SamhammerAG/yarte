@@ -4,12 +4,12 @@ import StrikeAction from "./StrikeAction.svelte";
 
 
 export class StrikePlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: StrikeAction
     };
 
-    protected extensions = [Strike];
-    protected name = "strike"
+    public extensions = [Strike];
+    public name = "strike"
 }
 
 /*

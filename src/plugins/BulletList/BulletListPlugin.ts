@@ -7,12 +7,12 @@ import ListItem from "@tiptap/extension-list-item";
 
 export class BulletListPlugin extends EditorPlugin {
 
-    protected toolbarButton: { component: any; properties?: any; } = {
+    public toolbarButton: { component: any; properties?: any; } = {
         component: BulletListAction,
     };
 
-    protected extensions = [BulletList, ListItem];
-    protected name = "bulletList";
+    public extensions = [BulletList, ListItem];
+    public name = "bulletList";
 }
 
 /*

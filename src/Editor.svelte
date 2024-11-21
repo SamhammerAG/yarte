@@ -17,13 +17,15 @@
     content: string;
     readOnly: boolean;
     darkmode: boolean;
+    plugins: EditorPlugin[];
   }
 
   let {
+    initCallback = () => [],
     content = "",
     readOnly = false,
     darkmode = false,
-    initCallback = () => [],
+    plugins = [],
   }: Props = $props();
 
   // update Editor if outside params change
@@ -37,7 +39,7 @@
   $effect(() => {
     if (initCallback) {
       untrack(() => {
-        initCallback(editor);
+        plugins = initCallback(editor);
         initializeEditor();
       });
     }
@@ -75,9 +77,9 @@
         contentChanged();
       },
       onTransaction: () => {
-        /*activeButtons = plugins
+        activeButtons = plugins
           .map((p) => p.name)
-          .filter((key: string) => editor.isActive(key.toLowerCase()));*/
+          .filter((key: string) => editor.isActive(key.toLowerCase()));
       },
     });
   }
@@ -94,7 +96,8 @@
   }
 
   function getExtensions(): Extensions {
-    return []; //plugins.flatMap((plugin) => plugin.extensions);
+    console.log(plugins);
+    return plugins.flatMap((plugin) => plugin.extensions);
   }
 
   function updateContent(): void {
@@ -116,16 +119,15 @@
 
 <div id="yarte-editor" class:darkmode>
   <div class="toolbar">
-    <!--{#each plugins as plugin}
-      {console.log(plugin)}
+    {#each plugins as plugin}
       <plugin.toolbarButton.component
         key={plugin.name}
         {editor}
         {readOnly}
         {activeButtons}
-        propeller={plugin.toolbarButtonProperties}
+        customProperties={plugin.toolbarButton.customProperties}
       />
-    {/each}-->
+    {/each}
   </div>
   <div class="overflow-fix">
     <div class="description" bind:this={description}></div>

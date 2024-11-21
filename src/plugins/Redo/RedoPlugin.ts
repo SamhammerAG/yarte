@@ -5,12 +5,12 @@ import RedoAction from "./RedoAction.svelte";
 
 export class RedoPlugin extends EditorPlugin {
 
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: RedoAction,
     };
 
-    protected extensions = [History];
-    protected name = "redo"
+    public extensions = [History];
+    public name = "redo"
 
 }
 

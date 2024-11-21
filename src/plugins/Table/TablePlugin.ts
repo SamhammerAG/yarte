@@ -10,13 +10,13 @@ import { type Editor, type Extensions, NodePos, posToDOMRect } from "@tiptap/cor
 
 
 export class TablePlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: TableAction
     };
 
-    protected name = "table";
-    protected extensions: Extensions = [];
-    protected bubbleMenu: any = TableMenu;
+    public name = "table";
+    public extensions: Extensions = [];
+    public bubbleMenu: any = TableMenu;
 
     constructor(editor: Editor, element: HTMLElement) {
         super(editor);

@@ -4,11 +4,11 @@ import NumberedListAction from "./NumberedListAction.svelte";
 import ListItem from "@tiptap/extension-list-item";
 
 export class OrderedListPlugin extends EditorPlugin {
-    protected toolbarButton: { component: any, properties?: any } = {
+    public toolbarButton: { component: any, properties?: any } = {
         component: NumberedListAction,
     };
-    protected extensions: any = [OrderedList, ListItem];
-    protected name = "orderedList";
+    public extensions: any = [OrderedList, ListItem];
+    public name = "orderedList";
 }
 
 /*
