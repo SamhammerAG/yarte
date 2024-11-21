@@ -23,11 +23,8 @@
       $editor[0].initCallback = (editor => {
         return [new BoldPlugin(editor), new ItalicPlugin(editor), new StrikePlugin(editor), new UnderlinePlugin(editor)]
       });
-      $editor[0].content = "Hello World!";
 
-      $editor[1].plugins = [BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin];
-      $editor[1].darkmode = true;
-      $editor[1].content = "Hello Dark World!";
+      $editor[0].content = "Hello World!";
     };
 
   </script>
@@ -35,7 +32,6 @@
 
 <body>
   <yarte-editor></yarte-editor>
-  <yarte-editor darkmode></yarte-editor>
 </body>
 
 </html>

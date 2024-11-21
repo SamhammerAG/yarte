@@ -35,7 +35,7 @@
   });
 
   $effect(() => {
-    if (description) {
+    if (initCallback) {
       untrack(() => {
         console.log("initCallback", initCallback(editor));
         initializeEditor();
