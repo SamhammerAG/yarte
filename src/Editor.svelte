@@ -13,18 +13,35 @@
   import type { EditorPlugin } from "../types/EditorPlugin";
 
   interface Props {
+    initCallback: (editor: Editor) => EditorPlugin[];
     content: string;
     readOnly: boolean;
     darkmode: boolean;
-    plugins: EditorPlugin[];
   }
 
   let {
     content = "",
     readOnly = false,
     darkmode = false,
-    plugins = [],
+    initCallback = () => [],
   }: Props = $props();
+
+  // update Editor if outside params change
+  $effect(() => {
+    if (content) editor && updateContent();
+  });
+  $effect(() => {
+    if (readOnly) editor && updateReadOnly();
+  });
+
+  $effect(() => {
+    if (description) {
+      untrack(() => {
+        console.log("initCallback", initCallback(editor));
+        initializeEditor();
+      });
+    }
+  });
 
   let description: HTMLElement;
 
@@ -43,9 +60,6 @@
   });
 
   onMount(() => {
-    console.log("onmount-blubber: ", plugins);
-    console.log("onmount-toolbar: ", toolbar);
-
     initializeEditor();
   });
 
@@ -61,9 +75,9 @@
         contentChanged();
       },
       onTransaction: () => {
-        activeButtons = plugins
+        /*activeButtons = plugins
           .map((p) => p.name)
-          .filter((key: string) => editor.isActive(key.toLowerCase()));
+          .filter((key: string) => editor.isActive(key.toLowerCase()));*/
       },
     });
   }
@@ -80,7 +94,7 @@
   }
 
   function getExtensions(): Extensions {
-    return plugins.flatMap((plugin) => plugin.extensions);
+    return []; //plugins.flatMap((plugin) => plugin.extensions);
   }
 
   function updateContent(): void {
@@ -96,34 +110,22 @@
     activeButtons.length = 0;
     configuredActions.length = 0;
   }
-
-  // update Editor if outside params change
-  $effect(() => {
-    if (content) editor && updateContent();
-  });
-  $effect(() => {
-    if (readOnly) editor && updateReadOnly();
-  });
-  $effect(() => {
-    if (plugins.length > 0) {
-      untrack(() => initializeEditor());
-    }
-  });
 </script>
 
 <!-- ############################## <HTML> ############################## -->
 
 <div id="yarte-editor" class:darkmode>
   <div class="toolbar">
-    {#each plugins as plugin}
-      <plugin
-        this={plugin.toolbarButton}
+    <!--{#each plugins as plugin}
+      {console.log(plugin)}
+      <plugin.toolbarButton.component
         key={plugin.name}
         {editor}
         {readOnly}
         {activeButtons}
-      ></plugin>
-    {/each}
+        propeller={plugin.toolbarButtonProperties}
+      />
+    {/each}-->
   </div>
   <div class="overflow-fix">
     <div class="description" bind:this={description}></div>
@@ -266,7 +268,7 @@
       }
     }
 
-    & .tableWrapper {
+    :global(.tableWrapper) {
       margin: 1.5rem 0;
       overflow-x: auto;
     }
@@ -290,14 +292,14 @@
     padding: 0 11px 0 12px;
     z-index: 90;
 
-    & .spacer {
+    :global(.spacer) {
       width: 1px;
       margin: 0.25rem 0.25rem;
       background-color: var(--icon-text-color);
     }
 
-    & > button,
-    & > .dropdown-wrapper > button {
+    :global(> button),
+    :global(> .dropdown-wrapper > button) {
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -315,7 +317,7 @@
         background-color: var(--button-hover);
       }
 
-      & svg {
+      :global(svg) {
         width: 1.5rem;
         height: 1.5rem;
         fill: var(--icon-text-color);

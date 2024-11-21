@@ -1,35 +1,50 @@
 import Link from "@tiptap/extension-link";
-import type { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../../../types/EditorPlugin";
 import HyperlinkAction from "./HyperlinkAction.svelte";
 import HyperLinkMenu from "./HyperLinkMenu.svelte";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
+import type { Editor, Extensions } from "@tiptap/core";
+import { showLinkBubbleMenu, currentFocusLink } from "./stores";
 
-export const HyperlinkPlugin: (setCurrentLink: Function, shouldShow: Function, element: HTMLElement) => EditorPlugin =
-    (setCurrentLink: Function, shouldShow: Function, element: HTMLElement): EditorPlugin => {
-        return {
-            toolbarButton: HyperlinkAction,
-            bubbleMenu: HyperLinkMenu,
-            extensions: [
-                getLinkExtension(),
-                getConfiguredBubbleMenu(setCurrentLink, shouldShow, element)],
-            name: "hyperlink"
-        }
+export class HyperlinkPlugin extends EditorPlugin {
+    protected bubbleMenuElement: HTMLElement;
+
+    protected toolbarButton: { component: any; properties?: any } = {
+        component: HyperlinkAction,
     };
+
+    protected bubbleMenu = HyperLinkMenu;
+    protected extensions: Extensions = [];
+    protected name = "hyperlink";
+
+    constructor(editor: Editor, element: HTMLElement) {
+        super(editor);
+
+        this.bubbleMenuElement = element;
+        this.extensions = [
+            getLinkExtension(),
+            getConfiguredBubbleMenu(this.editor, this.bubbleMenuElement),
+        ];
+    }
+}
 
 function getLinkExtension() {
     return Link.configure({
-        openOnClick: false
+        openOnClick: false,
     });
-};
+}
 
-function getConfiguredBubbleMenu(setCurrentLink: Function, shouldShow: Function, element: HTMLElement) {
+function getConfiguredBubbleMenu(editor: Editor, element: HTMLElement) {
     return BubbleMenu.configure({
         pluginKey: "bubbleMenuHyperlink",
         tippyOptions: {
             placement: "bottom",
-            onShow: () => setCurrentLink(),
+            onShow: () =>
+                (/*$currentFocusLink = */editor.getAttributes("link").href),
         },
-        shouldShow: () => shouldShow(),
+        shouldShow: ({ editor }) =>
+            editor.isEditable &&
+            (editor.isActive("link")/* || $showLinkBubbleMenu*/),
         element: element,
     });
-};
+}

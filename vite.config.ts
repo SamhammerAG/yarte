@@ -11,6 +11,7 @@ export default defineConfig({
       entry: "./src/main.ts",
       fileName: "yarte",
     },
+    sourcemap: true,
   },
   plugins: [svelte(), svgLoader()],
 });

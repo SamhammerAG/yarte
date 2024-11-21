@@ -15,16 +15,19 @@
   </style>
   <script type="module" lang="ts">
 
-    import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin } from "./dist/yarte.js";
+    import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin } from "./dist/yarte.js";
 
     window.onload = () => {
-      var editor = document.querySelectorAll("yarte-editor");
+      var $editor = document.querySelectorAll("yarte-editor");
 
-      editor[0].plugins = [BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin];
-      editor[0].content = "Hello World!";
+      $editor[0].initCallback = (editor => {
+        return [new BoldPlugin(editor), new ItalicPlugin(editor), new StrikePlugin(editor), new UnderlinePlugin(editor)]
+      });
+      $editor[0].content = "Hello World!";
 
-      editor[1].plugins = [BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin];
-      editor[1].content = "Hello Dark World!";
+      $editor[1].plugins = [BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin];
+      $editor[1].darkmode = true;
+      $editor[1].content = "Hello Dark World!";
     };
 
   </script>

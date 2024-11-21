@@ -8,27 +8,36 @@
     editor: Editor;
     disabled: boolean;
     activeButtons: string[];
-    imageUpload: (file: File) => Promise<string>;
+    propeller: { callback: Function };
+    //imageUpload: (file: File) => Promise<string>;
   }
 
-  let { key, editor, disabled, activeButtons, imageUpload }: Props = $props();
+  let {
+    key,
+    editor,
+    disabled,
+    activeButtons,
+    propeller /*imageUpload*/,
+  }: Props = $props();
 
-  // svelte-ignore non_reactive_update
-  let files: FileList;
   let input: HTMLInputElement;
 
-  function processImages() {
-    for (const file of files) {
-      imageUpload(file).then((imageSrc: string) =>
-        editor.chain().focus().setImage({ src: imageSrc }).run(),
-      );
+  function processImages(e: Event) {
+    const target = e.target as HTMLInputElement;
+
+    console.log(target.files);
+
+    for (const file of target.files ?? []) {
+      console.log(file);
+      propeller
+        .callback(file)
+        .then((imageSrc: string) =>
+          editor.chain().focus().setImage({ src: imageSrc }).run(),
+        );
     }
 
     input.value = "";
   }
-  $effect(() => {
-    files?.length > 0 && processImages();
-  });
 </script>
 
 <SimpleButton
@@ -38,7 +47,13 @@
   action={() => input.click()}
   icon={ImageIcon}
 />
-<input {disabled} bind:files bind:this={input} type="file" accept="image/*" />
+<input
+  {disabled}
+  onchange={processImages}
+  bind:this={input}
+  type="file"
+  accept="image/*"
+/>
 
 <style>
   input[type="file"] {
