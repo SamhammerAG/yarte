@@ -1,24 +1,18 @@
 
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import Bold from "@tiptap/extension-bold";
 import BoldAction from "./BoldAction.svelte";
-
+import type { Extensions } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class BoldPlugin extends EditorPlugin {
-    public toolbarButton: { component: any; properties?: any; } = {
+
+    public name = "bold";
+    public toolbarButton: PluginToolbarButton = {
         component: BoldAction
     };
 
-    public extensions = [Bold];
-    public name = "bold";
+    public getExtensions(): Extensions {
+        return [Bold];
+    }
 }
-
-/*
-export const BoldPlugin: EditorPlugin = {
-    toolbarButton: {
-        component: BoldAction,
-    },
-    extensions: [Bold],
-    name: "bold"
-}
-*/

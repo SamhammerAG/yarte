@@ -1,21 +1,17 @@
 import Italic from "@tiptap/extension-italic";
 import ItalicAction from "./ItalicAction.svelte";
-import { EditorPlugin } from "../../../types/EditorPlugin";
-
+import { EditorPlugin } from "../EditorPlugin";
+import type { Extensions } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class ItalicPlugin extends EditorPlugin {
-    public toolbarButton: { component: any, properties?: any } = {
+
+    public name = "italic";
+    public toolbarButton: PluginToolbarButton = {
         component: ItalicAction,
     };
 
-    public extensions = [Italic];
-    public name = "italic";
+    public getExtensions(): Extensions {
+        return [Italic];
+    }
 }
-
-/*
-export const ItalicPlugin: EditorPlugin = {
-    toolbarButton: ItalicAction,
-    extensions: [Italic],
-    name: "italic"
-};
-*/

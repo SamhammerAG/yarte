@@ -1,20 +1,17 @@
 import Underline from "@tiptap/extension-underline";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import UnderlineAction from "./UnderlineAction.svelte";
+import type { Extensions } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class UnderlinePlugin extends EditorPlugin {
-    public toolbarButton: { component: any, properties?: any } = {
+
+    public name = "underline";
+    public toolbarButton: PluginToolbarButton = {
         component: UnderlineAction
     };
 
-    public extensions = [Underline];
-    public name = "underline";
+    public getExtensions(): Extensions {
+        return [Underline];
+    }
 }
-
-/*
-export const UnderlinePlugin: EditorPlugin = {
-    extensions: [Underline],
-    toolbarButton: UnderlineAction,
-    name: "underline"
-}
-    */

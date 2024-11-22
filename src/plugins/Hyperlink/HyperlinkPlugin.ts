@@ -1,38 +1,40 @@
 import Link from "@tiptap/extension-link";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import HyperlinkAction from "./HyperlinkAction.svelte";
 import HyperLinkMenu from "./HyperLinkMenu.svelte";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
-import type { Editor, Extensions } from "@tiptap/core";
+import type { Editor, Extension, Extensions, Mark } from "@tiptap/core";
 import { showLinkBubbleMenu, currentFocusLink } from "./stores";
 import { get } from "svelte/store";
+import type { PluginBubbleMenu, PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class HyperlinkPlugin extends EditorPlugin {
 
-    public toolbarButton: { component: any; properties?: any } = {
-        component: HyperlinkAction,
-    };
-
-    public bubbleMenu = HyperLinkMenu;
-    public extensions: Extensions = [];
     public name = "hyperlink";
 
-    constructor(editor: Editor) {
-        super(editor);
+    public toolbarButton: PluginToolbarButton = {
+        component: HyperlinkAction
+    };
 
-        this.extensions = [
+    public bubbleMenu: PluginBubbleMenu = {
+        component: HyperLinkMenu,
+        element: undefined
+    };
+
+    public getExtensions(editor: Editor): Extensions {
+        return [
             this.getLinkExtension(),
-            this.getConfiguredBubbleMenu(this.editor),
-        ];
+            this.getBubbleMenuExtension(editor, this.bubbleMenu.element),
+        ]
     }
 
-    private getLinkExtension() {
+    private getLinkExtension(): Mark {
         return Link.configure({
             openOnClick: false,
         });
     }
 
-    private getConfiguredBubbleMenu(editor: Editor) {
+    private getBubbleMenuExtension(editor: Editor, element?: HTMLElement): Extension {
         return BubbleMenu.configure({
             pluginKey: "bubbleMenuHyperlink",
             tippyOptions: {
@@ -42,8 +44,7 @@ export class HyperlinkPlugin extends EditorPlugin {
             shouldShow: ({ editor }) =>
                 editor.isEditable &&
                 (editor.isActive("link") || get(showLinkBubbleMenu)),
-            element: this.bubbleMenuElement,
+            element: element,
         });
     }
 }
-

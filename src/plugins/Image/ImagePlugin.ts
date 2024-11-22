@@ -1,28 +1,32 @@
 import Image from "@tiptap/extension-image";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import ImageUploadAction from "./ImageUploadAction.svelte";
 import { Plugin } from "@tiptap/pm/state";
-import type { Editor } from "@tiptap/core";
-
+import type { Extensions, Node } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class ImagePlugin extends EditorPlugin {
+
   public name: string = "image";
-  public toolbarButton: { component: any, customProperties?: any } = {
+  public toolbarButton: PluginToolbarButton = {
     component: ImageUploadAction,
+    properties: null
   };
 
+  constructor(uploadCallback: (file: File) => Promise<string>) {
+    super();
 
-
-  constructor(editor: Editor, uploadCallback: (file: File) => Promise<string>) {
-    super(editor);
-
-    this.toolbarButton.customProperties = {
-      imageUpload: uploadCallback
+    this.toolbarButton.properties = {
+      uploadImageCallback: uploadCallback
     };
   }
 
-  public extensions = [
-    Image.extend({
+  public getExtensions(): Extensions {
+    return [this.getImageExtension()];
+  }
+
+  private getImageExtension(): Node {
+    return Image.extend({
       addProseMirrorPlugins: () => {
         return [
           new Plugin({
@@ -52,7 +56,7 @@ export class ImagePlugin extends EditorPlugin {
                 const { schema } = view.state;
 
                 for (const image of images) {
-                  this.toolbarButton.customProperties.imageUpload(image).then((img: String) => {
+                  this.toolbarButton.properties.imageUpload(image).then((img: String) => {
                     const node = schema.nodes.image.create({
                       src: img,
                     });
@@ -66,19 +70,6 @@ export class ImagePlugin extends EditorPlugin {
           }),
         ];
       },
-    })
-  ];
-}
-
-/*
-export const ImagePlugin: (uploadCallback: Function) => EditorPlugin = (uploadCallback: Function) => {
-  return {
-    toolbarButton: {
-      component: ImageUploadAction,
-      properties: { callback: uploadCallback }
-    },
-    extensions: ,
-    name: "image",
+    });
   }
-};
-*/
+}

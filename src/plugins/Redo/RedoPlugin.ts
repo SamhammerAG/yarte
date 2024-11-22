@@ -1,23 +1,18 @@
 import History from "@tiptap/extension-history";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import RedoAction from "./RedoAction.svelte";
+import type { Extensions } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 
 export class RedoPlugin extends EditorPlugin {
 
-    public toolbarButton: { component: any, properties?: any } = {
+    public name = "redo";
+    public toolbarButton: PluginToolbarButton = {
         component: RedoAction,
     };
 
-    public extensions = [History];
-    public name = "redo"
-
+    public getExtensions(): Extensions {
+        return [History];
+    }
 }
-
-/*
-export const RedoPlugin: EditorPlugin = {
-    toolbarButton: RedoAction,
-    extensions: [History],
-    name: "redo"
-};
-*/

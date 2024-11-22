@@ -1,19 +1,16 @@
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import type { Extensions } from "@tiptap/core";
+import { EditorPlugin } from "../EditorPlugin";
 import RemoveFormatAction from "./RemoveFormatAction.svelte";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class RemoveFormatPlugin extends EditorPlugin {
-    public toolbarButton: { component: any, properties?: any } = {
+
+    public name = "removeFormat";
+    public toolbarButton: PluginToolbarButton = {
         component: RemoveFormatAction
     }
 
-    public extensions = []
-    public name = "removeFormat";
+    public getExtensions(): Extensions {
+        return [];
+    }
 }
-
-/*
-export const RemoveFormatPlugin: EditorPlugin = {
-    toolbarButton: RemoveFormatAction,
-    extensions: [],
-    name: "removeFormat"
-};
-*/

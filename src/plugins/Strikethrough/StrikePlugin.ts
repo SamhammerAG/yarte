@@ -1,21 +1,17 @@
 import Strike from "@tiptap/extension-strike";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import StrikeAction from "./StrikeAction.svelte";
-
+import type { Extensions } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class StrikePlugin extends EditorPlugin {
-    public toolbarButton: { component: any, properties?: any } = {
+
+    public name = "strike";
+    public toolbarButton: PluginToolbarButton = {
         component: StrikeAction
     };
 
-    public extensions = [Strike];
-    public name = "strike"
+    public getExtensions(): Extensions {
+        return [Strike];
+    }
 }
-
-/*
-export const StrikePlugin: EditorPlugin = {
-    extensions: [Strike],
-    toolbarButton: StrikeAction,
-    name: "strike"
-}
-    */

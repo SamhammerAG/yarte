@@ -8,22 +8,18 @@
     editor: Editor;
     disabled: boolean;
     activeButtons: string[];
-    customProperties: { imageUpload: (file: File) => Promise<string> };
+    properties: { imageUpload: (file: File) => Promise<string> };
   }
 
-  let { key, editor, disabled, activeButtons, customProperties }: Props =
-    $props();
+  let { key, editor, disabled, activeButtons, properties }: Props = $props();
 
   let input: HTMLInputElement;
 
   function processImages(e: Event) {
     const target = e.target as HTMLInputElement;
-
-    console.log(target.files);
-
     for (const file of target.files ?? []) {
       console.log(file);
-      customProperties
+      properties
         .imageUpload(file)
         .then((imageSrc: string) =>
           editor.chain().focus().setImage({ src: imageSrc }).run(),

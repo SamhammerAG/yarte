@@ -1,26 +1,23 @@
 import TextAlign from "@tiptap/extension-text-align";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import TextAlignAction from "./TextAlignAction.svelte";
-
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
+import type { Extension, Extensions } from "@tiptap/core";
 
 export class TextAlignPlugin extends EditorPlugin {
-    public toolbarButton: { component: any, properties?: any } = {
+
+    public name = "textAlignment";
+    public toolbarButton: PluginToolbarButton = {
         component: TextAlignAction,
     };
 
-    public extensions = [TextAlign.configure({
-        types: ["heading", "paragraph"]
-    })];
+    public getExtensions(): Extensions {
+        return [this.getTextAlignExtension()];
+    }
 
-    public name = "textAlignment"
+    private getTextAlignExtension(): Extension {
+        return TextAlign.configure({
+            types: ["heading", "paragraph"]
+        });
+    }
 }
-
-/*
-export const TextAlignPlugin: EditorPlugin = {
-    toolbarButton: TextAlignAction,
-    extensions: [TextAlign.configure({
-        types: ["heading", "paragraph"]
-    })],
-    name: "textAlignment"
-};
-*/

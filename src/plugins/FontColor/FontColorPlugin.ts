@@ -1,24 +1,18 @@
 import Color from "@tiptap/extension-color";
 import FontColorAction from "./FontColorAction.svelte";
 import TextStyle from "@tiptap/extension-text-style";
-import { EditorPlugin } from "../../../types/EditorPlugin";
-
-
+import { EditorPlugin } from "../EditorPlugin";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
+import type { Extensions } from "@tiptap/core";
 
 export class FontColorPlugin extends EditorPlugin {
 
-    public toolbarButton: { component: any; properties?: any; } = {
+    public name = "fontColor";
+    public toolbarButton: PluginToolbarButton = {
         component: FontColorAction
     };
 
-    public extensions = [Color, TextStyle];
-    public name = "fontColor";
+    public getExtensions(): Extensions {
+        return [Color, TextStyle];
+    }
 }
-
-/*
-export const FontColorPlugin: EditorPlugin = {
-    toolbarButton: FontColorAction,
-    extensions: [Color, TextStyle],
-    name: "fontColor"
-};
-*/

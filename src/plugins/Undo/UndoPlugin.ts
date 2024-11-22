@@ -1,21 +1,17 @@
 import History from "@tiptap/extension-history";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import UndoAction from "./UndoAction.svelte";
-
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
+import type { Extensions } from "@tiptap/core";
 
 export class UndoPlugin extends EditorPlugin {
-    public toolbarButton: { component: any, properties?: any } = {
+
+    public name = "undo";
+    public toolbarButton: PluginToolbarButton = {
         component: UndoAction
     };
 
-    public extensions = [History];
-    public name = "undo";
+    public getExtensions(): Extensions {
+        return [History];
+    }
 }
-
-/*
-export const UndoPlugin: EditorPlugin = {
-    toolbarButton: UndoAction,
-    extensions: [History],
-    name: "undo"
-};
-*/

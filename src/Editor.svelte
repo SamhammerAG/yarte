@@ -6,18 +6,15 @@
   import Document from "@tiptap/extension-document";
   import Paragraph from "@tiptap/extension-paragraph";
   import Text from "@tiptap/extension-text";
-  import { onDestroy, onMount, untrack } from "svelte";
-
-  import type { Action } from "../types/Action";
+  import { onDestroy, untrack } from "svelte";
   import Gapcursor from "@tiptap/extension-gapcursor";
-  import type { EditorPlugin } from "../types/EditorPlugin";
+  import type { EditorPlugin } from "./plugins/EditorPlugin";
 
   interface Props {
     initCallback: (editor: Editor) => EditorPlugin[];
     content: string;
     readOnly: boolean;
     darkmode: boolean;
-    plugins: EditorPlugin[];
   }
 
   let {
@@ -25,10 +22,9 @@
     content = "",
     readOnly = false,
     darkmode = false,
-    plugins = [],
   }: Props = $props();
 
-  // update Editor if outside params change
+  //update editor if props change
   $effect(() => {
     if (content) editor && updateContent();
   });
@@ -40,13 +36,19 @@
     if (initCallback) {
       untrack(() => {
         plugins = initCallback(editor);
-        initializeEditor();
+
+        if (plugins.length > 0) {
+          setTimeout(() => {
+            initializeEditor();
+          }, 0);
+        }
       });
     }
   });
 
   let description: HTMLElement;
-
+  let plugins: Array<EditorPlugin> = $state([]);
+  let activeButtons: string[] = $state([]);
   let editor: Editor = $state(
     new Editor({
       element: undefined,
@@ -54,20 +56,11 @@
     }),
   );
 
-  let activeButtons: string[] = $state([]);
-  let configuredActions: (Action | "|")[] = $state([]);
-
   onDestroy(() => {
     editor.destroy();
   });
 
-  onMount(() => {
-    initializeEditor();
-  });
-
   function initializeEditor(): void {
-    if (editor) resetEditor(editor);
-
     editor = new Editor({
       element: description,
       editable: !readOnly,
@@ -96,8 +89,9 @@
   }
 
   function getExtensions(): Extensions {
-    console.log(plugins);
-    return plugins.flatMap((plugin) => plugin.extensions);
+    return plugins.flatMap((plugin) => {
+      return plugin.getExtensions(editor);
+    });
   }
 
   function updateContent(): void {
@@ -107,12 +101,6 @@
   function updateReadOnly(): void {
     editor.setEditable(!readOnly);
   }
-
-  function resetEditor(editor: Editor): void {
-    editor.destroy();
-    activeButtons.length = 0;
-    configuredActions.length = 0;
-  }
 </script>
 
 <!-- ############################## <HTML> ############################## -->
@@ -121,21 +109,22 @@
   <div class="toolbar">
     {#each plugins as plugin}
       <plugin.toolbarButton.component
-        key={plugin.name}
         {editor}
         {readOnly}
         {activeButtons}
-        customProperties={plugin.toolbarButton.customProperties}
+        key={plugin.name}
+        properties={plugin.toolbarButton.properties}
       />
     {/each}
   </div>
   <div class="overflow-fix">
     <div class="description" bind:this={description}></div>
-    {#each plugins.filter((p) => p.bubbleMenu) as plugin}
-      <div bind:this={plugin.bubbleMenuElement}>
-        <plugin.bubbleMenu {editor} />
-      </div>
-      {console.log(plugin)}
+    {#each plugins as plugin}
+      {#if plugin.bubbleMenu?.component}
+        <div bind:this={plugin.bubbleMenu.element}>
+          <plugin.bubbleMenu.component {editor} />
+        </div>
+      {/if}
     {/each}
   </div>
 </div>
@@ -160,22 +149,22 @@
     --button-color: white;
     --button-active: #a6ccf7;
     --button-hover: #e2e2e2;
-  }
 
-  #yarte-editor.darkmode {
-    --shadow: rgba(255, 255, 255, 0.05) 0px 6px 10px 0px,
-      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+    &.darkmode {
+      --shadow: rgba(255, 255, 255, 0.05) 0px 6px 10px 0px,
+        rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
 
-    --popout-border-radius: 8px;
-    --button-border-radius: 4px;
+      --popout-border-radius: 8px;
+      --button-border-radius: 4px;
 
-    --toolbar-color: black;
-    --editor: rgb(71, 71, 71);
-    --icon-text-color: white;
+      --toolbar-color: black;
+      --editor: rgb(71, 71, 71);
+      --icon-text-color: white;
 
-    --button-color: rgb(37, 37, 37);
-    --button-active: rgb(109, 4, 109);
-    --button-hover: rgb(139, 6, 139);
+      --button-color: rgb(37, 37, 37);
+      --button-active: rgb(109, 4, 109);
+      --button-hover: rgb(139, 6, 139);
+    }
   }
 
   #yarte-editor {

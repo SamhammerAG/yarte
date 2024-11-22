@@ -1,24 +1,18 @@
 import BulletList from "@tiptap/extension-bullet-list";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import BulletListAction from "./BulletListAction.svelte";
 import ListItem from "@tiptap/extension-list-item";
-
-
+import type { Extensions } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class BulletListPlugin extends EditorPlugin {
 
-    public toolbarButton: { component: any; properties?: any; } = {
+    public name = "bulletList";
+    public toolbarButton: PluginToolbarButton = {
         component: BulletListAction,
     };
 
-    public extensions = [BulletList, ListItem];
-    public name = "bulletList";
+    public getExtensions(): Extensions {
+        return [BulletList, ListItem];
+    }
 }
-
-/*
-export const BulletListPlugin: EditorPlugin = {
-    toolbarButton: BulletListAction,
-    extensions: [BulletList, ListItem],
-    name: "bulletList"
-};
-*/

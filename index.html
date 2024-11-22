@@ -31,14 +31,14 @@
       }
       $editor[0].initCallback = (editor => {
         return [
-          new BoldPlugin(editor),
-          new ItalicPlugin(editor),
-          new StrikePlugin(editor),
-          new UnderlinePlugin(editor),
-          new FontColorPlugin(editor),
-          new FontHighlightPlugin(editor),
-          new HyperlinkPlugin(editor),
-          new ImagePlugin(editor, propeller)];
+          new BoldPlugin(),
+          new ItalicPlugin(),
+          new StrikePlugin(),
+          new UnderlinePlugin(),
+          new FontColorPlugin(),
+          new FontHighlightPlugin(),
+          new HyperlinkPlugin(),
+          new ImagePlugin(propeller)];
       });
 
       $editor[0].content = "Hello World!";

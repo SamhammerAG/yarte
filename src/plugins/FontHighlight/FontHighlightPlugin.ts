@@ -1,26 +1,23 @@
 import Highlight from "@tiptap/extension-highlight";
-import { EditorPlugin } from "../../../types/EditorPlugin";
+import { EditorPlugin } from "../EditorPlugin";
 import FontHighlightAction from "./FontHighlightAction.svelte";
-
+import type { Extensions, Mark } from "@tiptap/core";
+import type { PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class FontHighlightPlugin extends EditorPlugin {
-    public toolbarButton: { component: any; properties?: any; } = {
+
+    public name = "fontHighlight"
+    public toolbarButton: PluginToolbarButton = {
         component: FontHighlightAction
     };
 
-    public extensions = [Highlight.configure({
-        multicolor: true
-    })];
+    public getExtensions(): Extensions {
+        return [this.getHighlightExtension()];
+    }
 
-    public name = "fontHighlight"
+    private getHighlightExtension(): Mark {
+        return Highlight.configure({
+            multicolor: true
+        });
+    }
 }
-
-/*
-export const FontHighlightPlugin: EditorPlugin = {
-    toolbarButton: FontHighlightAction,
-    extensions: [Highlight.configure({
-        multicolor: true
-    })],
-    name: "fontHighlight"
-};
-*/
