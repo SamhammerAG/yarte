@@ -4,7 +4,7 @@
   import TextAlignLeftIcon from "../../../icons/align-left.svg?raw";
   import TextAlignCenterIcon from "../../../icons/align-center.svg?raw";
   import TextAlignJustifyIcon from "../../../icons/align-justify.svg?raw";
-  import DropdownButton from "../../Base/DropdownButton.svelte";
+  import DropdownButton from "../../base/DropdownButton.svelte";
 
   interface Props {
     key: string;

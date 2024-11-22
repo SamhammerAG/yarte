@@ -6,6 +6,7 @@
   import UnlinkIcon from "../../../icons/link-unlink-m.svg?raw";
   import { showLinkBubbleMenu, currentFocusLink } from "./stores";
   import { clickOutside } from "../../utils/click-outside";
+  import { untrack } from "svelte";
 
   interface Props {
     editor: Editor;
@@ -13,19 +14,20 @@
 
   let { editor }: Props = $props();
 
-  let isEditMode = $state(false);
+  let isEditing = $state(false);
   let inputUrl = $state("");
 
   $effect(() => {
-    inputUrl = isEditMode ? $currentFocusLink : "";
+    untrack(() => console.log($currentFocusLink, isEditing, inputUrl));
+    inputUrl = isEditing ? $currentFocusLink : "";
   });
 
   function enterEditMode() {
-    isEditMode = true;
+    isEditing = true;
   }
 
   function declineEdit() {
-    isEditMode = false;
+    isEditing = false;
     if ($currentFocusLink === undefined) {
       showLinkBubbleMenu.set(false);
       editor.chain().focus();
@@ -42,7 +44,7 @@
 
     currentFocusLink.set(inputUrl);
     showLinkBubbleMenu.set(false);
-    isEditMode = false;
+    isEditing = false;
   }
 
   function removeLink() {
@@ -56,7 +58,7 @@
 </script>
 
 <div class="bubble-menu" use:clickOutside onoutclick={outsideClick}>
-  {#if isEditMode || $currentFocusLink === undefined}
+  {#if isEditing || $currentFocusLink === undefined}
     <input
       bind:value={inputUrl}
       type="text"

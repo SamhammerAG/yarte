@@ -39,11 +39,17 @@ export class HyperlinkPlugin extends EditorPlugin {
             pluginKey: "bubbleMenuHyperlink",
             tippyOptions: {
                 placement: "bottom",
-                onShow: () => currentFocusLink.set(editor.getAttributes("link").href),
+                onShow: () => {
+                    console.log(editor.getAttributes("link").href);
+                    currentFocusLink.set(editor.getAttributes("link").href)
+                },
             },
-            shouldShow: ({ editor }) =>
-                editor.isEditable &&
-                (editor.isActive("link") || get(showLinkBubbleMenu)),
+            shouldShow: ({ editor }) => {
+                console.log("mist", editor.getAttributes("link").href);
+                return editor.isEditable &&
+                    (editor.isActive("link") || get(showLinkBubbleMenu))
+            },
+
             element: element,
         });
     }

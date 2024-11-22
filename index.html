@@ -15,7 +15,7 @@
   </style>
   <script type="module" lang="ts">
 
-    import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin } from "./dist/yarte.js";
+    import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin } from "./dist/yarte.js";
 
     window.onload = () => {
       var $editor = document.querySelectorAll("yarte-editor");
@@ -29,7 +29,7 @@
         })
 
       }
-      $editor[0].initCallback = (editor => {
+      $editor[0].initCallback = () => {
         return [
           new BoldPlugin(),
           new ItalicPlugin(),
@@ -38,8 +38,15 @@
           new FontColorPlugin(),
           new FontHighlightPlugin(),
           new HyperlinkPlugin(),
+          new BulletListPlugin(),
+          new OrderedListPlugin(),
+          new TextAlignPlugin(),
+          new TablePlugin(),
+          new RedoPlugin(),
+          new UndoPlugin(),
+          new RemoveFormatPlugin(),
           new ImagePlugin(propeller)];
-      });
+      };
 
       $editor[0].content = "Hello World!";
     };

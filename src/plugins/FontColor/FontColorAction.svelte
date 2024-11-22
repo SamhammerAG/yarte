@@ -2,7 +2,7 @@
   import type { Editor } from "@tiptap/core";
   import FontColorIcon from "../../../icons/font-color.svg?raw";
   import EraserIcon from "../../../icons/eraser-line.svg?raw";
-  import DropdownButton from "../../Base/DropdownButton.svelte";
+  import DropdownButton from "../../base/DropdownButton.svelte";
 
   interface Props {
     editor: Editor;

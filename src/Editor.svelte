@@ -11,7 +11,7 @@
   import type { EditorPlugin } from "./plugins/EditorPlugin";
 
   interface Props {
-    initCallback: (editor: Editor) => EditorPlugin[];
+    initCallback: () => EditorPlugin[];
     content: string;
     readOnly: boolean;
     darkmode: boolean;
@@ -35,7 +35,7 @@
   $effect(() => {
     if (initCallback) {
       untrack(() => {
-        plugins = initCallback(editor);
+        plugins = initCallback();
 
         if (plugins.length > 0) {
           setTimeout(() => {
@@ -89,9 +89,10 @@
   }
 
   function getExtensions(): Extensions {
-    return plugins.flatMap((plugin) => {
-      return plugin.getExtensions(editor);
-    });
+    console.log(editor);
+    return [
+      ...new Set(plugins.flatMap((plugin) => plugin.getExtensions(editor))),
+    ];
   }
 
   function updateContent(): void {

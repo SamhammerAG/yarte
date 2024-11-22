@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import DropdownButton from "../../Base/DropdownButton.svelte";
+  import DropdownButton from "../../base/DropdownButton.svelte";
   import TableIcon from "../../../icons/table-line.svg?raw";
 
   interface Props {

@@ -10,12 +10,7 @@
         key: string;
     }
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
+    let { editor, disabled, activeButtons, key }: Props = $props();
 
     const action = () => editor.chain().focus().toggleOrderedList().run();
 </script>
