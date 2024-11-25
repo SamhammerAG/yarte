@@ -1,0 +1,28 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+charset = utf-8-bom
+trim_trailing_whitespace = true
+guidelines = 130
+guidelines_style = 1px solid 696969
+max_line_length = 130
+
+# This is SPACE sensitive, do not put spaces after the ","
+[*.{json,xml,config,yaml,csproj}]
+indent_size = 2
+
+[*.{js,ts}]
+indent_size = 2
+guidelines = 100
+max_line_length = 100
+
+[*.{css,scss}]
+guidelines = 100
+max_line_length = 100
+
+[*.sh]
+end_of_line = lf

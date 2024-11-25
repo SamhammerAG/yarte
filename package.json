@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "watch": "vite build --watch",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -49,8 +50,7 @@
     "@tiptap/extension-text-align": "^2.9.1",
     "@tiptap/extension-text-style": "^2.5.2",
     "@tiptap/extension-underline": "^2.5.4",
-    "@tiptap/pm": "^2.5.1",
-    "vite-svg-loader": "^5.1.0"
+    "@tiptap/pm": "^2.5.1"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
@@ -58,6 +58,11 @@
     "svelte": "^4.2.18",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-svg-loader": "^5.1.0",
+    "eslint-plugin-svelte": "^2.46.0",
+    "svelte-eslint-parser": "^0.43.0",
+    "typescript-eslint": "^8.15.0",
+    "svelte-check": "^4.1.0"
   }
 }
