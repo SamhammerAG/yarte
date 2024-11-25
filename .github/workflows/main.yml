@@ -1,0 +1,39 @@
+---
+name: CI
+#
+on:
+  workflow_dispatch: { }
+  push:
+    branches:
+      - "**"
+#      - "!dependabot/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ hashFiles('**/package-lock.json') }}
+
+      - run: npm ci
+
+      - name: Lint
+        run: |
+          npm run check
+          npm run lint
+
+      - name: Build
+        run: npm run build
