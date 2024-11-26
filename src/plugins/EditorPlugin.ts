@@ -7,5 +7,5 @@ export abstract class EditorPlugin {
 
     public abstract name: string;
     public abstract toolbarButton: PluginToolbarButton;
-    public abstract getExtensions(editor?: Editor): Extensions;
+    public abstract getExtensions(fn: (callback: (editor?: Editor) => void) => void, editor?: Editor): Extensions;
 }

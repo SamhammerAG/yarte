@@ -11,12 +11,7 @@
     key: string;
   }
 
-  let {
-    editor,
-    disabled,
-    activeButtons,
-    key
-  }: Props = $props();
+  let { editor, disabled, activeButtons, key }: Props = $props();
 
   const action = () => {
     showLinkBubbleMenu.set(true);

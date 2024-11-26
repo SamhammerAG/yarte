@@ -1,4 +1,3 @@
-<!-- svelte-ignore non_reactive_update -->
 <svelte:options customElement="yarte-editor" />
 
 <script lang="ts">
@@ -12,17 +11,13 @@
 
   interface Props {
     initCallback: () => EditorPlugin[];
+    plugins: EditorPlugin[];
     content: string;
     readOnly: boolean;
     darkmode: boolean;
   }
 
-  let {
-    initCallback = () => [],
-    content = "",
-    readOnly = false,
-    darkmode = false,
-  }: Props = $props();
+  let { content = "", readOnly = false, darkmode = false, plugins = [] }: Props = $props();
 
   //update editor if props change
   $effect(() => {
@@ -31,33 +26,21 @@
   $effect(() => {
     if (readOnly) editor && updateReadOnly();
   });
-
   $effect(() => {
-    if (initCallback) {
+    if (plugins.length > 0) {
       untrack(() => {
-        plugins = initCallback();
-
-        if (plugins.length > 0) {
-          setTimeout(() => {
-            initializeEditor();
-          }, 0);
-        }
+        initializeEditor();
       });
     }
   });
 
   let description: HTMLElement;
-  let plugins: Array<EditorPlugin> = $state([]);
+  //let plugins: Array<EditorPlugin> = $state([]);
   let activeButtons: string[] = $state([]);
-  let editor: Editor = $state(
-    new Editor({
-      element: undefined,
-      extensions: [Document, Text, Paragraph],
-    }),
-  );
+  let editor: Editor | undefined = $state(undefined);
 
   onDestroy(() => {
-    editor.destroy();
+    editor?.destroy();
   });
 
   function initializeEditor(): void {
@@ -70,9 +53,7 @@
         contentChanged();
       },
       onTransaction: () => {
-        activeButtons = plugins
-          .map((p) => p.name)
-          .filter((key: string) => editor.isActive(key.toLowerCase()));
+        activeButtons = plugins.map((p) => p.name).filter((key: string) => editor?.isActive(key.toLowerCase()));
       },
     });
   }
@@ -81,26 +62,27 @@
     $host().dispatchEvent(
       new CustomEvent("contentChange", {
         detail: {
-          html: editor.getHTML(),
-          json: editor.getJSON(),
+          html: editor?.getHTML(),
+          json: editor?.getJSON(),
         },
       }),
     );
   }
 
   function getExtensions(): Extensions {
-    console.log(editor);
-    return [
-      ...new Set(plugins.flatMap((plugin) => plugin.getExtensions(editor))),
-    ];
+    return [...new Set(plugins.flatMap((plugin) => plugin.getExtensions(executeWithEditor, editor)))];
   }
 
   function updateContent(): void {
-    editor.commands.setContent(content);
+    editor?.commands.setContent(content);
   }
 
   function updateReadOnly(): void {
-    editor.setEditable(!readOnly);
+    editor?.setEditable(!readOnly);
+  }
+
+  function executeWithEditor(fn: (editor?: Editor) => void): void {
+    fn(editor);
   }
 </script>
 
@@ -134,11 +116,9 @@
 
 <style>
   #yarte-editor {
-    --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
-      rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+    --shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px, rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
 
-    --box-shadow: 0 1rem 1rem -0.625rem rgba(34, 47, 62, 0.15),
-      0 0 2.5rem 1px rgba(34, 47, 62, 0.15);
+    --box-shadow: 0 1rem 1rem -0.625rem rgba(34, 47, 62, 0.15), 0 0 2.5rem 1px rgba(34, 47, 62, 0.15);
     --toolbar-color: white;
     --editor: white;
     --icon-text-color: black;
@@ -152,8 +132,7 @@
     --button-hover: #e2e2e2;
 
     &.darkmode {
-      --shadow: rgba(255, 255, 255, 0.05) 0px 6px 10px 0px,
-        rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+      --shadow: rgba(255, 255, 255, 0.05) 0px 6px 10px 0px, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
 
       --popout-border-radius: 8px;
       --button-border-radius: 4px;

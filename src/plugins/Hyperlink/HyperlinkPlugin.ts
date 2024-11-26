@@ -21,10 +21,10 @@ export class HyperlinkPlugin extends EditorPlugin {
         element: undefined
     };
 
-    public getExtensions(editor: Editor): Extensions {
+    public getExtensions(fn: (callback: (editor?: Editor) => void) => void, editor?: Editor): Extensions {
         return [
             this.getLinkExtension(),
-            this.getBubbleMenuExtension(editor, this.bubbleMenu.element),
+            this.getBubbleMenuExtension(fn, this.bubbleMenu.element, editor),
         ]
     }
 
@@ -34,20 +34,21 @@ export class HyperlinkPlugin extends EditorPlugin {
         });
     }
 
-    private getBubbleMenuExtension(editor: Editor, element?: HTMLElement): Extension {
+    private getBubbleMenuExtension(fn: (callback: (editor?: Editor) => void) => void, element?: HTMLElement, editor?: Editor): Extension {
         return BubbleMenu.configure({
             pluginKey: "bubbleMenuHyperlink",
             tippyOptions: {
                 placement: "bottom",
                 onShow: () => {
-                    console.log(editor.getAttributes("link").href);
-                    currentFocusLink.set(editor.getAttributes("link").href)
+                    /*fn((editor?: Editor) => {
+                        currentFocusLink.set(editor?.getAttributes("link").href)
+                    })
+                        */
+                    currentFocusLink.set(editor?.getAttributes("link").href)
                 },
             },
             shouldShow: ({ editor }) => {
-                console.log("mist", editor.getAttributes("link").href);
-                return editor.isEditable &&
-                    (editor.isActive("link") || get(showLinkBubbleMenu))
+                return editor.isEditable && (editor.isActive("link") || get(showLinkBubbleMenu))
             },
 
             element: element,

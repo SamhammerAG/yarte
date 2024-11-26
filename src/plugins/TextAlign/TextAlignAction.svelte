@@ -16,7 +16,7 @@
   let { key, editor, disabled, activeButtons }: Props = $props();
   let active = $state(false);
 
-  const textAlignments: { icon: string; action: Function }[] = [
+  const textAlignments: { icon: string; action: () => void }[] = [
     {
       icon: TextAlignLeftIcon,
       action: () => {
@@ -48,13 +48,7 @@
   ];
 </script>
 
-<DropdownButton
-  {key}
-  {disabled}
-  {activeButtons}
-  icon={TextAlignLeftIcon}
-  bind:active
->
+<DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon} bind:active>
   {#each textAlignments as alignment}
     <button {disabled} onclick={() => alignment.action()}>
       {@html alignment.icon}

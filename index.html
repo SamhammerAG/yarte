@@ -2,59 +2,50 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>YARTE Editor Test</title>
-  <script type="module" src="dist/yarte.js"></script>
-  <style>
-    yarte-editor {
-      display: flex;
-      margin-bottom: 5rem;
-      width: 700px;
-      margin: 0 auto;
-    }
-  </style>
-  <script type="module" lang="ts">
+    <meta charset="UTF-8" />
+    <title>YARTE Editor Test</title>
+    <script type="module" src="dist/yarte.js"></script>
+    <style>
+        yarte-editor {
+            display: flex;
+            margin-bottom: 5rem;
+            width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="module" lang="ts">
 
-    import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin } from "./dist/yarte.js";
+        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin } from "./dist/yarte.js";
 
-    window.onload = () => {
-      var $editor = document.querySelectorAll("yarte-editor");
+        window.onload = () => {
+            var $editor = document.querySelectorAll("yarte-editor");
 
-      let propeller = (file) => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            console.log("urltoimage");
-            resolve("urltoimage");
-          })
-        })
+            let propeller = (file) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve("urltoimage");
+                    })
+                })
+            }
 
-      }
-      $editor[0].initCallback = () => {
-        return [
-          new BoldPlugin(),
-          new ItalicPlugin(),
-          new StrikePlugin(),
-          new UnderlinePlugin(),
-          new FontColorPlugin(),
-          new FontHighlightPlugin(),
-          new HyperlinkPlugin(),
-          new BulletListPlugin(),
-          new OrderedListPlugin(),
-          new TextAlignPlugin(),
-          new TablePlugin(),
-          new RedoPlugin(),
-          new UndoPlugin(),
-          new RemoveFormatPlugin(),
-          new ImagePlugin(propeller)];
-      };
+            $editor[0].plugins = [
+                new BoldPlugin(),
+                new ItalicPlugin(),
+                new StrikePlugin(),
+                new UnderlinePlugin(),
+                new FontColorPlugin(),
+                new FontHighlightPlugin(),
+                new HyperlinkPlugin(),
+                new ImagePlugin(propeller)
+            ];
 
-      $editor[0].content = "Hello World!";
-    };
-  </script>
+            $editor[0].content = "Hello World!";
+        };
+    </script>
 </head>
 
 <body>
-  <yarte-editor></yarte-editor>
+    <yarte-editor></yarte-editor>
 </body>
 
 </html>

@@ -39,7 +39,6 @@ export class TablePlugin extends EditorPlugin {
                 animation: true,
                 placement: "bottom",
                 getReferenceClientRect: () => {
-                    console.log(editor);
                     const { state, view } = editor;
 
                     const myNodePos = new NodePos(state.selection.$anchor, editor);
@@ -53,7 +52,6 @@ export class TablePlugin extends EditorPlugin {
                 },
             },
             shouldShow: ({ editor }) => {
-                console.log(editor.isEditable, editor.isActive("table"));
                 return editor.isEditable && editor.isActive("table")
             },
             element: element,

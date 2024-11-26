@@ -18,32 +18,15 @@
   function processImages(e: Event) {
     const target = e.target as HTMLInputElement;
     for (const file of target.files ?? []) {
-      console.log(file);
-      properties
-        .imageUpload(file)
-        .then((imageSrc: string) =>
-          editor.chain().focus().setImage({ src: imageSrc }).run(),
-        );
+      properties.imageUpload(file).then((imageSrc: string) => editor.chain().focus().setImage({ src: imageSrc }).run());
     }
 
     input.value = "";
   }
 </script>
 
-<SimpleButton
-  {key}
-  {disabled}
-  {activeButtons}
-  action={() => input.click()}
-  icon={ImageIcon}
-/>
-<input
-  {disabled}
-  onchange={processImages}
-  bind:this={input}
-  type="file"
-  accept="image/*"
-/>
+<SimpleButton {key} {disabled} {activeButtons} action={() => input.click()} icon={ImageIcon} />
+<input {disabled} onchange={processImages} bind:this={input} type="file" accept="image/*" />
 
 <style>
   input[type="file"] {
