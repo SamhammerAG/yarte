@@ -9,7 +9,7 @@
     "build": "vite build",
     "watch": "vite build --watch",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "lint": "eslint src"
+    "lint": "eslint src types"
   },
   "repository": {
     "type": "git",
