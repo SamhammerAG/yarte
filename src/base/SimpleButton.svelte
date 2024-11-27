@@ -1,8 +1,11 @@
 <script lang="ts">
+  import Icon from "./Icon.svelte";
+
   interface Props {
     activeButtons: string[];
     disabled: boolean;
     key: string;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     action: Function;
     icon: string;
   }
@@ -32,5 +35,5 @@
   class={key}
   onclick={handleClick}
 >
-  {@html icon}
+  <Icon content={icon} />
 </button>

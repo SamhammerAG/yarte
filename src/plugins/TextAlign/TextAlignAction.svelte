@@ -5,6 +5,7 @@
   import TextAlignCenterIcon from "../../../icons/align-center.svg?raw";
   import TextAlignJustifyIcon from "../../../icons/align-justify.svg?raw";
   import DropdownButton from "../../base/DropdownButton.svelte";
+  import Icon from "../../base/Icon.svelte";
 
   interface Props {
     key: string;
@@ -51,7 +52,7 @@
 <DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon} bind:active>
   {#each textAlignments as alignment}
     <button {disabled} onclick={() => alignment.action()}>
-      {@html alignment.icon}
+      <Icon content={alignment.icon} />
     </button>
   {/each}
 </DropdownButton>

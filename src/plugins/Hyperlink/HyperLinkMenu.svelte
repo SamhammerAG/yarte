@@ -6,6 +6,7 @@
     import UnlinkIcon from "../../../icons/link-unlink-m.svg?raw";
     import { showLinkBubbleMenu, currentFocusLink } from "./stores";
     import { clickOutside } from "../../utils/click-outside";
+    import Icon from "../../base/Icon.svelte";
 
     interface Props {
         editor: Editor;
@@ -54,20 +55,20 @@
     {#if isEditing || $currentFocusLink === undefined}
         <input bind:value={inputUrl} type="text" placeholder="https://example.com" />
         <button class="confirm" onclick={saveLink}>
-            {@html CheckIcon}
+            <Icon content={CheckIcon} />
         </button>
         <button class="decline" onclick={declineEdit}>
-            {@html CancelIcon}
+            <Icon content={CancelIcon} />
         </button>
     {:else}
         <a href={$currentFocusLink} title={$currentFocusLink} target="_blank" rel="noopener noreferrer">
             <span>{$currentFocusLink === "" || $currentFocusLink === null ? "This link has no URL" : $currentFocusLink} </span>
         </a>
         <button onclick={enterEditMode}>
-            {@html LinkIcon}
+            <Icon content={LinkIcon} />
         </button>
         <button onclick={removeLink}>
-            {@html UnlinkIcon}
+            <Icon content={UnlinkIcon} />
         </button>
     {/if}
 </div>

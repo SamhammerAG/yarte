@@ -8,6 +8,7 @@
   import InsertColumnRightIcon from "../../../icons/insert-column-right.svg?raw";
   import InsertRowTopIcon from "../../../icons/insert-row-top.svg?raw";
   import InsertRowBottomIcon from "../../../icons/insert-row-bottom.svg?raw";
+  import Icon from "../../base/Icon.svelte";
 
   interface Props {
     editor: Editor;
@@ -23,29 +24,29 @@
         Toggle Header
       </button>
       <button onclick={() => editor.commands.deleteTable()}>
-        {@html DeleteTableIcon}
+        <Icon content={DeleteTableIcon} />
       </button>
     </div>
     <div class="toolbar-button-group">
       <button onclick={() => editor.commands.addRowBefore()}>
-        {@html InsertRowTopIcon}
+        <Icon content={InsertRowTopIcon} />
       </button>
       <button onclick={() => editor.commands.addRowAfter()}>
-        {@html InsertRowBottomIcon}
+        <Icon content={InsertRowBottomIcon} />
       </button>
       <button onclick={() => editor.commands.deleteRow()}>
-        {@html DeleteRowIcon}
+        <Icon content={DeleteRowIcon} />
       </button>
     </div>
     <div class="toolbar-button-group">
       <button onclick={() => editor.commands.addColumnBefore()}>
-        {@html InsertColumnLeftIcon}
+        <Icon content={InsertColumnLeftIcon} />
       </button>
       <button onclick={() => editor.commands.addColumnAfter()}>
-        {@html InsertColumnRightIcon}
+        <Icon content={InsertColumnRightIcon} />
       </button>
       <button onclick={() => editor.commands.deleteColumn()}>
-        {@html DeleteColumnIcon}
+        <Icon content={DeleteColumnIcon} />
       </button>
     </div>
   </div>

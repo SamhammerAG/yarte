@@ -3,6 +3,7 @@
   import DropdownButton from "../../base/DropdownButton.svelte";
   import FontHighlightIcon from "../../../icons/palette-line.svg?raw";
   import EraserIcon from "../../../icons/eraser-line.svg?raw";
+  import Icon from "../../base/Icon.svelte";
 
   interface Props {
     editor: Editor;
@@ -41,7 +42,7 @@
 >
   <div class="color-picker">
     <button class="clear" onclick={clearColor}>
-      {@html EraserIcon} Clear
+      <Icon content={EraserIcon} />
     </button>
 
     {#each colors as color}

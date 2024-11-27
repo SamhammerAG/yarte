@@ -1,12 +1,14 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { clickOutside } from "../utils/click-outside";
+  import Icon from "./Icon.svelte";
 
   interface Props {
     disabled: boolean;
     activeButtons: string[];
     key: string;
     icon: string;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     callback?: Function;
     active?: boolean;
     children: Snippet;
@@ -38,7 +40,7 @@
     class:active={activeButtons.includes(key) || active}
     onclick={toggleDropdown}
   >
-    {@html icon}
+    <Icon content={icon} />
   </button>
 
   {#if active}

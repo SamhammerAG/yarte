@@ -21,10 +21,10 @@
 
   //update editor if props change
   $effect(() => {
-    if (content) editor && updateContent();
+    if (content && editor) updateContent();
   });
   $effect(() => {
-    if (readOnly) editor && updateReadOnly();
+    if (readOnly && editor) updateReadOnly();
   });
   $effect(() => {
     if (plugins.length > 0) {
