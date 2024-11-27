@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// ToDo: Try to remove any types.
 import type { Component } from "svelte"
 
 export type PluginToolbarButton = {

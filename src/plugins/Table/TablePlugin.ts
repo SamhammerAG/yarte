@@ -6,7 +6,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import Table from "@tiptap/extension-table";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
-import { type Editor, Extension, type Extensions, Node, NodePos, posToDOMRect } from "@tiptap/core";
+import { Extension, type Extensions, Node, NodePos, posToDOMRect } from "@tiptap/core";
 import type { PluginBubbleMenu, PluginToolbarButton } from "../../../types/PluginTypes";
 
 export class TablePlugin extends EditorPlugin {
