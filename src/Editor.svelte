@@ -29,6 +29,7 @@
   $effect(() => {
     if (plugins.length > 0) {
       untrack(() => {
+        plugins.forEach((plugin) => (plugin.getEditor = () => editor));
         initializeEditor();
       });
     }
@@ -37,10 +38,15 @@
   let description: HTMLElement;
   //let plugins: Array<EditorPlugin> = $state([]);
   let activeButtons: string[] = $state([]);
-  let editor: Editor | undefined = $state(undefined);
+  let editor: Editor = $state(
+    new Editor({
+      element: undefined,
+      extensions: [Document, Text, Paragraph],
+    }),
+  );
 
   onDestroy(() => {
-    editor?.destroy();
+    editor.destroy();
   });
 
   function initializeEditor(): void {
@@ -53,7 +59,7 @@
         contentChanged();
       },
       onTransaction: () => {
-        activeButtons = plugins.map((p) => p.name).filter((key: string) => editor?.isActive(key.toLowerCase()));
+        activeButtons = plugins.map((p) => p.name).filter((key: string) => editor.isActive(key.toLowerCase()));
       },
     });
   }
@@ -62,27 +68,23 @@
     $host().dispatchEvent(
       new CustomEvent("contentChange", {
         detail: {
-          html: editor?.getHTML(),
-          json: editor?.getJSON(),
+          html: editor.getHTML(),
+          json: editor.getJSON(),
         },
       }),
     );
   }
 
   function getExtensions(): Extensions {
-    return [...new Set(plugins.flatMap((plugin) => plugin.getExtensions(executeWithEditor, editor)))];
+    return [...new Set(plugins.flatMap((plugin) => plugin.getExtensions()))];
   }
 
   function updateContent(): void {
-    editor?.commands.setContent(content);
+    editor.commands.setContent(content);
   }
 
   function updateReadOnly(): void {
-    editor?.setEditable(!readOnly);
-  }
-
-  function executeWithEditor(fn: (editor?: Editor) => void): void {
-    fn(editor);
+    editor.setEditable(!readOnly);
   }
 </script>
 

@@ -3,9 +3,10 @@ import type { PluginBubbleMenu, PluginToolbarButton } from "../../types/PluginTy
 
 export abstract class EditorPlugin {
 
-    public bubbleMenu?: PluginBubbleMenu;
+  public bubbleMenu?: PluginBubbleMenu;
+  public getEditor!: () => Editor;
 
-    public abstract name: string;
-    public abstract toolbarButton: PluginToolbarButton;
-    public abstract getExtensions(fn: (callback: (editor?: Editor) => void) => void, editor?: Editor): Extensions;
+  public abstract name: string;
+  public abstract toolbarButton: PluginToolbarButton;
+  public abstract getExtensions(): Extensions;
 }
