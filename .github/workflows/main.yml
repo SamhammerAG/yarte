@@ -28,7 +28,7 @@ jobs:
           path: ~/.npm
           key: ${{ hashFiles('**/package-lock.json') }}
 
-      - run: npm i
+      - run: npm ci
 
       - name: Lint
         run: |
