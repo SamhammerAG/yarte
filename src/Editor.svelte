@@ -11,13 +11,12 @@
 
   interface Props {
     initCallback: () => EditorPlugin[];
-    plugins: EditorPlugin[];
     content: string;
     readOnly: boolean;
     darkmode: boolean;
   }
 
-  let { content = "", readOnly = false, darkmode = false, plugins = [] }: Props = $props();
+  let { content = "", readOnly = false, darkmode = false, initCallback = () => [] }: Props = $props();
 
   //update editor if props change
   $effect(() => {
@@ -27,16 +26,17 @@
     if (readOnly && editor) updateReadOnly();
   });
   $effect(() => {
-    if (plugins.length > 0) {
+    if (initCallback().length > 0) {
       untrack(() => {
-        plugins.forEach((plugin) => (plugin.getEditor = () => editor));
-        initializeEditor();
+        init().then(() => {
+          initializeEditor();
+        });
       });
     }
   });
 
   let description: HTMLElement;
-  //let plugins: Array<EditorPlugin> = $state([]);
+  let plugins: Array<EditorPlugin> = $state([]);
   let activeButtons: string[] = $state([]);
   let editor: Editor = $state(
     new Editor({
@@ -48,6 +48,14 @@
   onDestroy(() => {
     editor.destroy();
   });
+
+  function init(): Promise<void> {
+    return new Promise((resolve) => {
+      plugins = initCallback();
+      plugins.forEach((plugin) => (plugin.getEditor = () => editor));
+      resolve();
+    });
+  }
 
   function initializeEditor(): void {
     editor = new Editor({

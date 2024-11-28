@@ -28,23 +28,25 @@
                 })
             }
 
-            $editor[0].plugins = [
-                new BoldPlugin(),
-                new ItalicPlugin(),
-                new StrikePlugin(),
-                new UnderlinePlugin(),
-                new FontColorPlugin(),
-                new FontHighlightPlugin(),
-                new HyperlinkPlugin(),
-                new ImagePlugin(propeller),
-                new BulletListPlugin(),
-                new OrderedListPlugin(),
-                new TablePlugin(),
-                new TextAlignPlugin(),
-                new RedoPlugin(),
-                new UndoPlugin(),
-                new RemoveFormatPlugin(),
-            ];
+            $editor[0].initCallback = () => {
+                return [
+                    new BoldPlugin(),
+                    new ItalicPlugin(),
+                    new StrikePlugin(),
+                    new UnderlinePlugin(),
+                    new FontColorPlugin(),
+                    new FontHighlightPlugin(),
+                    new HyperlinkPlugin(),
+                    new ImagePlugin(propeller),
+                    new BulletListPlugin(),
+                    new OrderedListPlugin(),
+                    new TablePlugin(),
+                    new TextAlignPlugin(),
+                    new RedoPlugin(),
+                    new UndoPlugin(),
+                    new RemoveFormatPlugin(),
+                ];
+            };
 
             $editor[0].content = "Hello World!";
         };

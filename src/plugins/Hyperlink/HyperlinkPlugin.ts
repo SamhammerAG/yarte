@@ -38,10 +38,11 @@ export class HyperlinkPlugin extends EditorPlugin {
     return BubbleMenu.configure({
       pluginKey: "bubbleMenuHyperlink",
       tippyOptions: {
+        hideOnClick: true,
         placement: "bottom",
         onShow: () => {
           currentFocusLink.set(this.getEditor().getAttributes("link").href);
-        },
+        }
       },
       shouldShow: ({ editor }) => {
         return editor.isEditable && (editor.isActive("link") || get(showLinkBubbleMenu))
