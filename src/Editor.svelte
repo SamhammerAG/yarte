@@ -49,12 +49,9 @@
     editor.destroy();
   });
 
-  function init(): Promise<void> {
-    return new Promise((resolve) => {
-      plugins = initCallback();
-      plugins.forEach((plugin) => (plugin.getEditor = () => editor));
-      resolve();
-    });
+  async function init(): Promise<void> {
+    plugins = initCallback();
+    plugins.forEach((plugin) => (plugin.getEditor = () => editor));
   }
 
   function initializeEditor(): void {
