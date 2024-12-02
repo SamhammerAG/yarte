@@ -56,7 +56,7 @@ export class ImagePlugin extends EditorPlugin {
                 const { schema } = view.state;
 
                 for (const image of images) {
-                  this.toolbarButton.properties.imageUpload(image).then((img: string) => {
+                  this.toolbarButton.properties.uploadImageCallback(image).then((img: string) => {
                     const node = schema.nodes.image.create({
                       src: img,
                     });
