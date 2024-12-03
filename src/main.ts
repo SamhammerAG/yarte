@@ -6,6 +6,7 @@ import { FontHighlightPlugin } from "./plugins/FontHighlight/FontHighlightPlugin
 import { HyperlinkPlugin } from "./plugins/Hyperlink/HyperlinkPlugin";
 import { ImagePlugin } from "./plugins/Image/ImagePlugin";
 import { ItalicPlugin } from "./plugins/Italic/ItalicPlugin";
+import { KnowledgeMarkPlugin } from "./plugins/KnowledgeMark/KnownledgeMarkPlugin";
 import { OrderedListPlugin } from "./plugins/OrdererdList/OrderedListPlugin";
 import { RedoPlugin } from "./plugins/Redo/RedoPlugin";
 import { RemoveFormatPlugin } from "./plugins/RemoveFormat/RemoveFormatPlugin";
@@ -16,20 +17,21 @@ import { UnderlinePlugin } from "./plugins/Underline/UnderlinePlugin";
 import { UndoPlugin } from "./plugins/Undo/UndoPlugin";
 
 export {
-    WebComponent,
-    BoldPlugin,
-    BulletListPlugin,
-    FontColorPlugin,
-    FontHighlightPlugin,
-    HyperlinkPlugin,
-    ImagePlugin,
-    ItalicPlugin,
-    OrderedListPlugin,
-    RedoPlugin,
-    RemoveFormatPlugin,
-    StrikePlugin,
-    TablePlugin,
-    TextAlignPlugin,
-    UnderlinePlugin,
-    UndoPlugin
+  WebComponent,
+  BoldPlugin,
+  BulletListPlugin,
+  FontColorPlugin,
+  FontHighlightPlugin,
+  HyperlinkPlugin,
+  ImagePlugin,
+  ItalicPlugin,
+  OrderedListPlugin,
+  RedoPlugin,
+  RemoveFormatPlugin,
+  StrikePlugin,
+  TablePlugin,
+  TextAlignPlugin,
+  UnderlinePlugin,
+  UndoPlugin,
+  KnowledgeMarkPlugin
 };

@@ -15,7 +15,7 @@
     </style>
     <script type="module" lang="ts">
 
-        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin } from "./src/main.ts";
+        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin, KnowledgeMarkPlugin } from "./src/main.ts";
 
         window.onload = () => {
             var $editor = document.querySelectorAll("yarte-editor");
@@ -36,8 +36,8 @@
                     new UnderlinePlugin(),
                     new FontColorPlugin(),
                     new FontHighlightPlugin(),
-                    new HyperlinkPlugin(),
                     new ImagePlugin(propeller),
+                    new HyperlinkPlugin(),
                     new BulletListPlugin(),
                     new OrderedListPlugin(),
                     new TablePlugin(),
@@ -45,6 +45,7 @@
                     new RedoPlugin(),
                     new UndoPlugin(),
                     new RemoveFormatPlugin(),
+                    new KnowledgeMarkPlugin()
                 ];
             };
 
