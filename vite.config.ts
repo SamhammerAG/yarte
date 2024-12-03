@@ -7,9 +7,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
     lib: {
-      name: "yarte",
-      entry: "./src/main.ts",
-      fileName: "yarte",
+      entry: "./src/index.ts", // The file must have the same name as the entry point file so that the generated type files can be assigned correctly.
+      fileName: "index",
+      formats: ["es"]
     },
     sourcemap: true,
   },

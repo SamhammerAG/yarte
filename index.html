@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>YARTE Editor Test</title>
-    <script type="module" src="src/main.ts"></script>
+    <script type="module" src="src/index.ts"></script>
     <style>
         yarte-editor {
             display: flex;
@@ -15,7 +15,7 @@
     </style>
     <script type="module" lang="ts">
 
-        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin, KnowledgeMarkPlugin } from "./src/main.ts";
+        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin, KnowledgeMarkPlugin } from "./src/index.ts";
 
         window.onload = () => {
             var $editor = document.querySelectorAll("yarte-editor");
