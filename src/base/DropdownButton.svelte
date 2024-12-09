@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { clickOutside } from "../utils/click-outside";
-  import Icon from "./Icon.svelte";
+  import SimpleButton from "./SimpleButton.svelte";
+  import type { Editor } from "@tiptap/core";
 
   interface Props {
-    disabled: boolean;
-    activeButtons: string[];
+    editor: Editor;
     key: string;
     icon: string;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -14,15 +14,7 @@
     children: Snippet;
   }
 
-  let {
-    disabled,
-    activeButtons,
-    key,
-    icon,
-    callback = () => {},
-    active = $bindable(false),
-    children,
-  }: Props = $props();
+  let { editor, key, icon, callback = () => {}, active = $bindable(false), children }: Props = $props();
 
   function toggleDropdown() {
     active = !active;
@@ -35,13 +27,7 @@
 </script>
 
 <div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
-  <button
-    {disabled}
-    class:active={activeButtons.includes(key) || active}
-    onclick={toggleDropdown}
-  >
-    <Icon content={icon} />
-  </button>
+  <SimpleButton {key} {editor} action={toggleDropdown} {icon} />
 
   {#if active}
     <div class="dropdown">
@@ -54,7 +40,7 @@
   .dropdown-wrapper {
     position: relative;
 
-    & > button:after {
+    :global(> button:after) {
       margin-left: 0.25rem;
       content: "";
       border-top: 0.3em solid;
@@ -63,7 +49,7 @@
       color: var(--icon-text-color);
     }
 
-    & .dropdown {
+    .dropdown {
       position: absolute;
       box-shadow: var(--shadow);
       background-color: var(--toolbar-color);

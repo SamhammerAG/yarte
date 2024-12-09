@@ -1,3 +1,5 @@
+<svelte:options customElement="font-color-button" />
+
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import FontColorIcon from "../../../icons/font-color.svg?raw";
@@ -7,51 +9,33 @@
 
   interface Props {
     editor: Editor;
-    disabled: boolean;
-    activeButtons: string[];
-    key: string;
   }
 
-  let { editor, disabled, activeButtons, key }: Props = $props();
+  let { editor }: Props = $props();
   let active = $state(false);
 
-  const setColor = (color: string) => {
-    editor.chain().focus().setColor(color).run();
-    active = false;
-  };
+  const key = "font-color";
+  const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
-  const clearColor = () => {
+  function clearColor() {
     editor.chain().focus().unsetColor().run();
     active = false;
-  };
-  const colors: string[] = [
-    "#E91313",
-    "#118800",
-    "#63F963",
-    "#72CDFD",
-    "#fc7999",
-    "#FDFD77",
-  ];
+  }
+
+  function setColor(color: string) {
+    editor.chain().focus().setColor(color).run();
+    active = false;
+  }
 </script>
 
-<DropdownButton
-  {key}
-  {disabled}
-  {activeButtons}
-  icon={FontColorIcon}
-  bind:active
->
+<DropdownButton {key} {editor} icon={FontColorIcon} bind:active>
   <div class="color-picker">
     <button class="clear" onclick={clearColor}>
       <Icon content={EraserIcon} />
     </button>
 
     {#each colors as color}
-      <button
-        style="background-color: {color};"
-        onclick={() => setColor(color)}
-        aria-label={color}
-      ></button>
+      <button style="background-color: {color};" onclick={() => setColor(color)} aria-label={color}></button>
     {/each}
   </div>
 </DropdownButton>
@@ -83,11 +67,6 @@
 
       &:hover {
         background-color: var(--button-hover);
-      }
-
-      :global(svg) {
-        width: 1.125rem;
-        height: 1.125rem;
       }
     }
 

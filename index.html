@@ -5,57 +5,23 @@
     <meta charset="UTF-8" />
     <title>YARTE Editor Test</title>
     <script type="module" src="src/index.ts"></script>
-    <style>
-        yarte-editor {
-            display: flex;
-            margin-bottom: 5rem;
-            width: 700px;
-            margin: 0 auto;
-        }
-    </style>
-    <script type="module" lang="ts">
-
-        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin, KnowledgeMarkPlugin } from "./src/index.ts";
-
-        window.onload = () => {
-            var $editor = document.querySelectorAll("yarte-editor");
-
-            let propeller = (file) => {
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve("urltoimage");
-                    })
-                })
-            };
-
-            $editor[0].initCallback = () => {
-                return [
-                    new BoldPlugin(),
-                    new ItalicPlugin(),
-                    new StrikePlugin(),
-                    new UnderlinePlugin(),
-                    new FontColorPlugin(),
-                    new FontHighlightPlugin(),
-                    new ImagePlugin(propeller),
-                    new HyperlinkPlugin(),
-                    new BulletListPlugin(),
-                    new OrderedListPlugin(),
-                    new TablePlugin(),
-                    new TextAlignPlugin(),
-                    new RedoPlugin(),
-                    new UndoPlugin(),
-                    new RemoveFormatPlugin(),
-                    new KnowledgeMarkPlugin()
-                ];
-            };
-
-            $editor[0].content = "Hello World!";
-        };
-    </script>
+    <script type="module" src="./index.js"></script>
+    <style type="text/css" src="./index.css"></style>
+    <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-    <yarte-editor></yarte-editor>
+    <div id="editor">
+        <div class="toolbar">
+            <bold-button></bold-button>
+            <font-color-button></font-color-button>
+        </div>
+        <div class="wrapper">
+            <div class="text-area"></div>
+        </div>
+    </div>
+
+    <button id="readonly">Toggle Readonly</button>
 </body>
 
 </html>

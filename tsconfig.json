@@ -22,7 +22,8 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "declaration": true,
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "strictNullChecks": false
   },
   "include": [
     "src/**/*.ts",

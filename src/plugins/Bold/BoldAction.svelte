@@ -1,23 +1,17 @@
+<svelte:options customElement="bold-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import BoldIcon from "../../../icons/bold.svg?raw";
-    import SimpleButton from "../../base/SimpleButton.svelte";
+  import type { Editor } from "@tiptap/core";
+  import BoldIcon from "../../../icons/bold.svg?raw";
+  import SimpleButton from "../../base/SimpleButton.svelte";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
+  interface Props {
+    editor: Editor;
+  }
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
+  let { editor = $bindable() }: Props = $props();
 
-    const action = () => editor.chain().focus().toggleBold().run();
+  const action = () => editor.chain().focus().toggleBold().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={BoldIcon} />
+<SimpleButton key="bold" {editor} {action} icon={BoldIcon} />
