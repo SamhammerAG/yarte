@@ -1,25 +1,25 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import Icon from "./Icon.svelte";
+  import { onMount } from "svelte";
 
   interface Props {
     editor: Editor;
     key: string;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     action: Function;
     icon: string;
   }
-
   let { editor, key, action, icon }: Props = $props();
+  let active = $state(false);
 
-  $effect(() => {
-    if (editor) {
-      console.log("simple - readonly", editor?.options.editable);
-    }
+  onMount(() => {
+    editor.on("transaction", () => {
+      active = editor.isActive(key);
+    });
   });
 </script>
 
-<button disabled={!editor?.options.editable} class:active={editor?.isActive(key)} class={key} onclick={() => action()}>
+<button class:active onclick={() => action()}>
   <Icon content={icon} />
 </button>
 
