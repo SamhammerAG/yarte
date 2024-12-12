@@ -5,23 +5,101 @@
     <meta charset="UTF-8" />
     <title>YARTE Editor Test</title>
     <script type="module" src="src/index.ts"></script>
-    <script type="module" src="./index.js"></script>
     <style type="text/css" src="./index.css"></style>
     <link rel="stylesheet" href="./index.css">
+    <script type="module">
+        import Document from "@tiptap/extension-document";
+        import Paragraph from "@tiptap/extension-paragraph";
+        import Text from "@tiptap/extension-text";
+        import Gapcursor from "@tiptap/extension-gapcursor";
+        import TableCell from "@tiptap/extension-table-cell";
+        import TableHeader from "@tiptap/extension-table-header";
+        import Table from "@tiptap/extension-table";
+        import TableRow from "@tiptap/extension-table-row";
+        import BubbleMenu from "@tiptap/extension-bubble-menu";
+        import { Editor, Extension, Node, NodePos, posToDOMRect } from "@tiptap/core";
+
+        let editor = null;
+
+        window.onload = () => {
+            initializeEditor();
+        };
+
+        function initializeEditor() {
+            const $element = document.querySelector(".text-area");
+            const tableMenu = document.querySelector("table-bubble-menu");
+            const tableButton = document.querySelector("table-button");
+
+            editor = new Editor({
+                element: $element,
+                content: "Ich mag Züge",
+                editable: true,
+                extensions: [
+                    Document,
+                    Paragraph,
+                    Text,
+                    Gapcursor,
+                    TableHeader,
+                    TableCell,
+                    TableRow,
+                    Table.configure({
+                        resizable: true
+                    }),
+                    BubbleMenu.configure({
+                        pluginKey: "bubbleMenuTable",
+                        tippyOptions: {
+                            animation: true,
+                            placement: "bottom",
+                            getReferenceClientRect: () => {
+                                const { state, view } = editor;
+                                const myNodePos = new NodePos(state.selection.$anchor, editor);
+                                const tableElement = findParentTableFromPos(myNodePos);
+
+                                if (tableElement) {
+                                    return tableElement.getBoundingClientRect();
+                                }
+
+                                return posToDOMRect(view, 0, 0);
+                            },
+                        },
+                        shouldShow: ({ editor }) => {
+                            return editor.isEditable && editor.isActive("table")
+                        },
+                        element: document.querySelector("table-bubble-menu"),
+                    })
+                ]
+            });
+
+            tableButton.editor = editor;
+            tableMenu.editor = editor;
+        }
+
+        function findParentTableFromPos(nodePos) {
+            if (nodePos.node.type.name === "table") {
+                return nodePos.element;
+            }
+            const parentNode = nodePos.parent;
+            if (parentNode) {
+                return findParentTableFromPos(parentNode);
+            }
+            return null;
+        }
+
+    </script>
 </head>
 
 <body>
     <div id="editor">
         <div class="toolbar">
-            <bold-button></bold-button>
-            <font-color-button></font-color-button>
+            <table-button></table-button>
         </div>
         <div class="wrapper">
             <div class="text-area"></div>
+            <table-bubble-menu></table-bubble-menu>
         </div>
     </div>
 
-    <button id="readonly">Toggle Readonly</button>
+    <button id="toggle">Toggle Readonly</button>
 </body>
 
 </html>

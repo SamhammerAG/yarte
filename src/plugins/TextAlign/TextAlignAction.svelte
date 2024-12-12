@@ -49,7 +49,7 @@
   ];
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon} bind:active>
+<DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon} bind:dropdownOpen={active}>
   {#each textAlignments as alignment}
     <button {disabled} onclick={() => alignment.action()}>
       <Icon content={alignment.icon} />

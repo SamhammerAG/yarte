@@ -1,3 +1,5 @@
+<svelte:options customElement="table-bubble-menu" />
+
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
 
@@ -10,47 +12,43 @@
   import InsertRowBottomIcon from "../../../icons/insert-row-bottom.svg?raw";
   import Icon from "../../base/Icon.svelte";
 
-  interface Props {
-    editor: Editor;
-  }
-
-  let { editor }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 </script>
 
-<div class="table-bubble-menu">
-  <div class="table-toolbar">
-    <div class="toolbar-button-group">
-      <button onclick={() => editor.commands.toggleHeaderCell()}>
-        Toggle Header
-      </button>
-      <button onclick={() => editor.commands.deleteTable()}>
-        <Icon content={DeleteTableIcon} />
-      </button>
-    </div>
-    <div class="toolbar-button-group">
-      <button onclick={() => editor.commands.addRowBefore()}>
-        <Icon content={InsertRowTopIcon} />
-      </button>
-      <button onclick={() => editor.commands.addRowAfter()}>
-        <Icon content={InsertRowBottomIcon} />
-      </button>
-      <button onclick={() => editor.commands.deleteRow()}>
-        <Icon content={DeleteRowIcon} />
-      </button>
-    </div>
-    <div class="toolbar-button-group">
-      <button onclick={() => editor.commands.addColumnBefore()}>
-        <Icon content={InsertColumnLeftIcon} />
-      </button>
-      <button onclick={() => editor.commands.addColumnAfter()}>
-        <Icon content={InsertColumnRightIcon} />
-      </button>
-      <button onclick={() => editor.commands.deleteColumn()}>
-        <Icon content={DeleteColumnIcon} />
-      </button>
+{#if editor}
+  <div class="table-bubble-menu">
+    <div class="table-toolbar">
+      <div class="toolbar-button-group">
+        <button onclick={() => editor.commands.toggleHeaderCell()}> Toggle Header </button>
+        <button onclick={() => editor.commands.deleteTable()}>
+          <Icon content={DeleteTableIcon} />
+        </button>
+      </div>
+      <div class="toolbar-button-group">
+        <button onclick={() => editor.commands.addRowBefore()}>
+          <Icon content={InsertRowTopIcon} />
+        </button>
+        <button onclick={() => editor.commands.addRowAfter()}>
+          <Icon content={InsertRowBottomIcon} />
+        </button>
+        <button onclick={() => editor.commands.deleteRow()}>
+          <Icon content={DeleteRowIcon} />
+        </button>
+      </div>
+      <div class="toolbar-button-group">
+        <button onclick={() => editor.commands.addColumnBefore()}>
+          <Icon content={InsertColumnLeftIcon} />
+        </button>
+        <button onclick={() => editor.commands.addColumnAfter()}>
+          <Icon content={InsertColumnRightIcon} />
+        </button>
+        <button onclick={() => editor.commands.deleteColumn()}>
+          <Icon content={DeleteColumnIcon} />
+        </button>
+      </div>
     </div>
   </div>
-</div>
+{/if}
 
 <style>
   .table-bubble-menu {

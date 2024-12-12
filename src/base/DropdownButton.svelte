@@ -8,28 +8,25 @@
     editor: Editor;
     key: string;
     icon: string;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    callback?: Function;
-    active?: boolean;
+    dropdownOpen?: boolean;
     children: Snippet;
   }
 
-  let { editor, key, icon, callback = () => {}, active = $bindable(false), children }: Props = $props();
+  let { editor, key, icon, dropdownOpen, children }: Props = $props();
 
   function toggleDropdown() {
-    active = !active;
-    callback();
+    dropdownOpen = !dropdownOpen;
   }
   //close dropdown when user clicks outside
   function outsideclick() {
-    active = false;
+    dropdownOpen = false;
   }
 </script>
 
 <div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
   <SimpleButton {key} {editor} action={toggleDropdown} {icon} />
 
-  {#if active}
+  {#if dropdownOpen}
     <div class="dropdown">
       {@render children()}
     </div>
