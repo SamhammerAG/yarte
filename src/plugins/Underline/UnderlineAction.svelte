@@ -1,23 +1,19 @@
+<svelte:options customElement="underline-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import SimpleButton from "../../base/SimpleButton.svelte";
-    import UnderlineIcon from "../../../icons/underline.svg?raw";
+  import type { Editor } from "@tiptap/core";
+  import SimpleButton from "../../base/SimpleButton.svelte";
+  import UnderlineIcon from "../../../icons/underline.svg?raw";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
+  interface Props {
+    editor: Editor;
+  }
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
+  let { editor }: Props = $props();
 
-    const action = () => editor.chain().focus().toggleUnderline().run();
+  const action = () => editor.chain().focus().toggleUnderline().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={UnderlineIcon} />
+{#if editor}
+  <SimpleButton key="underline" {editor} {action} icon={UnderlineIcon} />
+{/if}

@@ -13,8 +13,6 @@
 
   let { editor }: Props = $props();
   let active = $state(false);
-
-  const key = "font-color";
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
   function clearColor() {
@@ -28,17 +26,19 @@
   }
 </script>
 
-<DropdownButton {key} {editor} icon={FontColorIcon} bind:active>
-  <div class="color-picker">
-    <button class="clear" onclick={clearColor}>
-      <Icon content={EraserIcon} />
-    </button>
+{#if editor}
+  <DropdownButton key="font-color" {editor} icon={FontColorIcon}>
+    <div class="color-picker">
+      <button class="clear" onclick={clearColor}>
+        <Icon content={EraserIcon} />
+      </button>
 
-    {#each colors as color}
-      <button style="background-color: {color};" onclick={() => setColor(color)} aria-label={color}></button>
-    {/each}
-  </div>
-</DropdownButton>
+      {#each colors as color}
+        <button style="background-color: {color};" onclick={() => setColor(color)} aria-label={color}></button>
+      {/each}
+    </div>
+  </DropdownButton>
+{/if}
 
 <style>
   .color-picker {

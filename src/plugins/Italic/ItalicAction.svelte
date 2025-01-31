@@ -1,23 +1,19 @@
+<svelte:options customElement="italic-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import SimpleButton from "../../base/SimpleButton.svelte";
-    import ItalicIcon from "../../../icons/italic.svg?raw";
+  import type { Editor } from "@tiptap/core";
+  import SimpleButton from "../../base/SimpleButton.svelte";
+  import ItalicIcon from "../../../icons/italic.svg?raw";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
+  interface Props {
+    editor: Editor;
+  }
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
+  let { editor }: Props = $props();
 
-    const action = () => editor.chain().focus().toggleItalic().run();
+  const action = () => editor.chain().focus().toggleItalic().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={ItalicIcon} />
+{#if editor}
+  <SimpleButton key="italic" {editor} {action} icon={ItalicIcon} />
+{/if}

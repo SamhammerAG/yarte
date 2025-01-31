@@ -1,23 +1,19 @@
+<svelte:options customElement="redo-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import RedoIcon from "../../../icons/arrow-go-forward-line.svg?raw";
-    import SimpleButton from "../../base/SimpleButton.svelte";
+  import type { Editor } from "@tiptap/core";
+  import RedoIcon from "../../../icons/arrow-go-forward-line.svg?raw";
+  import SimpleButton from "../../base/SimpleButton.svelte";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
+  interface Props {
+    editor: Editor;
+  }
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
+  let { editor }: Props = $props();
 
-    const action = () => editor.chain().focus().redo().run();
+  const action = () => editor.chain().focus().redo().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={RedoIcon} />
+{#if editor}
+  <SimpleButton key="redo" {editor} {action} icon={RedoIcon} />
+{/if}

@@ -1,3 +1,5 @@
+<svelte:options customElement="text-align-button" />
+
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import TextAlignRightIcon from "../../../icons/align-right.svg?raw";
@@ -8,13 +10,10 @@
   import Icon from "../../base/Icon.svelte";
 
   interface Props {
-    key: string;
     editor: Editor;
-    disabled: boolean;
-    activeButtons: string[];
   }
 
-  let { key, editor, disabled, activeButtons }: Props = $props();
+  let { editor }: Props = $props();
   let active = $state(false);
 
   const textAlignments: { icon: string; action: () => void }[] = [
@@ -49,9 +48,9 @@
   ];
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon} bind:dropdownOpen={active}>
+<DropdownButton key="text-align" {editor} icon={TextAlignLeftIcon}>
   {#each textAlignments as alignment}
-    <button {disabled} onclick={() => alignment.action()}>
+    <button disabled={active} onclick={() => alignment.action()}>
       <Icon content={alignment.icon} />
     </button>
   {/each}

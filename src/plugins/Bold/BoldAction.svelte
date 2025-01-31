@@ -14,4 +14,6 @@
   const action = () => editor.chain().focus().toggleBold().run();
 </script>
 
-<SimpleButton key="bold" {editor} {action} icon={BoldIcon} />
+{#if editor}
+  <SimpleButton key="bold" {editor} {action} icon={BoldIcon} />
+{/if}

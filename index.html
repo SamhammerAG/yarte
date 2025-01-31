@@ -7,28 +7,67 @@
     <script type="module" src="src/index.ts"></script>
     <style type="text/css" src="./index.css"></style>
     <link rel="stylesheet" href="./index.css">
+    <style>
+        #editor {
+            width: 800px;
+            margin: 2rem;
+        }
+
+        body:has(> #editor.darkmode) {
+            background-color: #222222;
+
+            button {
+                background-color: black;
+                color: white;
+            }
+        }
+    </style>
     <script type="module">
         import Document from "@tiptap/extension-document";
         import Paragraph from "@tiptap/extension-paragraph";
         import Text from "@tiptap/extension-text";
         import Gapcursor from "@tiptap/extension-gapcursor";
-        import TableCell from "@tiptap/extension-table-cell";
-        import TableHeader from "@tiptap/extension-table-header";
-        import Table from "@tiptap/extension-table";
-        import TableRow from "@tiptap/extension-table-row";
-        import BubbleMenu from "@tiptap/extension-bubble-menu";
-        import { Editor, Extension, Node, NodePos, posToDOMRect } from "@tiptap/core";
-
-        let editor = null;
+        import Bold from "@tiptap/extension-bold";
+        import Italic from "@tiptap/extension-italic";
+        import ListItem from "@tiptap/extension-list-item";
+        import BulletList from "@tiptap/extension-bullet-list";
+        import OrderdList from "@tiptap/extension-ordered-list";
+        import History from "@tiptap/extension-history";
+        import Strike from "@tiptap/extension-strike";
+        import Underline from "@tiptap/extension-underline";
+        import { Editor } from "@tiptap/core";
+        import {
+            FontHighlightExtension,
+            TableExtensions,
+            TableBubbleMenuExtension,
+            ImageExtension,
+            TextAlignExtension
+        } from "./src/index.ts";
 
         window.onload = () => {
             initializeEditor();
         };
 
         function initializeEditor() {
+            let editor = null;
+
             const $element = document.querySelector(".text-area");
             const tableMenu = document.querySelector("table-bubble-menu");
             const tableButton = document.querySelector("table-button");
+            const boldButton = document.querySelector("bold-button");
+            const bulletListButton = document.querySelector("bullet-list-button");
+            const fontColorButton = document.querySelector("font-color-button");
+            const fontHighlightButton = document.querySelector("font-highlight-button");
+            const imageButton = document.querySelector("image-button");
+            const italicButton = document.querySelector("italic-button");
+            const knowledgeButton = document.querySelector("knowledge-button");
+            const orderedListButton = document.querySelector("ordered-list-button");
+            const redoButton = document.querySelector("redo-button");
+            const removeFormatButton = document.querySelector("remove-format-button");
+            const strikeButton = document.querySelector("strike-button");
+            const textAlignButton = document.querySelector("text-align-button");
+            const underlineButton = document.querySelector("underline-button");
+            const undoButton = document.querySelector("undo-button");
 
             editor = new Editor({
                 element: $element,
@@ -39,59 +78,68 @@
                     Paragraph,
                     Text,
                     Gapcursor,
-                    TableHeader,
-                    TableCell,
-                    TableRow,
-                    Table.configure({
-                        resizable: true
-                    }),
-                    BubbleMenu.configure({
-                        pluginKey: "bubbleMenuTable",
-                        tippyOptions: {
-                            animation: true,
-                            placement: "bottom",
-                            getReferenceClientRect: () => {
-                                const { state, view } = editor;
-                                const myNodePos = new NodePos(state.selection.$anchor, editor);
-                                const tableElement = findParentTableFromPos(myNodePos);
-
-                                if (tableElement) {
-                                    return tableElement.getBoundingClientRect();
-                                }
-
-                                return posToDOMRect(view, 0, 0);
-                            },
-                        },
-                        shouldShow: ({ editor }) => {
-                            return editor.isEditable && editor.isActive("table")
-                        },
-                        element: document.querySelector("table-bubble-menu"),
-                    })
+                    Bold,
+                    Italic,
+                    ListItem,
+                    BulletList,
+                    OrderdList,
+                    History,
+                    Strike,
+                    Underline,
+                    FontHighlightExtension(),
+                    ...TableExtensions(),
+                    TableBubbleMenuExtension(tableMenu, editor),
+                    ImageExtension(imageUpload),
+                    TextAlignExtension(),
                 ]
             });
 
+            boldButton.editor = editor;
+            italicButton.editor = editor;
+            strikeButton.editor = editor;
+            textAlignButton.editor = editor;
+            fontColorButton.editor = editor;
+            fontHighlightButton.editor = editor;
+            bulletListButton.editor = editor;
+            orderedListButton.editor = editor;
+            imageButton.editor = editor;
+            imageButton.imageUpload = imageUpload;
             tableButton.editor = editor;
+            knowledgeButton.editor = editor;
+            redoButton.editor = editor;
+            removeFormatButton.editor = editor;
+            underlineButton.editor = editor;
+            undoButton.editor = editor;
             tableMenu.editor = editor;
         }
 
-        function findParentTableFromPos(nodePos) {
-            if (nodePos.node.type.name === "table") {
-                return nodePos.element;
-            }
-            const parentNode = nodePos.parent;
-            if (parentNode) {
-                return findParentTableFromPos(parentNode);
-            }
-            return null;
+        function imageUpload(file) {
+            return new Promise((resolve, reject) => {
+                alert("uploaded file: " + file.name);
+                reject("not implemented");
+            });
         }
-
     </script>
 </head>
 
 <body>
-    <div id="editor">
+    <div id="editor" class="darkmode">
         <div class="toolbar">
+            <bold-button></bold-button>
+            <italic-button></italic-button>
+            <strike-button></strike-button>
+            <underline-button></underline-button>
+            <text-align-button></text-align-button>
+            <font-color-button></font-color-button>
+            <font-highlight-button></font-highlight-button>
+            <bullet-list-button></bullet-list-button>
+            <ordered-list-button></ordered-list-button>
+            <image-button></image-button>
             <table-button></table-button>
+            <knowledge-button></knowledge-button>
+            <redo-button></redo-button>
+            <undo-button></undo-button>
+            <remove-format-button></remove-format-button>
         </div>
         <div class="wrapper">
             <div class="text-area"></div>

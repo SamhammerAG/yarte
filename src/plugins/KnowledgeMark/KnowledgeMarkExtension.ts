@@ -24,30 +24,32 @@ declare module '@tiptap/core' {
   }
 }
 
-export const KnowledgeMark = Mark.create({
-  name: "knowledgeMark",
-  parseHTML() {
-    return [
-      {
-        tag: "span",
-        attrs: { translate: "no" }
-      },
-    ];
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ["span", mergeAttributes(HTMLAttributes, { translate: "no" }), 0];
-  },
-  addCommands() {
-    return {
-      setKnowledgeMark: () => ({ commands }) => {
-        return commands.setMark(this.name);
-      },
-      toggleKnowledgeMark: () => ({ commands }) => {
-        return commands.toggleMark(this.name);
-      },
-      unsetKnowledgeMark: () => ({ commands }) => {
-        return commands.unsetMark(this.name);
-      },
+export default function getKnowledgeMarkExtension(): Mark {
+  return Mark.create({
+    name: "knowledgeMark",
+    parseHTML() {
+      return [
+        {
+          tag: "span",
+          attrs: { translate: "no" }
+        },
+      ];
+    },
+    renderHTML({ HTMLAttributes }) {
+      return ["span", mergeAttributes(HTMLAttributes, { translate: "no" }), 0];
+    },
+    addCommands() {
+      return {
+        setKnowledgeMark: () => ({ commands }) => {
+          return commands.setMark(this.name);
+        },
+        toggleKnowledgeMark: () => ({ commands }) => {
+          return commands.toggleMark(this.name);
+        },
+        unsetKnowledgeMark: () => ({ commands }) => {
+          return commands.unsetMark(this.name);
+        },
+      }
     }
-  }
-});
+  });
+}

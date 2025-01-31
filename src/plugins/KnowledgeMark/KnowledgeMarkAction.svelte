@@ -1,3 +1,5 @@
+<svelte:options customElement="knowledge-button" />
+
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import SimpleButton from "../../base/SimpleButton.svelte";
@@ -5,14 +7,13 @@
 
   interface Props {
     editor: Editor;
-    disabled: boolean;
-    activeButtons: string[];
-    key: string;
   }
 
-  let { editor, disabled, activeButtons, key }: Props = $props();
+  let { editor }: Props = $props();
 
   const action = () => editor.chain().toggleKnowledgeMark().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={KnowledgeIcon} />
+{#if editor}
+  <SimpleButton key="knowledge" {editor} {action} icon={KnowledgeIcon} />
+{/if}
