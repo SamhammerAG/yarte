@@ -19,8 +19,16 @@ import TextAlignButton from "./plugins/TextAlign/TextAlignAction.svelte";
 import TextAlignExtension from "./plugins/TextAlign/TextAlignExtension";
 import UnderlineButton from "./plugins/Underline/UnderlineAction.svelte";
 import UndoButton from "./plugins/Undo/UndoAction.svelte";
+import { HyperlinkPlugin, LinkExtension } from "./plugins/Hyperlink/HyperlinkPlugin";
+import HyperLinkMenu from "./plugins/Hyperlink/HyperLinkMenu.svelte";
+import HyperlinkAction from "./plugins/Hyperlink/HyperlinkAction.svelte";
+
 
 export {
+  LinkExtension,
+  HyperlinkPlugin,
+  HyperlinkAction as HyperlinkButton,
+  HyperLinkMenu,
   BoldButton,
   ItalicButton,
   UnderlineButton,
@@ -35,7 +43,6 @@ export {
   RemoveFormatButton,
   StrikeButton,
   TextAlignButton,
-
   TableButton,
   TableBubbleMenu,
 

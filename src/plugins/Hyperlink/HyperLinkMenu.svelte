@@ -1,68 +1,67 @@
+<svelte:options customElement="hyperlink-menu" />
+
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
+
   import CheckIcon from "../../../icons/check-line.svg?raw";
   import CancelIcon from "../../../icons/close-line.svg?raw";
   import LinkIcon from "../../../icons/link.svg?raw";
   import UnlinkIcon from "../../../icons/link-unlink-m.svg?raw";
-  import { showLinkBubbleMenu, currentFocusLink } from "./stores";
   import { clickOutside } from "../../utils/click-outside";
   import Icon from "../../base/Icon.svelte";
+  import { onMount } from "svelte";
 
-  interface Props {
-    editor: Editor;
-  }
+  const bubbleMenuEvent = new CustomEvent("showLinkBubbleMenu", { detail: { show: false } });
 
-  let { editor }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
-  let isEditing = $state(false);
+  let editMode = $state(false);
   let inputUrl = $state("");
 
-  $effect(() => {
-    inputUrl = isEditing ? $currentFocusLink : "";
+  onMount(() => {
+    inputUrl = editor?.getAttributes("link").href;
+    if (inputUrl === undefined) {
+      editMode = true;
+    }
   });
 
   function enterEditMode() {
-    isEditing = true;
+    editMode = true;
   }
 
-  function declineEdit() {
-    isEditing = false;
-    if ($currentFocusLink === undefined) {
-      showLinkBubbleMenu.set(false);
-      editor.chain().focus();
-    }
+  function cancelEdit() {
+    inputUrl = editor?.getAttributes("link").href;
+    closeMenu();
   }
 
   function saveLink() {
     editor.chain().focus().extendMarkRange("link").setLink({ href: inputUrl }).run();
-
-    currentFocusLink.set(inputUrl);
-    showLinkBubbleMenu.set(false);
-    isEditing = false;
+    closeMenu();
   }
 
   function removeLink() {
     editor.chain().focus().unsetLink().run();
-    showLinkBubbleMenu.set(false);
+    closeMenu();
   }
 
-  function outsideClick() {
-    showLinkBubbleMenu.set(false);
+  function closeMenu() {
+    editMode = false;
+    document.dispatchEvent(bubbleMenuEvent);
   }
 </script>
 
-<div class="bubble-menu" use:clickOutside onoutclick={outsideClick}>
-  {#if isEditing || $currentFocusLink === undefined}
+<div use:clickOutside onoutclick={closeMenu} class="bubble-menu">
+  {#if editMode}
     <input bind:value={inputUrl} type="text" placeholder="https://example.com" />
     <button class="confirm" onclick={saveLink}>
       <Icon content={CheckIcon} />
     </button>
-    <button class="decline" onclick={declineEdit}>
+    <button class="decline" onclick={cancelEdit}>
       <Icon content={CancelIcon} />
     </button>
   {:else}
-    <a href={$currentFocusLink} title={$currentFocusLink} target="_blank" rel="noopener noreferrer">
-      <span>{$currentFocusLink === "" || $currentFocusLink === null ? "This link has no URL" : $currentFocusLink} </span>
+    <a href={inputUrl} title={inputUrl} target="_blank" rel="noopener noreferrer">
+      <span>{inputUrl === "" || inputUrl === null ? "This link has no URL" : inputUrl} </span>
     </a>
     <button onclick={enterEditMode}>
       <Icon content={LinkIcon} />

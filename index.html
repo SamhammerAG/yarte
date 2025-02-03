@@ -36,7 +36,11 @@
         import Strike from "@tiptap/extension-strike";
         import Underline from "@tiptap/extension-underline";
         import { Editor } from "@tiptap/core";
+        import Link from "@tiptap/extension-link";
+
         import {
+            HyperlinkPlugin,
+            LinkExtension,
             FontHighlightExtension,
             TableExtensions,
             TableBubbleMenuExtension,
@@ -69,6 +73,9 @@
             const underlineButton = document.querySelector("underline-button");
             const undoButton = document.querySelector("undo-button");
 
+            const hyperlinkButton = document.querySelector("hyperlink-button");
+            const hyperlinkMenu = document.querySelector("hyperlink-menu");
+
             editor = new Editor({
                 element: $element,
                 content: "Ich mag Züge",
@@ -84,6 +91,10 @@
                     BulletList,
                     OrderdList,
                     History,
+                    HyperlinkPlugin,
+                    LinkExtension.configure({
+                        openOnClick: false,
+                    }),
                     Strike,
                     Underline,
                     FontHighlightExtension(),
@@ -104,6 +115,8 @@
             orderedListButton.editor = editor;
             imageButton.editor = editor;
             imageButton.imageUpload = imageUpload;
+            hyperlinkButton.editor = editor;
+            hyperlinkMenu.editor = editor;
             tableButton.editor = editor;
             knowledgeButton.editor = editor;
             redoButton.editor = editor;
@@ -123,7 +136,7 @@
 </head>
 
 <body>
-    <div id="editor" class="darkmode">
+    <div id="editor">
         <div class="toolbar">
             <bold-button></bold-button>
             <italic-button></italic-button>
@@ -140,9 +153,11 @@
             <redo-button></redo-button>
             <undo-button></undo-button>
             <remove-format-button></remove-format-button>
+            <hyperlink-button></hyperlink-button>
         </div>
         <div class="wrapper">
             <div class="text-area"></div>
+            <hyperlink-menu></hyperlink-menu>
             <table-bubble-menu></table-bubble-menu>
         </div>
     </div>
