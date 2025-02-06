@@ -1,20 +1,18 @@
 <svelte:options customElement="image-button" />
 
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import SimpleButton from "../../base/SimpleButton.svelte";
   import ImageIcon from "../../../icons/image-add-line.svg?raw";
+  import type Props from "../../../types/Props";
 
-  interface Props {
-    editor: Editor;
+  interface ImageProps extends Props {
     imageUpload: (file: File) => Promise<string>;
   }
 
-  let { editor, imageUpload }: Props = $props();
+  let { editor, readonly, imageUpload }: ImageProps = $props();
 
   //svelte-ignore non_reactive_update
   let input: HTMLInputElement;
-  let active = $state(false);
 
   function processImages(e: Event) {
     const target = e.target as HTMLInputElement;
@@ -28,8 +26,8 @@
 </script>
 
 {#if editor}
-  <SimpleButton key="image" {editor} action={() => input.click()} icon={ImageIcon} />
-  <input disabled={active} onchange={processImages} bind:this={input} type="file" accept="image/*" />
+  <SimpleButton {editor} {readonly} key="image" action={() => input.click()} icon={ImageIcon} />
+  <input disabled={readonly} onchange={processImages} bind:this={input} type="file" accept="image/*" />
 {/if}
 
 <style>

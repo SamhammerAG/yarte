@@ -1,25 +1,25 @@
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import Icon from "./Icon.svelte";
   import { onMount } from "svelte";
+  import type Props from "../../types/Props";
 
-  interface Props {
-    editor: Editor;
+  interface ButtonProps extends Props {
     key: string;
     action: Function;
     icon: string;
   }
-  let { editor, key, action, icon }: Props = $props();
-  let active = $state(false);
+
+  let { editor, key, action, icon, readonly }: ButtonProps = $props();
+  let highlighted = $state(false);
 
   onMount(() => {
     editor.on("transaction", () => {
-      active = editor.isActive(key);
+      highlighted = editor.isActive(key);
     });
   });
 </script>
 
-<button class:active onclick={() => action()}>
+<button disabled={readonly} class:highlighted onclick={() => action()}>
   <Icon content={icon} />
 </button>
 
@@ -34,12 +34,17 @@
     border-radius: var(--button-border-radius);
     background-color: var(--button-color);
 
-    &.active {
+    &.highlighted {
       background-color: var(--button-active);
     }
 
     &:hover {
       background-color: var(--button-hover);
     }
+  }
+
+  button:disabled,
+  button[disabled] {
+    background-color: red;
   }
 </style>

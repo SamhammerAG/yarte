@@ -1,19 +1,15 @@
 <svelte:options customElement="undo-button" />
 
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import UndoIcon from "../../../icons/arrow-go-back-line.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
+  import type Props from "../../../types/Props";
 
-  interface Props {
-    editor: Editor;
-  }
-
-  let { editor }: Props = $props();
+  let { editor, readonly }: Props = $props();
 
   const action = () => editor.chain().focus().undo().run();
 </script>
 
 {#if editor}
-  <SimpleButton key="undo" {editor} {action} icon={UndoIcon} />
+  <SimpleButton key="undo" {editor} {readonly} {action} icon={UndoIcon} />
 {/if}

@@ -2,17 +2,16 @@
   import type { Snippet } from "svelte";
   import { clickOutside } from "../utils/click-outside";
   import SimpleButton from "./SimpleButton.svelte";
-  import type { Editor } from "@tiptap/core";
+  import type Props from "../../types/Props";
 
-  interface Props {
-    editor: Editor;
+  interface DropdownProps extends Props {
     key: string;
     icon: string;
     dropdownOpen?: boolean;
     children: Snippet;
   }
 
-  let { editor, key, icon, dropdownOpen, children }: Props = $props();
+  let { editor, key, icon, dropdownOpen, readonly, children }: DropdownProps = $props();
 
   function toggleDropdown() {
     dropdownOpen = !dropdownOpen;
@@ -24,7 +23,7 @@
 </script>
 
 <div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
-  <SimpleButton {key} {editor} action={toggleDropdown} {icon} />
+  <SimpleButton {key} {editor} action={toggleDropdown} {icon} {readonly} />
 
   {#if dropdownOpen}
     <div class="dropdown">

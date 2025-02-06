@@ -1,11 +1,11 @@
 <script lang="ts">
   import DOMPurify from "dompurify";
 
-  interface Props {
+  interface IconProps {
     content: string;
   }
 
-  let { content = $bindable() }: Props = $props();
+  let { content = $bindable() }: IconProps = $props();
 </script>
 
 <div>
