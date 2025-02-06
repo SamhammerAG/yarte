@@ -24,7 +24,6 @@
   "author": "Samhammer AG",
   "license": "MIT",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.7.2",
     "@tiptap/core": "^2.11.5",
     "@tiptap/extension-bold": "^2.11.5",
     "@tiptap/extension-bubble-menu": "^2.11.5",

@@ -48,7 +48,6 @@ export {
   TableButton,
   TableBubbleMenu,
 
-
   ImageExtension,
   TableExtensions,
   TextAlignExtension,
