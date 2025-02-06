@@ -48,10 +48,12 @@
 
   function closeMenu() {
     document.dispatchEvent(bubbleMenuEvent);
-    editMode = false;
+
+    //Workaround because the shouldshow call from the Editor for the Bubblemenu is called to late, so you can see the wrong menu for a second
     let { from, to } = editor.state.selection;
-    editor.commands.setTextSelection(from);
+    editor.commands.focus("start");
     editor.commands.setTextSelection({ from, to });
+    editMode = false;
   }
 </script>
 
