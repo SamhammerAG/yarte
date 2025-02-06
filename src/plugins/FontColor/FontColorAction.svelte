@@ -1,33 +1,29 @@
 <svelte:options customElement="font-color-button" />
 
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import FontColorIcon from "../../../icons/font-color.svg?raw";
   import EraserIcon from "../../../icons/eraser-line.svg?raw";
   import DropdownButton from "../../base/DropdownButton.svelte";
   import Icon from "../../base/Icon.svelte";
+  import type Props from "../../../types/Props";
 
-  interface Props {
-    editor: Editor;
-  }
-
-  let { editor }: Props = $props();
-  let active = $state(false);
+  let { editor, readonly }: Props = $props();
+  let dropdownOpen = $state(false);
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
   function clearColor() {
     editor.chain().focus().unsetColor().run();
-    active = false;
+    dropdownOpen = false;
   }
 
   function setColor(color: string) {
     editor.chain().focus().setColor(color).run();
-    active = false;
+    dropdownOpen = false;
   }
 </script>
 
 {#if editor}
-  <DropdownButton key="font-color" {editor} icon={FontColorIcon}>
+  <DropdownButton {editor} {readonly} {dropdownOpen} key="font-color" icon={FontColorIcon}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />

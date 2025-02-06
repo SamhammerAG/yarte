@@ -72,7 +72,6 @@
             const textAlignButton = document.querySelector("text-align-button");
             const underlineButton = document.querySelector("underline-button");
             const undoButton = document.querySelector("undo-button");
-
             const hyperlinkButton = document.querySelector("hyperlink-button");
             const hyperlinkMenu = document.querySelector("hyperlink-menu");
 
@@ -106,24 +105,65 @@
             });
 
             boldButton.editor = editor;
+            boldButton.readonly = !editor.isEditable;
             italicButton.editor = editor;
+            italicButton.readonly = !editor.isEditable;
             strikeButton.editor = editor;
+            strikeButton.readonly = !editor.isEditable;
             textAlignButton.editor = editor;
+            textAlignButton.readonly = !editor.isEditable;
             fontColorButton.editor = editor;
+            fontColorButton.readonly = !editor.isEditable;
             fontHighlightButton.editor = editor;
+            fontHighlightButton.readonly = !editor.isEditable;
             bulletListButton.editor = editor;
+            bulletListButton.readonly = !editor.isEditable;
             orderedListButton.editor = editor;
+            orderedListButton.readonly = !editor.isEditable;
             imageButton.editor = editor;
             imageButton.imageUpload = imageUpload;
+            imageButton.readonly = !editor.isEditable;
             hyperlinkButton.editor = editor;
+            hyperlinkButton.readonly = !editor.isEditable;
             hyperlinkMenu.editor = editor;
             tableButton.editor = editor;
-            knowledgeButton.editor = editor;
-            redoButton.editor = editor;
-            removeFormatButton.editor = editor;
-            underlineButton.editor = editor;
-            undoButton.editor = editor;
+            tableButton.readonly = !editor.isEditable;
             tableMenu.editor = editor;
+            knowledgeButton.editor = editor;
+            knowledgeButton.readonly = !editor.isEditable;
+            redoButton.editor = editor;
+            redoButton.readonly = !editor.isEditable;
+            removeFormatButton.editor = editor;
+            removeFormatButton.readonly = !editor.isEditable;
+            underlineButton.editor = editor;
+            underlineButton.readonly = !editor.isEditable;
+            undoButton.editor = editor;
+            undoButton.readonly = !editor.isEditable;
+
+            document
+                .querySelector("#toggle-readonly")
+                .addEventListener("click", () => {
+                    editor.setEditable(!editor.isEditable);
+
+                    boldButton.readonly = !editor.isEditable;
+                    italicButton.readonly = !editor.isEditable;
+                    strikeButton.readonly = !editor.isEditable;
+                    textAlignButton.readonly = !editor.isEditable;
+                    fontColorButton.readonly = !editor.isEditable;
+                    fontHighlightButton.readonly = !editor.isEditable;
+                    bulletListButton.readonly = !editor.isEditable;
+                    orderedListButton.readonly = !editor.isEditable;
+                    imageButton.readonly = !editor.isEditable;
+                    hyperlinkButton.readonly = !editor.isEditable;
+                    tableButton.readonly = !editor.isEditable;
+                    knowledgeButton.readonly = !editor.isEditable;
+                    redoButton.readonly = !editor.isEditable;
+                    removeFormatButton.readonly = !editor.isEditable;
+                    underlineButton.readonly = !editor.isEditable;
+                    undoButton.readonly = !editor.isEditable;
+
+                    console.log("readonly: ", !editor.isEditable);
+                });
         }
 
         function imageUpload(file) {
@@ -136,24 +176,29 @@
 </head>
 
 <body>
-    <div id="editor">
+    <div id="editor" class="darkmode">
         <div class="toolbar">
             <bold-button></bold-button>
             <italic-button></italic-button>
             <strike-button></strike-button>
             <underline-button></underline-button>
-            <text-align-button></text-align-button>
+            <div class="spacer"></div>
             <font-color-button></font-color-button>
             <font-highlight-button></font-highlight-button>
+            <div class="spacer"></div>
+            <text-align-button></text-align-button>
+            <div class="spacer"></div>
             <bullet-list-button></bullet-list-button>
             <ordered-list-button></ordered-list-button>
+            <div class="spacer"></div>
             <image-button></image-button>
             <table-button></table-button>
             <knowledge-button></knowledge-button>
+            <hyperlink-button></hyperlink-button>
+            <div class="spacer"></div>
             <redo-button></redo-button>
             <undo-button></undo-button>
             <remove-format-button></remove-format-button>
-            <hyperlink-button></hyperlink-button>
         </div>
         <div class="wrapper">
             <div class="text-area"></div>
@@ -162,7 +207,7 @@
         </div>
     </div>
 
-    <button id="toggle">Toggle Readonly</button>
+    <button id="toggle-readonly">Toggle Readonly</button>
 </body>
 
 </html>

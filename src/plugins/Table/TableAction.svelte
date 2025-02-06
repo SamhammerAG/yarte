@@ -1,13 +1,12 @@
 <svelte:options customElement="table-button" />
 
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import DropdownButton from "../../base/DropdownButton.svelte";
   import TableIcon from "../../../icons/table-line.svg?raw";
+  import type Props from "../../../types/Props";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, readonly }: Props = $props();
   let dropdownOpen = $state(false);
-  const key = "table";
 
   const tableGridSize: number = 10;
   let xPos: number = $state(0);
@@ -20,10 +19,10 @@
 </script>
 
 {#if editor}
-  <DropdownButton {key} {editor} icon={TableIcon} {dropdownOpen}>
+  <DropdownButton {editor} {readonly} {dropdownOpen} key="table" icon={TableIcon}>
     <div class="table">
-      {#each Array.from({ length: tableGridSize }).keys() as x}
-        {#each Array.from({ length: tableGridSize }).keys() as y}
+      {#each { length: tableGridSize }, x}
+        {#each { length: tableGridSize }, y}
           <button
             class:highlight={xPos >= x && yPos >= y}
             onmouseenter={() => ((xPos = x), (yPos = y))}
