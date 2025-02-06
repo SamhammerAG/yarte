@@ -5,7 +5,6 @@ import TableBubbleMenu from "./plugins/Table/TableMenu.svelte";
 import BulletListButton from "./plugins/BulletList/BulletListAction.svelte";
 import FontHighlightButton from "./plugins/FontHighlight/FontHighlightAction.svelte";
 import FontHighlightExtension from "./plugins/FontHighlight/FontHighlightExtension";
-import { getTableExtensions, getBubbleMenuExtension } from "./plugins/Table/TableExtension";
 import ImageExtension from "./plugins/Image/ImageExtension";
 import ImageButton from "./plugins/Image/ImageUploadAction.svelte";
 import ItalicButton from "./plugins/Italic/ItalicAction.svelte";
@@ -21,13 +20,16 @@ import UnderlineButton from "./plugins/Underline/UnderlineAction.svelte";
 import UndoButton from "./plugins/Undo/UndoAction.svelte";
 import { HyperlinkPlugin, LinkExtension } from "./plugins/Hyperlink/HyperlinkPlugin";
 import HyperLinkMenu from "./plugins/Hyperlink/HyperLinkMenu.svelte";
-import HyperlinkAction from "./plugins/Hyperlink/HyperlinkAction.svelte";
-
+import HyperlinkButton from "./plugins/Hyperlink/HyperlinkAction.svelte";
+import {
+  getTableExtensions as TableExtensions,
+  getBubbleMenuExtension as TableBubbleMenuExtension
+} from "./plugins/Table/TableExtension";
 
 export {
   LinkExtension,
   HyperlinkPlugin,
-  HyperlinkAction as HyperlinkButton,
+  HyperlinkButton,
   HyperLinkMenu,
   BoldButton,
   ItalicButton,
@@ -46,10 +48,11 @@ export {
   TableButton,
   TableBubbleMenu,
 
-  FontHighlightExtension,
-  getTableExtensions as TableExtensions,
-  getBubbleMenuExtension as TableBubbleMenuExtension,
+
   ImageExtension,
+  TableExtensions,
+  TextAlignExtension,
   KnowledgeExtension,
-  TextAlignExtension
+  FontHighlightExtension,
+  TableBubbleMenuExtension
 };
