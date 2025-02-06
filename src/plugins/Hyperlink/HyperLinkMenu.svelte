@@ -35,7 +35,9 @@
   }
 
   function saveLink() {
-    editor.chain().focus().extendMarkRange("link").setLink({ href: inputUrl }).run();
+    if (inputUrl) editor.chain().focus().extendMarkRange("link").setLink({ href: inputUrl }).run();
+    else removeLink();
+
     closeMenu();
   }
 
@@ -45,32 +47,37 @@
   }
 
   function closeMenu() {
-    editMode = false;
     document.dispatchEvent(bubbleMenuEvent);
+    editMode = false;
+    let { from, to } = editor.state.selection;
+    editor.commands.setTextSelection(from);
+    editor.commands.setTextSelection({ from, to });
   }
 </script>
 
-<div use:clickOutside onoutclick={closeMenu} class="bubble-menu">
-  {#if editMode}
-    <input bind:value={inputUrl} type="text" placeholder="https://example.com" />
-    <button class="confirm" onclick={saveLink}>
-      <Icon content={CheckIcon} />
-    </button>
-    <button class="decline" onclick={cancelEdit}>
-      <Icon content={CancelIcon} />
-    </button>
-  {:else}
-    <a href={inputUrl} title={inputUrl} target="_blank" rel="noopener noreferrer">
-      <span>{inputUrl === "" || inputUrl === null ? "This link has no URL" : inputUrl} </span>
-    </a>
-    <button onclick={enterEditMode}>
-      <Icon content={LinkIcon} />
-    </button>
-    <button onclick={removeLink}>
-      <Icon content={UnlinkIcon} />
-    </button>
-  {/if}
-</div>
+{#if editor}
+  <div use:clickOutside onoutclick={closeMenu} class="bubble-menu">
+    {#if editMode}
+      <input bind:value={inputUrl} type="text" placeholder="https://example.com" />
+      <button class="confirm" onclick={saveLink}>
+        <Icon content={CheckIcon} />
+      </button>
+      <button class="decline" onclick={cancelEdit}>
+        <Icon content={CancelIcon} />
+      </button>
+    {:else}
+      <a href={inputUrl} title={inputUrl} target="_blank" rel="noopener noreferrer">
+        <span>{inputUrl} </span>
+      </a>
+      <button onclick={enterEditMode}>
+        <Icon content={LinkIcon} />
+      </button>
+      <button onclick={removeLink}>
+        <Icon content={UnlinkIcon} />
+      </button>
+    {/if}
+  </div>
+{/if}
 
 <style>
   .bubble-menu {
