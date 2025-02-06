@@ -3,13 +3,13 @@
 <script lang="ts">
   import BoldIcon from "../../../icons/bold.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor = $bindable(), readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().focus().toggleBold().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {readonly} {action} key="bold" icon={BoldIcon} />
+  <SimpleButton {editor} {action} key="bold" icon={BoldIcon} />
 {/if}

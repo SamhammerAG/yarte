@@ -1,25 +1,32 @@
 <script lang="ts">
+  import type { Editor } from "@tiptap/core";
   import Icon from "./Icon.svelte";
   import { onMount } from "svelte";
-  import type Props from "../../types/Props";
 
-  interface ButtonProps extends Props {
+  interface Props {
+    editor: Editor;
     key: string;
     action: Function;
     icon: string;
   }
 
-  let { editor, key, action, icon, readonly }: ButtonProps = $props();
+  let { editor, key, action, icon }: Props = $props();
+
   let highlighted = $state(false);
+  let disabled = $state(false);
 
   onMount(() => {
     editor.on("transaction", () => {
       highlighted = editor.isActive(key);
     });
+
+    editor.on("update", () => {
+      disabled = !editor.isEditable;
+    });
   });
 </script>
 
-<button disabled={readonly} class:highlighted onclick={() => action()}>
+<button {disabled} class:highlighted onclick={() => action()}>
   <Icon content={icon} />
 </button>
 

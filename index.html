@@ -105,63 +105,29 @@
             });
 
             boldButton.editor = editor;
-            boldButton.readonly = !editor.isEditable;
             italicButton.editor = editor;
-            italicButton.readonly = !editor.isEditable;
             strikeButton.editor = editor;
-            strikeButton.readonly = !editor.isEditable;
             textAlignButton.editor = editor;
-            textAlignButton.readonly = !editor.isEditable;
             fontColorButton.editor = editor;
-            fontColorButton.readonly = !editor.isEditable;
             fontHighlightButton.editor = editor;
-            fontHighlightButton.readonly = !editor.isEditable;
             bulletListButton.editor = editor;
-            bulletListButton.readonly = !editor.isEditable;
             orderedListButton.editor = editor;
-            orderedListButton.readonly = !editor.isEditable;
             imageButton.editor = editor;
             imageButton.imageUpload = imageUpload;
-            imageButton.readonly = !editor.isEditable;
             hyperlinkButton.editor = editor;
-            hyperlinkButton.readonly = !editor.isEditable;
             hyperlinkMenu.editor = editor;
             tableButton.editor = editor;
-            tableButton.readonly = !editor.isEditable;
             tableMenu.editor = editor;
             knowledgeButton.editor = editor;
-            knowledgeButton.readonly = !editor.isEditable;
             redoButton.editor = editor;
-            redoButton.readonly = !editor.isEditable;
             removeFormatButton.editor = editor;
-            removeFormatButton.readonly = !editor.isEditable;
             underlineButton.editor = editor;
-            underlineButton.readonly = !editor.isEditable;
             undoButton.editor = editor;
-            undoButton.readonly = !editor.isEditable;
 
             document
                 .querySelector("#toggle-readonly")
                 .addEventListener("click", () => {
                     editor.setEditable(!editor.isEditable);
-
-                    boldButton.readonly = !editor.isEditable;
-                    italicButton.readonly = !editor.isEditable;
-                    strikeButton.readonly = !editor.isEditable;
-                    textAlignButton.readonly = !editor.isEditable;
-                    fontColorButton.readonly = !editor.isEditable;
-                    fontHighlightButton.readonly = !editor.isEditable;
-                    bulletListButton.readonly = !editor.isEditable;
-                    orderedListButton.readonly = !editor.isEditable;
-                    imageButton.readonly = !editor.isEditable;
-                    hyperlinkButton.readonly = !editor.isEditable;
-                    tableButton.readonly = !editor.isEditable;
-                    knowledgeButton.readonly = !editor.isEditable;
-                    redoButton.readonly = !editor.isEditable;
-                    removeFormatButton.readonly = !editor.isEditable;
-                    underlineButton.readonly = !editor.isEditable;
-                    undoButton.readonly = !editor.isEditable;
-
                     console.log("readonly: ", !editor.isEditable);
                 });
         }
