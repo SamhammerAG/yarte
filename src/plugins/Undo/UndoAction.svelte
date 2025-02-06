@@ -3,13 +3,13 @@
 <script lang="ts">
   import UndoIcon from "../../../icons/arrow-go-back-line.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().focus().undo().run();
 </script>
 
 {#if editor}
-  <SimpleButton key="undo" {editor} {readonly} {action} icon={UndoIcon} />
+  <SimpleButton key="undo" {editor} {action} icon={UndoIcon} />
 {/if}

@@ -3,13 +3,13 @@
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
   import KnowledgeIcon from "../../../icons/brain-line.svg?raw";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().toggleKnowledgeMark().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {readonly} {action} key="knowledge" icon={KnowledgeIcon} />
+  <SimpleButton {editor} {action} key="knowledge" icon={KnowledgeIcon} />
 {/if}

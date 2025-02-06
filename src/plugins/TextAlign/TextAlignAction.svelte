@@ -7,9 +7,9 @@
   import TextAlignJustifyIcon from "../../../icons/align-justify.svg?raw";
   import DropdownButton from "../../base/DropdownButton.svelte";
   import Icon from "../../base/Icon.svelte";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
   let active = $state(false);
 
   const textAlignments: { icon: string; action: () => void }[] = [
@@ -44,7 +44,7 @@
   ];
 </script>
 
-<DropdownButton {editor} {readonly} key="text-align" icon={TextAlignLeftIcon}>
+<DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon}>
   {#each textAlignments as alignment}
     <button disabled={active} onclick={() => alignment.action()}>
       <Icon content={alignment.icon} />

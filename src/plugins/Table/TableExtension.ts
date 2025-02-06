@@ -11,7 +11,7 @@ export function getTableExtensions(): Extensions {
   })];
 }
 
-export function getBubbleMenuExtension(element: HTMLElement, editor: Editor): Extension {
+export function getBubbleMenuExtension(editor: Editor): Extension {
   return BubbleMenu.configure({
     pluginKey: "bubbleMenuTable",
     tippyOptions: {
@@ -31,7 +31,7 @@ export function getBubbleMenuExtension(element: HTMLElement, editor: Editor): Ex
     shouldShow: ({ editor }) => {
       return editor.isEditable && editor.isActive("table")
     },
-    element: element,
+    element: document.querySelector("table-bubble-menu"),
   });
 }
 

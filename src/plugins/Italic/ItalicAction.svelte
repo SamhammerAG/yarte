@@ -3,13 +3,13 @@
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
   import ItalicIcon from "../../../icons/italic.svg?raw";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().focus().toggleItalic().run();
 </script>
 
 {#if editor}
-  <SimpleButton key="italic" {editor} {readonly} {action} icon={ItalicIcon} />
+  <SimpleButton key="italic" {editor} {action} icon={ItalicIcon} />
 {/if}

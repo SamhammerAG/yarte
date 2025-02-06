@@ -5,9 +5,10 @@
   import FontHighlightIcon from "../../../icons/palette-line.svg?raw";
   import EraserIcon from "../../../icons/eraser-line.svg?raw";
   import Icon from "../../base/Icon.svelte";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
+
   let dropdownOpen = $state(false);
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
@@ -23,7 +24,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} {readonly} key="font-highlight" icon={FontHighlightIcon}>
+  <DropdownButton {editor} {dropdownOpen} key="font-highlight" icon={FontHighlightIcon}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />

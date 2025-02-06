@@ -3,13 +3,13 @@
 <script lang="ts">
   import BulletListIcon from "../../../icons/list-unordered.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().focus().toggleBulletList().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {readonly} {action} key="bullet-list" icon={BulletListIcon} />
+  <SimpleButton {editor} {action} key="bullet-list" icon={BulletListIcon} />
 {/if}

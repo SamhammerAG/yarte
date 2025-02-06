@@ -3,9 +3,9 @@
 <script lang="ts">
   import DropdownButton from "../../base/DropdownButton.svelte";
   import TableIcon from "../../../icons/table-line.svg?raw";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
   let dropdownOpen = $state(false);
 
   const tableGridSize: number = 10;
@@ -19,7 +19,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {readonly} {dropdownOpen} key="table" icon={TableIcon}>
+  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon}>
     <div class="table">
       {#each { length: tableGridSize }, x}
         {#each { length: tableGridSize }, y}

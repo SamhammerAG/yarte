@@ -3,13 +3,13 @@
 <script lang="ts">
   import RedoIcon from "../../../icons/arrow-go-forward-line.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().focus().redo().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {readonly} {action} key="redo" icon={RedoIcon} />
+  <SimpleButton {editor} {action} key="redo" icon={RedoIcon} />
 {/if}

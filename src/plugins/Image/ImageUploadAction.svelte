@@ -3,13 +3,14 @@
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
   import ImageIcon from "../../../icons/image-add-line.svg?raw";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  interface ImageProps extends Props {
+  interface Props {
+    editor: Editor;
     imageUpload: (file: File) => Promise<string>;
   }
 
-  let { editor, readonly, imageUpload }: ImageProps = $props();
+  let { editor, imageUpload }: Props = $props();
 
   //svelte-ignore non_reactive_update
   let input: HTMLInputElement;
@@ -26,8 +27,8 @@
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {readonly} key="image" action={() => input.click()} icon={ImageIcon} />
-  <input disabled={readonly} onchange={processImages} bind:this={input} type="file" accept="image/*" />
+  <SimpleButton {editor} key="image" action={() => input.click()} icon={ImageIcon} />
+  <input onchange={processImages} bind:this={input} type="file" accept="image/*" />
 {/if}
 
 <style>

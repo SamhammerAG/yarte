@@ -3,13 +3,13 @@
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
   import StrikeIcon from "../../../icons/strikethrough.svg?raw";
-  import type Props from "../../../types/Props";
+  import type { Editor } from "@tiptap/core";
 
-  let { editor, readonly }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => editor.chain().focus().toggleStrike().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {readonly} {action} key="strike" icon={StrikeIcon} />
+  <SimpleButton {editor} {action} key="strike" icon={StrikeIcon} />
 {/if}
