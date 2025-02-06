@@ -44,13 +44,15 @@
   ];
 </script>
 
-<DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon}>
-  {#each textAlignments as alignment}
-    <button disabled={active} onclick={() => alignment.action()}>
-      <Icon content={alignment.icon} />
-    </button>
-  {/each}
-</DropdownButton>
+{#if editor}
+  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon}>
+    {#each textAlignments as alignment}
+      <button disabled={active} onclick={() => alignment.action()}>
+        <Icon content={alignment.icon} />
+      </button>
+    {/each}
+  </DropdownButton>
+{/if}
 
 <style>
   button {

@@ -11,15 +11,15 @@ export function getTableExtensions(): Extensions {
   })];
 }
 
-export function getBubbleMenuExtension(editor: Editor): Extension {
+export function getBubbleMenuExtension(getEditor: () => Editor): Extension {
   return BubbleMenu.configure({
     pluginKey: "bubbleMenuTable",
     tippyOptions: {
       animation: true,
       placement: "bottom",
       getReferenceClientRect: () => {
-        const { state, view } = editor;
-        const myNodePos = new NodePos(state.selection.$anchor, editor);
+        const { state, view } = getEditor();
+        const myNodePos = new NodePos(state.selection.$anchor, getEditor());
         const tableElement = findParentTableFromPos(myNodePos);
         if (tableElement) {
           return tableElement.getBoundingClientRect();
