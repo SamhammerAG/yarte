@@ -15,27 +15,27 @@
 
   let { editor }: { editor: Editor } = $props();
 
-  let editMode = $state(false);
-  let inputUrl = $state("");
+  let isEditModeActive = $state(false);
+  let urlInputField = $state("");
 
   onMount(() => {
-    inputUrl = editor?.getAttributes("link").href;
-    if (inputUrl === undefined) {
-      editMode = true;
+    urlInputField = editor?.getAttributes("link").href;
+    if (urlInputField === undefined) {
+      isEditModeActive = true;
     }
   });
 
   function enterEditMode() {
-    editMode = true;
+    isEditModeActive = true;
   }
 
   function cancelEdit() {
-    inputUrl = editor?.getAttributes("link").href;
+    urlInputField = editor?.getAttributes("link").href;
     closeMenu();
   }
 
   function saveLink() {
-    if (inputUrl) editor.chain().focus().extendMarkRange("link").setLink({ href: inputUrl }).run();
+    if (urlInputField) editor.chain().focus().extendMarkRange("link").setLink({ href: urlInputField }).run();
     else removeLink();
 
     closeMenu();
@@ -46,21 +46,24 @@
     closeMenu();
   }
 
+  function outsideClick() {
+    document.dispatchEvent(bubbleMenuEvent);
+    editor.chain().focus().run();
+  }
+
   function closeMenu() {
     document.dispatchEvent(bubbleMenuEvent);
-
-    //Workaround because the shouldshow call from the Editor for the Bubblemenu is called to late, so you can see the wrong menu for a second
-    let { from, to } = editor.state.selection;
+    const { from, to } = editor.state.selection;
     editor.commands.focus("start");
     editor.commands.setTextSelection({ from, to });
-    editMode = false;
+    isEditModeActive = false;
   }
 </script>
 
 {#if editor}
-  <div use:clickOutside onoutclick={closeMenu} class="bubble-menu">
-    {#if editMode}
-      <input bind:value={inputUrl} type="text" placeholder="https://example.com" />
+  <div use:clickOutside onoutclick={outsideClick} class="bubble-menu">
+    {#if isEditModeActive}
+      <input bind:value={urlInputField} type="text" placeholder="https://example.com" />
       <button class="confirm" onclick={saveLink}>
         <Icon content={CheckIcon} />
       </button>
@@ -68,8 +71,8 @@
         <Icon content={CancelIcon} />
       </button>
     {:else}
-      <a href={inputUrl} title={inputUrl} target="_blank" rel="noopener noreferrer">
-        <span>{inputUrl} </span>
+      <a href={urlInputField} title={urlInputField} target="_blank" rel="noopener noreferrer">
+        <span>{urlInputField} </span>
       </a>
       <button onclick={enterEditMode}>
         <Icon content={LinkIcon} />
