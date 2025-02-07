@@ -124,18 +124,20 @@
             underlineButton.editor = editor;
             undoButton.editor = editor;
 
-            document
-                .querySelector("#toggle-readonly")
-                .addEventListener("click", () => {
-                    editor.setEditable(!editor.isEditable);
-                    console.log("readonly: ", !editor.isEditable);
-                });
+            document.querySelector("#toggle-readonly").addEventListener("click", () => {
+                editor.setEditable(!editor.isEditable);
+                console.log("readonly: ", !editor.isEditable);
+            });
+
+            document.querySelector("#toggle-darkmode").addEventListener("click", () => {
+                document.querySelector("#editor").classList.toggle("darkmode");
+            });
         }
 
         function imageUpload(file) {
             return new Promise((resolve, reject) => {
                 alert("uploaded file: " + file.name);
-                reject("not implemented");
+                resolve("https://i.imgflip.com/7jg6us.png");
             });
         }
     </script>
@@ -174,6 +176,7 @@
     </div>
 
     <button id="toggle-readonly">Toggle Readonly</button>
+    <button id="toggle-darkmode">Toggle Darkmode</button>
 </body>
 
 </html>
