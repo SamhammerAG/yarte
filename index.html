@@ -23,9 +23,17 @@
         }
     </style>
     <script type="module">
+        import { Editor } from "@tiptap/core";
         import Document from "@tiptap/extension-document";
         import Paragraph from "@tiptap/extension-paragraph";
         import Text from "@tiptap/extension-text";
+        import TextStyle from "@tiptap/extension-text-style";
+        import Color from "@tiptap/extension-color";
+        import TextAlign from "@tiptap/extension-text-align";
+        import Table from "@tiptap/extension-table";
+        import TableRow from "@tiptap/extension-table-row";
+        import TableHeader from "@tiptap/extension-table-header";
+        import TableCell from "@tiptap/extension-table-cell";
         import Gapcursor from "@tiptap/extension-gapcursor";
         import Bold from "@tiptap/extension-bold";
         import Italic from "@tiptap/extension-italic";
@@ -35,17 +43,13 @@
         import History from "@tiptap/extension-history";
         import Strike from "@tiptap/extension-strike";
         import Underline from "@tiptap/extension-underline";
-        import { Editor } from "@tiptap/core";
+        import Highlight from "@tiptap/extension-highlight";
         import Link from "@tiptap/extension-link";
 
         import {
-            HyperlinkPlugin,
-            LinkExtension,
-            FontHighlightExtension,
-            TableExtensions,
+            HyperlinkBubbleMenuExtension,
             TableBubbleMenuExtension,
             ImageExtension,
-            TextAlignExtension
         } from "./src/index.ts";
 
         window.onload = () => {
@@ -80,6 +84,10 @@
                 content: "Ich mag Züge",
                 editable: true,
                 extensions: [
+                    Paragraph,
+                    Text,
+                    TextStyle,
+                    Color,
                     Document,
                     Paragraph,
                     Text,
@@ -88,19 +96,24 @@
                     Italic,
                     ListItem,
                     BulletList,
+                    Highlight.configure({
+                        multicolor: true,
+                    }),
                     OrderdList,
                     History,
-                    HyperlinkPlugin,
-                    LinkExtension.configure({
-                        openOnClick: false,
-                    }),
+                    HyperlinkBubbleMenuExtension,
                     Strike,
                     Underline,
-                    FontHighlightExtension(),
-                    ...TableExtensions(),
+                    Table,
+                    Link,
+                    TableRow,
+                    TableHeader,
+                    TableCell,
+                    TextAlign.configure({
+                        types: ["heading", "paragraph"],
+                    }),
                     TableBubbleMenuExtension(() => editor),
                     ImageExtension(imageUpload),
-                    TextAlignExtension(),
                 ]
             });
 
