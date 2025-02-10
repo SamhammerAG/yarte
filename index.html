@@ -77,7 +77,7 @@
             const underlineButton = document.querySelector("underline-button");
             const undoButton = document.querySelector("undo-button");
             const hyperlinkButton = document.querySelector("hyperlink-button");
-            const hyperlinkMenu = document.querySelector("hyperlink-menu");
+            const hyperlinkMenu = document.querySelector("hyperlink-bubble-menu");
 
             editor = new Editor({
                 element: $element,
@@ -89,8 +89,6 @@
                     TextStyle,
                     Color,
                     Document,
-                    Paragraph,
-                    Text,
                     Gapcursor,
                     Bold,
                     Italic,
@@ -183,7 +181,7 @@
         </div>
         <div class="wrapper">
             <div class="text-area"></div>
-            <hyperlink-menu></hyperlink-menu>
+            <hyperlink-bubble-menu></hyperlink-bubble-menu>
             <table-bubble-menu></table-bubble-menu>
         </div>
     </div>

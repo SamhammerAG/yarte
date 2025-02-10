@@ -20,7 +20,7 @@ export function getBubbleMenuExtension(getEditor: () => Editor): Extension {
       },
     },
     shouldShow: ({ editor }) => {
-      return editor.isEditable && editor.isActive("table")
+      return editor.isEditable && editor.isActive("table") && !editor.isActive("link");
     },
     element: document.querySelector("table-bubble-menu"),
   });
