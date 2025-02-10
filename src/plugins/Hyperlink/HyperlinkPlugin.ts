@@ -9,7 +9,7 @@ const HyperlinkBubbleMenuExtension = BubbleMenu.configure({
     placement: "bottom",
   },
   shouldShow: ({ editor }) => {
-    return editor.isEditable && (editor.isActive("link") && editor.isActive("table") || showBubbleMenu)
+    return editor.isEditable && (editor.isActive("link") && !editor.isActive("table") || showBubbleMenu)
   },
   element: document.querySelector("hyperlink-bubble-menu"),
 });
