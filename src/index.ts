@@ -1,7 +1,7 @@
 import BoldButton from "./plugins/Bold/BoldAction.svelte";
 import FontColorButton from "./plugins/FontColor/FontColorAction.svelte";
 import TableButton from "./plugins/Table/TableAction.svelte";
-import TableBubbleMenu from "./plugins/Table/TableMenu.svelte";
+import TableBubbleMenu from "./plugins/Table/TableBubbleMenu.svelte";
 import BulletListButton from "./plugins/BulletList/BulletListAction.svelte";
 import FontHighlightButton from "./plugins/FontHighlight/FontHighlightAction.svelte";
 import ImageExtension from "./plugins/Image/ImageExtension";
@@ -17,7 +17,7 @@ import StrikeButton from "./plugins/Strikethrough/StrikeAction.svelte";
 import UnderlineButton from "./plugins/Underline/UnderlineAction.svelte";
 import UndoButton from "./plugins/Undo/UndoAction.svelte";
 import HyperlinkBubbleMenuExtension from "./plugins/Hyperlink/HyperlinkPlugin";
-import HyperLinkBubbleMenu from "./plugins/Hyperlink/HyperLinkMenu.svelte";
+import HyperLinkBubbleMenu from "./plugins/Hyperlink/HyperLinkBubbleMenu.svelte";
 import HyperlinkButton from "./plugins/Hyperlink/HyperlinkAction.svelte";
 import {
   getBubbleMenuExtension as TableBubbleMenuExtension
