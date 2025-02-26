@@ -88,7 +88,7 @@
   .bubble-menu {
     background-color: #fff;
     border: 1px solid #3d25140d;
-    border-radius: var(--popout-border-radius);
+    border-radius: 8px;
     box-shadow:
       0px 12px 33px 0px rgba(0, 0, 0, 0.06),
       0px 3.618px 9.949px 0px rgba(0, 0, 0, 0.04);
@@ -114,16 +114,16 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: var(--popout-border-radius);
-    background-color: var(--button-color);
+    border-radius: 8px;
+    background-color: white;
     flex: 40%;
   }
 
   input {
     display: flex;
     padding: 0.25rem;
-    background-color: var(--button-color);
-    color: var(--icon-text-color);
+    background-color: white;
+    color: black;
     outline: none;
   }
 </style>

@@ -54,7 +54,7 @@
   .table-bubble-menu {
     background-color: #fff;
     border: 1px solid #eee;
-    border-radius: var(--popout-border-radius);
+    border-radius: 8px;
     box-shadow:
       0 0 2px 0 rgba(34, 47, 62, 0.2),
       0 4px 8px 0 rgba(34, 47, 62, 0.15);
@@ -78,11 +78,11 @@
           margin: 6px 1px 5px 0;
           height: 28px;
           border: none;
-          border-radius: var(--popout-border-radius);
-          background-color: var(--button-color);
+          border-radius: 8px;
+          background-color: white;
 
           &:hover {
-            background-color: var(--button-hover);
+            background-color: #e2e2e2;
           }
         }
       }

@@ -49,18 +49,18 @@
       box-sizing: border-box;
       width: 1rem;
       height: 1rem;
-      background-color: var(--button-color);
+      background-color: white;
 
       &:hover,
       &.highlight {
-        background-color: var(--button-active);
+        background-color: #a6ccf7;
       }
     }
   }
 
   .display {
     text-align: center;
-    color: var(--icon-text-color);
+    color: black;
     padding-bottom: 0.25rem;
   }
 </style>

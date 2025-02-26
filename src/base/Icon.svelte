@@ -17,6 +17,6 @@
   :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    fill: var(--icon-text-color);
+    fill: black;
   }
 </style>

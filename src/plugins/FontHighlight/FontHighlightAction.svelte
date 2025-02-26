@@ -24,7 +24,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="font-highlight" icon={FontHighlightIcon}>
+  <DropdownButton {editor} {dropdownOpen} key="highlight" icon={FontHighlightIcon}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />
@@ -43,27 +43,27 @@
     flex-flow: row wrap;
     gap: 0.25rem;
     width: 6.75rem;
-    background-color: var(--toolbar-color);
+    background-color: white;
     padding: 0.25rem;
 
     button {
       border: none;
-      border-radius: var(--popout-border-radius);
+      border-radius: 8px;
     }
 
     .clear {
       width: 100%;
       text-align: center;
       padding: 0.5rem;
-      background-color: var(--button-color);
-      color: var(--icon-text-color);
+      background-color: white;
+      color: black;
       align-items: center;
       justify-content: center;
       display: flex;
       cursor: pointer;
 
       &:hover {
-        background-color: var(--button-hover);
+        background-color: #e2e2e2;
       }
 
       :global(svg) {
@@ -76,7 +76,7 @@
       display: flex;
       width: 1.5rem;
       height: 1.5rem;
-      border: 1px solid var(--icon-text-color);
+      border: 1px solid black;
 
       &:hover {
         transform: scale(1.25);

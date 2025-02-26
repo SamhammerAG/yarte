@@ -11,5 +11,5 @@
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="bullet-list" icon={BulletListIcon} />
+  <SimpleButton {editor} {action} key="bulletList" icon={BulletListIcon} />
 {/if}

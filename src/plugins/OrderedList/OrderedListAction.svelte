@@ -11,5 +11,5 @@
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="ordered-list" icon={NumberedListIcon} />
+  <SimpleButton {editor} {action} key="orderedList" icon={NumberedListIcon} />
 {/if}

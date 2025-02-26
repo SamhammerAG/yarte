@@ -34,24 +34,22 @@
   button {
     display: flex;
     align-items: center;
-    cursor: pointer;
+
     margin: 6px 1px 5px 0;
     height: 28px;
     border: none;
-    border-radius: var(--button-border-radius);
-    background-color: var(--button-color);
+    border-radius: 4px;
+    background-color: white;
 
-    &.highlighted {
-      background-color: var(--button-active);
-    }
-
-    &:hover {
-      background-color: var(--button-hover);
+    &:hover:enabled {
+      background-color: #e2e2e2;
     }
   }
 
-  button:disabled,
-  button[disabled] {
-    background-color: red;
+  button:enabled {
+    cursor: pointer;
+  }
+  button.highlighted:enabled {
+    background-color: #a6ccf7;
   }
 </style>

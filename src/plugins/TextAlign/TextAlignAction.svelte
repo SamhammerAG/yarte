@@ -11,6 +11,7 @@
 
   let { editor }: { editor: Editor } = $props();
   let active = $state(false);
+  let highlighted = $state(false);
 
   const textAlignments: { icon: string; action: () => void }[] = [
     {
@@ -47,7 +48,7 @@
 {#if editor}
   <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon}>
     {#each textAlignments as alignment}
-      <button disabled={active} onclick={() => alignment.action()}>
+      <button disabled={active} class:highlighted onclick={() => alignment.action()}>
         <Icon content={alignment.icon} />
       </button>
     {/each}
@@ -59,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--button-color);
+    background-color: white;
     border: none;
     cursor: pointer;
     padding: 0.625rem;
@@ -69,13 +70,13 @@
     }
 
     &:hover {
-      background-color: var(--button-hover);
+      background-color: #e2e2e2;
     }
 
     :global(svg) {
       width: 1.125rem;
       height: 1.125rem;
-      color: var(--icon-text-color);
+      color: black;
     }
   }
 </style>

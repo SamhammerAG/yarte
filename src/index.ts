@@ -16,12 +16,19 @@ import RemoveFormatButton from "./plugins/RemoveFormat/RemoveFormatAction.svelte
 import StrikeButton from "./plugins/Strikethrough/StrikeAction.svelte";
 import UnderlineButton from "./plugins/Underline/UnderlineAction.svelte";
 import UndoButton from "./plugins/Undo/UndoAction.svelte";
-import HyperlinkBubbleMenuExtension from "./plugins/Hyperlink/HyperlinkPlugin";
+import { HyperlinkBubbleMenuExtension } from "./plugins/Hyperlink/HyperlinkPlugin";
 import HyperLinkBubbleMenu from "./plugins/Hyperlink/HyperLinkBubbleMenu.svelte";
 import HyperlinkButton from "./plugins/Hyperlink/HyperlinkAction.svelte";
 import {
   getBubbleMenuExtension as TableBubbleMenuExtension
 } from "./plugins/Table/TableExtension";
+
+import type { Editor } from "@tiptap/core";
+
+interface CustomHTMLElement extends HTMLElement {
+  editor: Editor;
+  imageUpload: (file: File) => Promise<string>;
+}
 
 export {
   BoldButton,
@@ -46,4 +53,5 @@ export {
   TableBubbleMenuExtension,
   ImageExtension,
   KnowledgeExtension,
+  type CustomHTMLElement
 };
