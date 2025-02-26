@@ -35,6 +35,7 @@
   }
 
   function saveLink() {
+    //@ts-ignore
     if (urlInputField) editor.chain().focus().extendMarkRange("link").setLink({ href: urlInputField }).run();
     else removeLink();
 
@@ -42,6 +43,7 @@
   }
 
   function removeLink() {
+    //@ts-ignore
     editor.chain().focus().unsetLink().run();
     closeMenu();
   }

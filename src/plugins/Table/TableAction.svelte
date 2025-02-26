@@ -13,6 +13,7 @@
   let yPos: number = $state(0);
 
   function createTable(rows: number, cols: number) {
+    //@ts-ignore
     editor.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run();
     dropdownOpen = false;
   }

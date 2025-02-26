@@ -6,7 +6,7 @@
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
-
+  //@ts-ignore
   const action = () => editor.chain().focus().toggleBold().run();
 </script>
 

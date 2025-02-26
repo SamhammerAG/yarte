@@ -12,11 +12,13 @@
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
   function clearColor() {
+    //@ts-ignore
     editor.chain().focus().unsetColor().run();
     dropdownOpen = false;
   }
 
   function setColor(color: string) {
+    //@ts-ignore
     editor.chain().focus().setColor(color).run();
     dropdownOpen = false;
   }

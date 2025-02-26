@@ -19,30 +19,64 @@
   <div class="table-bubble-menu">
     <div class="table-toolbar">
       <div class="toolbar-button-group">
-        <button onclick={() => editor.commands.toggleHeaderCell()}> Toggle Header </button>
-        <button onclick={() => editor.commands.deleteTable()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.toggleHeaderCell()}
+        >
+          Toggle Header
+        </button>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.deleteTable()}
+        >
           <Icon content={DeleteTableIcon} />
         </button>
       </div>
       <div class="toolbar-button-group">
-        <button onclick={() => editor.commands.addRowBefore()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.addRowBefore()}
+        >
           <Icon content={InsertRowTopIcon} />
         </button>
-        <button onclick={() => editor.commands.addRowAfter()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.addRowAfter()}
+        >
           <Icon content={InsertRowBottomIcon} />
         </button>
-        <button onclick={() => editor.commands.deleteRow()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.deleteRow()}
+        >
           <Icon content={DeleteRowIcon} />
         </button>
       </div>
       <div class="toolbar-button-group">
-        <button onclick={() => editor.commands.addColumnBefore()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.addColumnBefore()}
+        >
           <Icon content={InsertColumnLeftIcon} />
         </button>
-        <button onclick={() => editor.commands.addColumnAfter()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.addColumnAfter()}
+        >
           <Icon content={InsertColumnRightIcon} />
         </button>
-        <button onclick={() => editor.commands.deleteColumn()}>
+        <button
+          onclick={() =>
+            //@ts-ignore
+            editor.commands.deleteColumn()}
+        >
           <Icon content={DeleteColumnIcon} />
         </button>
       </div>
