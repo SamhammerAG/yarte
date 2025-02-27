@@ -1,6 +1,6 @@
 {
-  "name": "yarte",
-  "version": "0.0.1",
+  "name": "@samhammer/yarte",
+  "version": "1.0.2",
   "description": "Yet another rich text editor based on TipTap",
   "type": "module",
   "main": "dist/index.js",
@@ -14,7 +14,10 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "eslint src"
   },
-  "repository": "github:SamhammerAG/yarte",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamhammerAG/yarte.git"
+  },
   "homepage": "https://github.com/SamhammerAG/yarte",
   "keywords": [
     "richtext",
