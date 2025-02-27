@@ -5,57 +5,191 @@
     <meta charset="UTF-8" />
     <title>YARTE Editor Test</title>
     <script type="module" src="src/index.ts"></script>
+    <style type="text/css" src="./index.css"></style>
+    <link rel="stylesheet" href="./index.css">
     <style>
-        yarte-editor {
-            display: flex;
-            margin-bottom: 5rem;
-            width: 700px;
-            margin: 0 auto;
+        #editor {
+            width: 800px;
+            margin: 2rem;
+        }
+
+        body:has(> #editor.darkmode) {
+            background-color: #222222;
+
+            button {
+                background-color: black;
+                color: white;
+            }
         }
     </style>
-    <script type="module" lang="ts">
+    <script type="module">
+        import { Editor } from "@tiptap/core";
+        import Document from "@tiptap/extension-document";
+        import Paragraph from "@tiptap/extension-paragraph";
+        import Text from "@tiptap/extension-text";
+        import TextStyle from "@tiptap/extension-text-style";
+        import Color from "@tiptap/extension-color";
+        import TextAlign from "@tiptap/extension-text-align";
+        import Table from "@tiptap/extension-table";
+        import TableRow from "@tiptap/extension-table-row";
+        import TableHeader from "@tiptap/extension-table-header";
+        import TableCell from "@tiptap/extension-table-cell";
+        import Gapcursor from "@tiptap/extension-gapcursor";
+        import Bold from "@tiptap/extension-bold";
+        import Italic from "@tiptap/extension-italic";
+        import ListItem from "@tiptap/extension-list-item";
+        import BulletList from "@tiptap/extension-bullet-list";
+        import OrderdList from "@tiptap/extension-ordered-list";
+        import History from "@tiptap/extension-history";
+        import Strike from "@tiptap/extension-strike";
+        import Underline from "@tiptap/extension-underline";
+        import Highlight from "@tiptap/extension-highlight";
+        import Link from "@tiptap/extension-link";
 
-        import { BoldPlugin, ItalicPlugin, StrikePlugin, UnderlinePlugin, FontColorPlugin, FontHighlightPlugin, ImagePlugin, HyperlinkPlugin, BulletListPlugin, OrderedListPlugin, TablePlugin, TextAlignPlugin, RedoPlugin, UndoPlugin, RemoveFormatPlugin, KnowledgeMarkPlugin } from "./src/index.ts";
+        import {
+            HyperlinkBubbleMenuExtension,
+            TableBubbleMenuExtension,
+            ImageExtension,
+        } from "./src/index.ts";
 
         window.onload = () => {
-            var $editor = document.querySelectorAll("yarte-editor");
-
-            let propeller = (file) => {
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        resolve("urltoimage");
-                    })
-                })
-            };
-
-            $editor[0].initCallback = () => {
-                return [
-                    new BoldPlugin(),
-                    new ItalicPlugin(),
-                    new StrikePlugin(),
-                    new UnderlinePlugin(),
-                    new FontColorPlugin(),
-                    new FontHighlightPlugin(),
-                    new ImagePlugin(propeller),
-                    new HyperlinkPlugin(),
-                    new BulletListPlugin(),
-                    new OrderedListPlugin(),
-                    new TablePlugin(),
-                    new TextAlignPlugin(),
-                    new RedoPlugin(),
-                    new UndoPlugin(),
-                    new RemoveFormatPlugin(),
-                    new KnowledgeMarkPlugin()
-                ];
-            };
-
-            $editor[0].content = "Hello World!";
+            initializeEditor();
         };
+
+        function initializeEditor() {
+            let editor = null;
+
+            const $element = document.querySelector(".text-area");
+            const tableMenu = document.querySelector("table-bubble-menu");
+            const tableButton = document.querySelector("table-button");
+            const boldButton = document.querySelector("bold-button");
+            const bulletListButton = document.querySelector("bullet-list-button");
+            const fontColorButton = document.querySelector("font-color-button");
+            const fontHighlightButton = document.querySelector("font-highlight-button");
+            const imageButton = document.querySelector("image-button");
+            const italicButton = document.querySelector("italic-button");
+            const knowledgeButton = document.querySelector("knowledge-button");
+            const orderedListButton = document.querySelector("ordered-list-button");
+            const redoButton = document.querySelector("redo-button");
+            const removeFormatButton = document.querySelector("remove-format-button");
+            const strikeButton = document.querySelector("strike-button");
+            const textAlignButton = document.querySelector("text-align-button");
+            const underlineButton = document.querySelector("underline-button");
+            const undoButton = document.querySelector("undo-button");
+            const hyperlinkButton = document.querySelector("hyperlink-button");
+            const hyperlinkMenu = document.querySelector("hyperlink-bubble-menu");
+
+            editor = new Editor({
+                element: $element,
+                content: "Ich mag Züge",
+                editable: true,
+                extensions: [
+                    Paragraph,
+                    Text,
+                    TextStyle,
+                    Color,
+                    Document,
+                    Gapcursor,
+                    Bold,
+                    Italic,
+                    ListItem,
+                    BulletList,
+                    Highlight.configure({
+                        multicolor: true,
+                    }),
+                    OrderdList,
+                    History,
+                    HyperlinkBubbleMenuExtension(),
+                    Strike,
+                    Underline,
+                    Table,
+                    Link.configure({
+                        openOnClick: false,
+                    }),
+                    TableRow,
+                    TableHeader,
+                    TableCell,
+                    TextAlign.configure({
+                        types: ["heading", "paragraph"],
+                    }),
+                    TableBubbleMenuExtension(() => editor),
+                    ImageExtension(imageUpload),
+                ]
+            });
+
+            boldButton.editor = editor;
+            italicButton.editor = editor;
+            strikeButton.editor = editor;
+            textAlignButton.editor = editor;
+            fontColorButton.editor = editor;
+            fontHighlightButton.editor = editor;
+            bulletListButton.editor = editor;
+            orderedListButton.editor = editor;
+            imageButton.editor = editor;
+            imageButton.imageUpload = imageUpload;
+            hyperlinkButton.editor = editor;
+            hyperlinkMenu.editor = editor;
+            tableButton.editor = editor;
+            tableMenu.editor = editor;
+            knowledgeButton.editor = editor;
+            redoButton.editor = editor;
+            removeFormatButton.editor = editor;
+            underlineButton.editor = editor;
+            undoButton.editor = editor;
+
+            document.querySelector("#toggle-readonly").addEventListener("click", () => {
+                editor.setEditable(!editor.isEditable);
+                console.log("readonly: ", !editor.isEditable);
+            });
+
+            document.querySelector("#toggle-darkmode").addEventListener("click", () => {
+                document.querySelector("#editor").classList.toggle("darkmode");
+            });
+        }
+
+        function imageUpload(file) {
+            return new Promise((resolve, reject) => {
+                alert("uploaded file: " + file.name);
+                resolve("https://i.imgflip.com/7jg6us.png");
+            });
+        }
     </script>
 </head>
 
 <body>
-    <yarte-editor></yarte-editor>
+    <div id="editor">
+        <div class="toolbar">
+            <bold-button></bold-button>
+            <italic-button></italic-button>
+            <strike-button></strike-button>
+            <underline-button></underline-button>
+            <div class="spacer"></div>
+            <font-color-button></font-color-button>
+            <font-highlight-button></font-highlight-button>
+            <div class="spacer"></div>
+            <text-align-button></text-align-button>
+            <div class="spacer"></div>
+            <bullet-list-button></bullet-list-button>
+            <ordered-list-button></ordered-list-button>
+            <div class="spacer"></div>
+            <image-button></image-button>
+            <table-button></table-button>
+            <knowledge-button></knowledge-button>
+            <hyperlink-button></hyperlink-button>
+            <div class="spacer"></div>
+            <redo-button></redo-button>
+            <undo-button></undo-button>
+            <remove-format-button></remove-format-button>
+        </div>
+        <div class="wrapper">
+            <div class="text-area"></div>
+            <hyperlink-bubble-menu></hyperlink-bubble-menu>
+            <table-bubble-menu></table-bubble-menu>
+        </div>
+    </div>
+
+    <button id="toggle-readonly">Toggle Readonly</button>
+    <button id="toggle-darkmode">Toggle Darkmode</button>
 </body>
 
 </html>

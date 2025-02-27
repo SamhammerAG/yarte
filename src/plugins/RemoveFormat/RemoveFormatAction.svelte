@@ -1,23 +1,15 @@
+<svelte:options customElement="remove-format-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import ClearIcon from "../../../icons/format-clear.svg?raw";
-    import SimpleButton from "../../base/SimpleButton.svelte";
+  import ClearIcon from "../../../icons/format-clear.svg?raw";
+  import SimpleButton from "../../base/SimpleButton.svelte";
+  import type { Editor } from "@tiptap/core";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
+  let { editor }: { editor: Editor } = $props();
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
-
-    const action = () => editor.chain().focus().unsetAllMarks().run();
+  const action = () => editor.chain().focus().unsetAllMarks().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={ClearIcon} />
+{#if editor}
+  <SimpleButton {editor} {action} key="remove-format" icon={ClearIcon} />
+{/if}

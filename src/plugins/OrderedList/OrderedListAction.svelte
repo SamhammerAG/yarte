@@ -1,16 +1,16 @@
-<svelte:options customElement="strike-button" />
+<svelte:options customElement="ordered-list-button" />
 
 <script lang="ts">
+  import NumberedListIcon from "../../../icons/list-ordered.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
-  import StrikeIcon from "../../../icons/strikethrough.svg?raw";
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
 
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
-  const action = () => editor.chain().focus().toggleStrike().run();
+  const action = () => editor.chain().focus().toggleOrderedList().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="strike" icon={StrikeIcon} />
+  <SimpleButton {editor} {action} key="orderedList" icon={NumberedListIcon} />
 {/if}

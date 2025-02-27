@@ -1,16 +1,22 @@
 <script lang="ts">
   import DOMPurify from "dompurify";
 
-  interface Props {
+  interface IconProps {
     content: string;
   }
 
-  let {
-    content = $bindable(),
-  }: Props = $props();
+  let { content = $bindable() }: IconProps = $props();
 </script>
 
 <div>
-<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-{@html DOMPurify.sanitize(content, { USE_PROFILES: { svg: true } })}
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html DOMPurify.sanitize(content, { USE_PROFILES: { svg: true } })}
 </div>
+
+<style>
+  :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: black;
+  }
+</style>

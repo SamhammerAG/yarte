@@ -1,26 +1,23 @@
+<svelte:options customElement="text-align-button" />
+
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import TextAlignRightIcon from "../../../icons/align-right.svg?raw";
   import TextAlignLeftIcon from "../../../icons/align-left.svg?raw";
   import TextAlignCenterIcon from "../../../icons/align-center.svg?raw";
   import TextAlignJustifyIcon from "../../../icons/align-justify.svg?raw";
   import DropdownButton from "../../base/DropdownButton.svelte";
   import Icon from "../../base/Icon.svelte";
+  import type { Editor } from "@tiptap/core";
 
-  interface Props {
-    key: string;
-    editor: Editor;
-    disabled: boolean;
-    activeButtons: string[];
-  }
-
-  let { key, editor, disabled, activeButtons }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
   let active = $state(false);
+  let highlighted = $state(false);
 
   const textAlignments: { icon: string; action: () => void }[] = [
     {
       icon: TextAlignLeftIcon,
       action: () => {
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("left").run();
         active = false;
       },
@@ -28,6 +25,7 @@
     {
       icon: TextAlignCenterIcon,
       action: () => {
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("center").run();
         active = false;
       },
@@ -35,6 +33,7 @@
     {
       icon: TextAlignRightIcon,
       action: () => {
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("right").run();
         active = false;
       },
@@ -42,6 +41,7 @@
     {
       icon: TextAlignJustifyIcon,
       action: () => {
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("justify").run();
         active = false;
       },
@@ -49,20 +49,22 @@
   ];
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={TextAlignLeftIcon} bind:active>
-  {#each textAlignments as alignment}
-    <button {disabled} onclick={() => alignment.action()}>
-      <Icon content={alignment.icon} />
-    </button>
-  {/each}
-</DropdownButton>
+{#if editor}
+  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon}>
+    {#each textAlignments as alignment}
+      <button disabled={active} class:highlighted onclick={() => alignment.action()}>
+        <Icon content={alignment.icon} />
+      </button>
+    {/each}
+  </DropdownButton>
+{/if}
 
 <style>
   button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--button-color);
+    background-color: white;
     border: none;
     cursor: pointer;
     padding: 0.625rem;
@@ -72,13 +74,13 @@
     }
 
     &:hover {
-      background-color: var(--button-hover);
+      background-color: #e2e2e2;
     }
 
     :global(svg) {
       width: 1.125rem;
       height: 1.125rem;
-      color: var(--icon-text-color);
+      color: black;
     }
   }
 </style>

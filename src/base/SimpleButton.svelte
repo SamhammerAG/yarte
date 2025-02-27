@@ -1,39 +1,55 @@
 <script lang="ts">
+  import type { Editor } from "@tiptap/core";
   import Icon from "./Icon.svelte";
+  import { onMount } from "svelte";
 
   interface Props {
-    activeButtons: string[];
-    disabled: boolean;
+    editor: Editor;
     key: string;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    action: Function;
+    action: () => void;
     icon: string;
   }
 
-  let {
-    activeButtons = $bindable(),
-    disabled = $bindable(),
-    key = $bindable(),
-    action = $bindable(),
-    icon = $bindable(),
-  }: Props = $props();
+  let { editor, key, action, icon }: Props = $props();
 
-  function handleClick() {
-    action();
+  let highlighted = $state(false);
+  let disabled = $state(false);
 
-    if (activeButtons.includes(key)) {
-      activeButtons = activeButtons.filter((k) => k !== key);
-    } else {
-      activeButtons = [...activeButtons, key];
-    }
-  }
+  onMount(() => {
+    editor.on("transaction", () => {
+      highlighted = editor.isActive(key);
+    });
+
+    editor.on("update", () => {
+      disabled = !editor.isEditable;
+    });
+  });
 </script>
 
-<button
-  {disabled}
-  class:active={activeButtons.includes(key)}
-  class={key}
-  onclick={handleClick}
->
+<button {disabled} class:highlighted onclick={() => action()}>
   <Icon content={icon} />
 </button>
+
+<style>
+  button {
+    display: flex;
+    align-items: center;
+
+    margin: 6px 1px 5px 0;
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    background-color: white;
+
+    &:hover:enabled {
+      background-color: #e2e2e2;
+    }
+  }
+
+  button:enabled {
+    cursor: pointer;
+  }
+  button.highlighted:enabled {
+    background-color: #a6ccf7;
+  }
+</style>

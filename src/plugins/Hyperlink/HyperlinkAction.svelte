@@ -1,22 +1,18 @@
+<svelte:options customElement="hyperlink-button" />
+
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import LinkIcon from "../../../icons/link.svg?raw";
-  import { showLinkBubbleMenu } from "./stores";
   import SimpleButton from "../../base/SimpleButton.svelte";
 
-  interface Props {
-    editor: Editor;
-    disabled: boolean;
-    activeButtons: string[];
-    key: string;
-  }
-
-  let { editor, disabled, activeButtons, key }: Props = $props();
+  let { editor }: { editor: Editor } = $props();
 
   const action = () => {
-    showLinkBubbleMenu.set(true);
+    document.dispatchEvent(new CustomEvent("showLinkBubbleMenu", { detail: { show: true } }));
     editor.chain().focus().run();
   };
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={LinkIcon} />
+{#if editor}
+  <SimpleButton {editor} {action} key="link" icon={LinkIcon} />
+{/if}

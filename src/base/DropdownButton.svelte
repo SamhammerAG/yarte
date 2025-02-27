@@ -1,50 +1,34 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { clickOutside } from "../utils/click-outside";
-  import Icon from "./Icon.svelte";
+  import SimpleButton from "./SimpleButton.svelte";
+  import type { Editor } from "@tiptap/core";
+  import { fly } from "svelte/transition";
 
   interface Props {
-    disabled: boolean;
-    activeButtons: string[];
+    editor: Editor;
     key: string;
     icon: string;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    callback?: Function;
-    active?: boolean;
+    dropdownOpen?: boolean;
     children: Snippet;
   }
 
-  let {
-    disabled,
-    activeButtons,
-    key,
-    icon,
-    callback = () => {},
-    active = $bindable(false),
-    children,
-  }: Props = $props();
+  let { editor, key, icon, dropdownOpen, children }: Props = $props();
 
   function toggleDropdown() {
-    active = !active;
-    callback();
+    dropdownOpen = !dropdownOpen;
   }
   //close dropdown when user clicks outside
   function outsideclick() {
-    active = false;
+    dropdownOpen = false;
   }
 </script>
 
 <div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
-  <button
-    {disabled}
-    class:active={activeButtons.includes(key) || active}
-    onclick={toggleDropdown}
-  >
-    <Icon content={icon} />
-  </button>
+  <SimpleButton {key} {editor} action={toggleDropdown} {icon} />
 
-  {#if active}
-    <div class="dropdown">
+  {#if dropdownOpen}
+    <div transition:fly class="dropdown">
       {@render children()}
     </div>
   {/if}
@@ -54,20 +38,23 @@
   .dropdown-wrapper {
     position: relative;
 
-    & > button:after {
+    :global(> button:after) {
       margin-left: 0.25rem;
       content: "";
       border-top: 0.3em solid;
       border-right: 0.3em solid transparent;
       border-left: 0.3em solid transparent;
-      color: var(--icon-text-color);
+      color: black;
     }
 
-    & .dropdown {
+    .dropdown {
+      z-index: 99;
       position: absolute;
-      box-shadow: var(--shadow);
-      background-color: var(--toolbar-color);
-      border-radius: var(--popout-border-radius);
+      box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+      background-color: white;
+      border-radius: 8px;
     }
   }
 </style>

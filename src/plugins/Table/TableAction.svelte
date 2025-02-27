@@ -1,47 +1,42 @@
+<svelte:options customElement="table-button" />
+
 <script lang="ts">
-  import type { Editor } from "@tiptap/core";
   import DropdownButton from "../../base/DropdownButton.svelte";
   import TableIcon from "../../../icons/table-line.svg?raw";
+  import type { Editor } from "@tiptap/core";
 
-  interface Props {
-    key: string;
-    editor: Editor;
-    disabled: boolean;
-    activeButtons: string[];
-  }
+  let { editor }: { editor: Editor } = $props();
 
-  let { key, editor, disabled, activeButtons }: Props = $props();
-  let active = $state(false);
-
-  const tableGridSize: number = 10;
+  let dropdownOpen = $state(false);
   let xPos: number = $state(0);
   let yPos: number = $state(0);
 
+  const tableGridSize: number = 10;
+
   function createTable(rows: number, cols: number) {
-    editor
-      .chain()
-      .focus()
-      .insertTable({ rows, cols, withHeaderRow: false })
-      .run();
-    active = false;
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
+    editor.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run();
+    dropdownOpen = false;
   }
 </script>
 
-<DropdownButton {key} {disabled} {activeButtons} icon={TableIcon} bind:active>
-  <div class="table">
-    {#each Array.from({ length: tableGridSize }).keys() as x}
-      {#each Array.from({ length: tableGridSize }).keys() as y}
-        <button
-          class:highlight={xPos >= x && yPos >= y}
-          onmouseenter={() => ((xPos = x), (yPos = y))}
-          onclick={() => createTable(x + 1, y + 1)}
-          aria-label="Create table with {x + 1} rows and {y + 1} columns"
-        ></button>
+{#if editor}
+  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon}>
+    <div class="table">
+      {#each { length: tableGridSize }, x}
+        {#each { length: tableGridSize }, y}
+          <button
+            class:highlight={xPos >= x && yPos >= y}
+            onmouseenter={() => ((xPos = x), (yPos = y))}
+            onclick={() => createTable(x + 1, y + 1)}
+            aria-label="Create table with {x + 1} rows and {y + 1} columns"
+          ></button>
+        {/each}
       {/each}
-    {/each}
-  </div>
-  <div class="display">{xPos + 1} x {yPos + 1}</div>
-</DropdownButton>
+    </div>
+    <div class="display">{xPos + 1} x {yPos + 1}</div>
+  </DropdownButton>
+{/if}
 
 <style>
   .table {
@@ -56,18 +51,18 @@
       box-sizing: border-box;
       width: 1rem;
       height: 1rem;
-      background-color: var(--button-color);
+      background-color: white;
 
       &:hover,
       &.highlight {
-        background-color: var(--button-active);
+        background-color: #a6ccf7;
       }
     }
   }
 
   .display {
     text-align: center;
-    color: var(--icon-text-color);
+    color: black;
     padding-bottom: 0.25rem;
   }
 </style>

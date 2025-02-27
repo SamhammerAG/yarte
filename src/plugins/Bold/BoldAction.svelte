@@ -1,23 +1,15 @@
+<svelte:options customElement="bold-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import BoldIcon from "../../../icons/bold.svg?raw";
-    import SimpleButton from "../../base/SimpleButton.svelte";
+  import BoldIcon from "../../../icons/bold.svg?raw";
+  import SimpleButton from "../../base/SimpleButton.svelte";
+  import type { Editor } from "@tiptap/core";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
-
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
-
-    const action = () => editor.chain().focus().toggleBold().run();
+  let { editor }: { editor: Editor } = $props();
+  //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
+  const action = () => editor.chain().focus().toggleBold().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={BoldIcon} />
+{#if editor}
+  <SimpleButton {editor} {action} key="bold" icon={BoldIcon} />
+{/if}

@@ -1,23 +1,16 @@
+<svelte:options customElement="underline-button" />
+
 <script lang="ts">
-    import type { Editor } from "@tiptap/core";
-    import SimpleButton from "../../base/SimpleButton.svelte";
-    import UnderlineIcon from "../../../icons/underline.svg?raw";
+  import SimpleButton from "../../base/SimpleButton.svelte";
+  import UnderlineIcon from "../../../icons/underline.svg?raw";
+  import type { Editor } from "@tiptap/core";
 
-    interface Props {
-        editor: Editor;
-        disabled: boolean;
-        activeButtons: string[];
-        key: string;
-    }
+  let { editor }: { editor: Editor } = $props();
 
-    let {
-        editor,
-        disabled,
-        activeButtons,
-        key
-    }: Props = $props();
-
-    const action = () => editor.chain().focus().toggleUnderline().run();
+  //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
+  const action = () => editor.chain().focus().toggleUnderline().run();
 </script>
 
-<SimpleButton {key} {disabled} {activeButtons} {action} icon={UnderlineIcon} />
+{#if editor}
+  <SimpleButton key="underline" {editor} {action} icon={UnderlineIcon} />
+{/if}
