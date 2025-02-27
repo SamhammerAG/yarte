@@ -21,14 +21,14 @@
       <div class="toolbar-button-group">
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.toggleHeaderCell()}
         >
           Toggle Header
         </button>
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.deleteTable()}
         >
           <Icon content={DeleteTableIcon} />
@@ -37,21 +37,21 @@
       <div class="toolbar-button-group">
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addRowBefore()}
         >
           <Icon content={InsertRowTopIcon} />
         </button>
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addRowAfter()}
         >
           <Icon content={InsertRowBottomIcon} />
         </button>
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.deleteRow()}
         >
           <Icon content={DeleteRowIcon} />
@@ -60,21 +60,21 @@
       <div class="toolbar-button-group">
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addColumnBefore()}
         >
           <Icon content={InsertColumnLeftIcon} />
         </button>
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addColumnAfter()}
         >
           <Icon content={InsertColumnRightIcon} />
         </button>
         <button
           onclick={() =>
-            //@ts-ignore
+            //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.deleteColumn()}
         >
           <Icon content={DeleteColumnIcon} />

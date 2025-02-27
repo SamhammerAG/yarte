@@ -7,7 +7,6 @@
 
   let { editor }: { editor: Editor } = $props();
 
-  //@ts-ignore
   const action = () => editor.chain().focus().unsetAllMarks().run();
 </script>
 

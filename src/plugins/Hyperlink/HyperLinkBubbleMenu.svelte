@@ -35,7 +35,7 @@
   }
 
   function saveLink() {
-    //@ts-ignore
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
     if (urlInputField) editor.chain().focus().extendMarkRange("link").setLink({ href: urlInputField }).run();
     else removeLink();
 
@@ -43,7 +43,7 @@
   }
 
   function removeLink() {
-    //@ts-ignore
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
     editor.chain().focus().unsetLink().run();
     closeMenu();
   }

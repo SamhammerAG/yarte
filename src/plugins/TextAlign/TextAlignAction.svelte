@@ -17,7 +17,7 @@
     {
       icon: TextAlignLeftIcon,
       action: () => {
-        //@ts-ignore
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("left").run();
         active = false;
       },
@@ -25,7 +25,7 @@
     {
       icon: TextAlignCenterIcon,
       action: () => {
-        //@ts-ignore
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("center").run();
         active = false;
       },
@@ -33,7 +33,7 @@
     {
       icon: TextAlignRightIcon,
       action: () => {
-        //@ts-ignore
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("right").run();
         active = false;
       },
@@ -41,7 +41,7 @@
     {
       icon: TextAlignJustifyIcon,
       action: () => {
-        //@ts-ignore
+        //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("justify").run();
         active = false;
       },

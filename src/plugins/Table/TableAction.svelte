@@ -6,14 +6,15 @@
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
-  let dropdownOpen = $state(false);
 
-  const tableGridSize: number = 10;
+  let dropdownOpen = $state(false);
   let xPos: number = $state(0);
   let yPos: number = $state(0);
 
+  const tableGridSize: number = 10;
+
   function createTable(rows: number, cols: number) {
-    //@ts-ignore
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
     editor.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run();
     dropdownOpen = false;
   }

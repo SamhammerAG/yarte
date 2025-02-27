@@ -19,7 +19,6 @@
     const target = e.target as HTMLInputElement;
 
     for (const file of target.files ?? []) {
-      //@ts-ignore
       imageUpload(file).then((imageSrc: string) => editor.chain().focus().setImage({ src: imageSrc }).run());
     }
 

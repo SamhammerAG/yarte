@@ -6,7 +6,7 @@
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
-  //@ts-ignore
+  //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
   const action = () => editor.chain().focus().toggleBold().run();
 </script>
 

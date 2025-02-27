@@ -12,13 +12,13 @@
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
   function clearColor() {
-    //@ts-ignore
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
     editor.chain().focus().unsetColor().run();
     dropdownOpen = false;
   }
 
   function setColor(color: string) {
-    //@ts-ignore
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
     editor.chain().focus().setColor(color).run();
     dropdownOpen = false;
   }

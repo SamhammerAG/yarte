@@ -6,7 +6,7 @@
   interface Props {
     editor: Editor;
     key: string;
-    action: Function;
+    action: () => void;
     icon: string;
   }
 
