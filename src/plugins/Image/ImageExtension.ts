@@ -1,12 +1,14 @@
 import Image from "@tiptap/extension-image";
-import { Plugin } from "@tiptap/pm/state";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
 import type { Node } from "@tiptap/core";
 
 export default function getImageExtension(imageUpload: (file: File) => Promise<string>): Node {
   return Image.extend({
+    name: "imageUpload",
     addProseMirrorPlugins: () => {
       return [
         new Plugin({
+          key: new PluginKey("imageUpload"),
           props: {
             handlePaste: (view, event) => {
               const hasFiles =
@@ -34,7 +36,7 @@ export default function getImageExtension(imageUpload: (file: File) => Promise<s
 
               for (const image of images) {
                 imageUpload(image).then((img: string) => {
-                  const node = schema.nodes.image.create({
+                  const node = schema.nodes.imageUpload.create({
                     src: img,
                   });
                   const transaction =

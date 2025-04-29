@@ -1,4 +1,4 @@
-<svelte:options customElement="hyperlink-bubble-menu" />
+<svelte:options customElement="yarte-hyperlink-bubble-menu" />
 
 <script lang="ts">
   import type { Editor } from "@tiptap/core";

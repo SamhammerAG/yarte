@@ -1,4 +1,4 @@
-<svelte:options customElement="table-button" />
+<svelte:options customElement="yarte-table-button" />
 
 <script lang="ts">
   import DropdownButton from "../../base/DropdownButton.svelte";

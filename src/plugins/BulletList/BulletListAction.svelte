@@ -1,4 +1,4 @@
-<svelte:options customElement="bullet-list-button" />
+<svelte:options customElement="yarte-bullet-list-button" />
 
 <script lang="ts">
   import BulletListIcon from "../../../icons/list-unordered.svg?raw";

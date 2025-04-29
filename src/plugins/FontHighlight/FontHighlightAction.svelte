@@ -1,4 +1,4 @@
-<svelte:options customElement="font-highlight-button" />
+<svelte:options customElement="yarte-font-highlight-button" />
 
 <script lang="ts">
   import DropdownButton from "../../base/DropdownButton.svelte";

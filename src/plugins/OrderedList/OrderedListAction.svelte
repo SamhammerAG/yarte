@@ -1,4 +1,4 @@
-<svelte:options customElement="ordered-list-button" />
+<svelte:options customElement="yarte-ordered-list-button" />
 
 <script lang="ts">
   import NumberedListIcon from "../../../icons/list-ordered.svg?raw";

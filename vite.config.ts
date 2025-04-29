@@ -7,11 +7,16 @@ export default defineConfig({
   build: {
     outDir: "dist",
     lib: {
-      entry: "./src/index.ts", // The file must have the same name as the entry point file so that the generated type files can be assigned correctly.
-      fileName: "index",
-      formats: ["es"]
+      entry: {
+        webComponents: "./src/web-components.ts",
+        extensions: "./src/extensions.ts"
+      },
+      formats: ["es"],
+      fileName: (format, name) => {
+        return name === "webComponents" ? "web-components.js" : "extensions.js";
+      }
     },
-    sourcemap: true,
+    sourcemap: true
   },
   plugins: [svelte(), svgLoader()],
 });

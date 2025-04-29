@@ -1,4 +1,4 @@
-<svelte:options customElement="underline-button" />
+<svelte:options customElement="yarte-underline-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";

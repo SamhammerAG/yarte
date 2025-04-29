@@ -1,4 +1,4 @@
-<svelte:options customElement="table-bubble-menu" />
+<svelte:options customElement="yarte-table-bubble-menu" />
 
 <script lang="ts">
   import type { Editor } from "@tiptap/core";

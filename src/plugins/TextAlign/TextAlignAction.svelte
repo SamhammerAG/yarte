@@ -1,4 +1,4 @@
-<svelte:options customElement="text-align-button" />
+<svelte:options customElement="yarte-text-align-button" />
 
 <script lang="ts">
   import TextAlignRightIcon from "../../../icons/align-right.svg?raw";
