@@ -1,4 +1,4 @@
-<svelte:options customElement="font-color-button" />
+<svelte:options customElement="yarte-font-color-button" />
 
 <script lang="ts">
   import FontColorIcon from "../../../icons/font-color.svg?raw";

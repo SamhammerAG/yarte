@@ -4,7 +4,7 @@ import { Editor, Extension, NodePos, posToDOMRect } from "@tiptap/core";
 
 export function getBubbleMenuExtension(getEditor: () => Editor): Extension {
   return BubbleMenu.configure({
-    pluginKey: "bubbleMenuTable",
+    pluginKey: "tableBubbleMenu",
     tippyOptions: {
       animation: true,
       placement: "bottom",
@@ -22,7 +22,7 @@ export function getBubbleMenuExtension(getEditor: () => Editor): Extension {
     shouldShow: ({ editor }) => {
       return editor.isEditable && editor.isActive("table") && !editor.isActive("link");
     },
-    element: document.querySelector("table-bubble-menu"),
+    element: document.querySelector("yarte-table-bubble-menu"),
   });
 }
 

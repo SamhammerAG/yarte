@@ -1,4 +1,4 @@
-<svelte:options customElement="knowledge-button" />
+<svelte:options customElement="yarte-knowledge-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";

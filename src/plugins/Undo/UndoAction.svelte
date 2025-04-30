@@ -1,4 +1,4 @@
-<svelte:options customElement="undo-button" />
+<svelte:options customElement="yarte-undo-button" />
 
 <script lang="ts">
   import UndoIcon from "../../../icons/arrow-go-back-line.svg?raw";

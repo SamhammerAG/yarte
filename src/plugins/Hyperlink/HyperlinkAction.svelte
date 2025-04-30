@@ -1,4 +1,4 @@
-<svelte:options customElement="hyperlink-button" />
+<svelte:options customElement="yarte-hyperlink-button" />
 
 <script lang="ts">
   import type { Editor } from "@tiptap/core";

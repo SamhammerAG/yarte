@@ -1,4 +1,4 @@
-<svelte:options customElement="strike-button" />
+<svelte:options customElement="yarte-strike-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";

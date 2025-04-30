@@ -1,4 +1,4 @@
-<svelte:options customElement="remove-format-button" />
+<svelte:options customElement="yarte-remove-format-button" />
 
 <script lang="ts">
   import ClearIcon from "../../../icons/format-clear.svg?raw";

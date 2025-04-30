@@ -1,4 +1,4 @@
-<svelte:options customElement="redo-button" />
+<svelte:options customElement="yarte-redo-button" />
 
 <script lang="ts">
   import RedoIcon from "../../../icons/arrow-go-forward-line.svg?raw";

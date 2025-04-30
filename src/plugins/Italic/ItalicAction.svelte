@@ -1,4 +1,4 @@
-<svelte:options customElement="italic-button" />
+<svelte:options customElement="yarte-italic-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";

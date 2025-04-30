@@ -1,4 +1,4 @@
-<svelte:options customElement="bold-button" />
+<svelte:options customElement="yarte-bold-button" />
 
 <script lang="ts">
   import BoldIcon from "../../../icons/bold.svg?raw";

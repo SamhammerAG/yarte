@@ -5,7 +5,7 @@ let showBubbleMenu = false;
 
 export function HyperlinkBubbleMenuExtension(): Extension {
   return BubbleMenu.configure({
-    pluginKey: "bubbleMenuHyperlink",
+    pluginKey: "hyperlinkBubbleMenu",
     tippyOptions: {
       hideOnClick: true,
       placement: "bottom",
@@ -13,7 +13,7 @@ export function HyperlinkBubbleMenuExtension(): Extension {
     shouldShow: ({ editor }) => {
       return editor.isEditable && (editor.isActive("link") || showBubbleMenu)
     },
-    element: document.querySelector("hyperlink-bubble-menu") as HTMLElement,
+    element: document.querySelector("yarte-hyperlink-bubble-menu") as HTMLElement,
   });
 }
 

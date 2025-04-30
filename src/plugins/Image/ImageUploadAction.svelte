@@ -1,4 +1,4 @@
-<svelte:options customElement="image-button" />
+<svelte:options customElement="yarte-image-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
