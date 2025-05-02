@@ -1,4 +1,4 @@
-import type { Extension } from "@tiptap/core";
+import { Extension } from "@tiptap/core";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
 
 let showBubbleMenu = false;
@@ -9,6 +9,13 @@ export function HyperlinkBubbleMenuExtension(): Extension {
     tippyOptions: {
       hideOnClick: true,
       placement: "bottom",
+      onShown: () => {
+        const bubbleMenu = document.querySelector("yarte-hyperlink-bubble-menu") as HTMLElement;
+        const textarea = bubbleMenu?.shadowRoot.querySelector("input") as HTMLInputElement;
+        if (textarea) {
+          textarea.focus();
+        }
+      }
     },
     shouldShow: ({ editor }) => {
       return editor.isEditable && (editor.isActive("link") || showBubbleMenu)
@@ -20,4 +27,3 @@ export function HyperlinkBubbleMenuExtension(): Extension {
 document.addEventListener("showLinkBubbleMenu", (e: Event) => {
   showBubbleMenu = (e as CustomEvent).detail.show;
 });
-
