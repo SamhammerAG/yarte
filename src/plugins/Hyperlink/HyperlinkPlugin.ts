@@ -1,11 +1,12 @@
 import { Extension } from "@tiptap/core";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
+import { PluginKey } from "@tiptap/pm/state";
 
 let showBubbleMenu = false;
 
 export function HyperlinkBubbleMenuExtension(): Extension {
   return BubbleMenu.configure({
-    pluginKey: "hyperlinkBubbleMenu",
+    pluginKey: new PluginKey("hyperlinkBubbleMenu"),
     tippyOptions: {
       hideOnClick: true,
       placement: "bottom",

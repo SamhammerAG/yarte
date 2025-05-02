@@ -1,10 +1,11 @@
 import BubbleMenu from "@tiptap/extension-bubble-menu";
 import { Editor, Extension, NodePos, posToDOMRect } from "@tiptap/core";
+import { PluginKey } from "@tiptap/pm/state";
 
 
 export function getBubbleMenuExtension(getEditor: () => Editor): Extension {
   return BubbleMenu.configure({
-    pluginKey: "tableBubbleMenu",
+    pluginKey: new PluginKey("tableBubbleMenu"),
     tippyOptions: {
       animation: true,
       placement: "bottom",
