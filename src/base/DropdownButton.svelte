@@ -13,7 +13,7 @@
     children: Snippet;
   }
 
-  let { editor, key, icon, dropdownOpen, children }: Props = $props();
+  let { editor, key, icon, dropdownOpen = $bindable(), children }: Props = $props();
 
   function toggleDropdown() {
     dropdownOpen = !dropdownOpen;

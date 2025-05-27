@@ -14,7 +14,6 @@ import RemoveFormatButton from "./plugins/RemoveFormat/RemoveFormatAction.svelte
 import StrikeButton from "./plugins/Strikethrough/StrikeAction.svelte";
 import UnderlineButton from "./plugins/Underline/UnderlineAction.svelte";
 import UndoButton from "./plugins/Undo/UndoAction.svelte";
-import HyperLinkBubbleMenu from "./plugins/Hyperlink/HyperLinkBubbleMenu.svelte";
 import HyperlinkButton from "./plugins/Hyperlink/HyperlinkAction.svelte";
 
 export {
@@ -32,7 +31,6 @@ export {
   RemoveFormatButton,
   StrikeButton,
   HyperlinkButton,
-  HyperLinkBubbleMenu,
   TableButton,
   TableBubbleMenu,
   TextAlignButton
