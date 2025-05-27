@@ -1,6 +1,6 @@
 {
   "name": "@samhammer/yarte",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Yet another rich text editor based on TipTap",
   "type": "module",
   "main": "./dist/web-components.js",
