@@ -5,6 +5,7 @@
   import CheckIcon from "../../../icons/check-line.svg?raw";
   import UnlinkIcon from "../../../icons/link-unlink-m.svg?raw";
   import LinkIcon from "../../../icons/link.svg?raw";
+  import OpenLink from "../../../icons/open-link.svg?raw";
   import Icon from "../../base/Icon.svelte";
   import { onMount } from "svelte";
   import DropdownButton from "../../base/DropdownButton.svelte";
@@ -28,15 +29,17 @@
 
   function setLink() {
     if (!editor) return;
-    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
-    editor.commands.setLink({ href: urlInputField });
 
+    const parsedUrl = urlInputField.includes(":") ? urlInputField : `https://${urlInputField}`;
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
+    editor.chain().focus().extendMarkRange("link").setLink({ href: parsedUrl }).run();
     dropdownOpen = false;
   }
 
   function removeLink() {
     if (!editor) return;
-    editor.chain().focus().unsetMark("link", { extendEmptyMarkRange: true }).setMeta("preventAutolink", true).run();
+    //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
+    editor.chain().focus().extendMarkRange("link").unsetLink().run();
     urlInputField = "";
   }
 
@@ -59,6 +62,10 @@
       });
     }
   });
+
+  function setFocus(element: HTMLInputElement) {
+    element.focus();
+  }
 </script>
 
 {#if editor}
@@ -71,12 +78,13 @@
         onkeydown={handleKeyDown}
         autocomplete="off"
         class="yarte-link-input"
+        use:setFocus
       />
       <button type="button" class="confirm" onclick={setLink} disabled={!urlInputField}>
         <Icon content={CheckIcon} />
       </button>
-      <button type="button" onclick={removeLink}>
-        <Icon content={UnlinkIcon} />
+      <button type="button" onclick={() => window.open(urlInputField, "_blank")}>
+        <Icon content={OpenLink} />
       </button>
       <button type="button" onclick={removeLink}>
         <Icon content={UnlinkIcon} />
@@ -105,13 +113,16 @@
     border-radius: 8px;
     background-color: white;
     flex: 40%;
+    &:hover:enabled {
+      background-color: #e2e2e2;
+    }
   }
-
   .yarte-link-input {
     display: flex;
     padding: 0.25rem;
     background-color: white;
     color: black;
     outline: none;
+    border: 0;
   }
 </style>

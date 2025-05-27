@@ -27,7 +27,6 @@
       [
         ["mouseenter", showTooltip],
         ["mouseleave", hideTooltip],
-        ["focus", showTooltip],
         ["blur", hideTooltip],
       ] as [string, EventListenerOrEventListenerObject][]
     ).forEach(([event, listener]) => {
@@ -48,7 +47,6 @@
       [
         ["mouseenter", showTooltip],
         ["mouseleave", hideTooltip],
-        ["focus", showTooltip],
         ["blur", hideTooltip],
       ] as [string, EventListenerOrEventListenerObject][]
     ).forEach(([event, listener]) => {
