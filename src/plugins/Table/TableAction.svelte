@@ -7,6 +7,7 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Insert Table";
   let dropdownOpen = $state(false);
   let xPos: number = $state(0);
   let yPos: number = $state(0);
@@ -21,7 +22,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon}>
+  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon} {tooltip}>
     <div class="table">
       {#each { length: tableGridSize }, x}
         {#each { length: tableGridSize }, y}

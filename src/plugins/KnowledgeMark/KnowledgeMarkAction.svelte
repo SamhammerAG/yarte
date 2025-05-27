@@ -7,9 +7,10 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Knowledge Mark";
   const action = () => editor.chain().toggleKnowledgeMark().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="knowledge" icon={KnowledgeIcon} />
+  <SimpleButton {editor} {action} key="knowledge" icon={KnowledgeIcon} {tooltip} />
 {/if}

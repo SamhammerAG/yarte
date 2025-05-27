@@ -9,6 +9,7 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Font Color";
   let dropdownOpen = $state(false);
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
@@ -26,7 +27,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="highlight" icon={FontHighlightIcon}>
+  <DropdownButton {editor} {dropdownOpen} key="highlight" icon={FontHighlightIcon} {tooltip}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />

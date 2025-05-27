@@ -10,6 +10,8 @@
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
+
+  let tooltip = "Text alignment";
   let active = $state(false);
   let highlighted = $state(false);
 
@@ -50,7 +52,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon}>
+  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} {tooltip}>
     {#each textAlignments as alignment}
       <button disabled={active} class:highlighted onclick={() => alignment.action()}>
         <Icon content={alignment.icon} />

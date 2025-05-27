@@ -7,10 +7,11 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Strikethrough";
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
   const action = () => editor.chain().focus().toggleStrike().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="strike" icon={StrikeIcon} />
+  <SimpleButton {editor} {action} key="strike" icon={StrikeIcon} {tooltip} />
 {/if}

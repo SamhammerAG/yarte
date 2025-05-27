@@ -11,9 +11,10 @@
     icon: string;
     dropdownOpen?: boolean;
     children: Snippet;
+    tooltip: string;
   }
 
-  let { editor, key, icon, dropdownOpen = $bindable(), children }: Props = $props();
+  let { editor, key, icon, dropdownOpen = $bindable(), children, tooltip }: Props = $props();
 
   function toggleDropdown() {
     dropdownOpen = !dropdownOpen;
@@ -25,7 +26,7 @@
 </script>
 
 <div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
-  <SimpleButton {key} {editor} action={toggleDropdown} {icon} />
+  <SimpleButton {key} {editor} action={toggleDropdown} {icon} {tooltip} />
 
   {#if dropdownOpen}
     <div transition:fly class="dropdown">

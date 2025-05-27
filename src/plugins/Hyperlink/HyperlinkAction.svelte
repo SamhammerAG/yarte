@@ -11,6 +11,7 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Link";
   let dropdownOpen = $state(false);
   let urlInputField = $state("");
 
@@ -61,7 +62,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon}>
+  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} {tooltip}>
     <div class="yarte-link-input-wrapper">
       <input
         bind:value={urlInputField}

@@ -7,10 +7,11 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Underline";
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
   const action = () => editor.chain().focus().toggleUnderline().run();
 </script>
 
 {#if editor}
-  <SimpleButton key="underline" {editor} {action} icon={UnderlineIcon} />
+  <SimpleButton key="underline" {editor} {action} icon={UnderlineIcon} {tooltip} />
 {/if}

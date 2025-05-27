@@ -12,6 +12,7 @@
 
   let { editor, imageUpload }: Props = $props();
 
+  let tooltip = "Insert Image";
   //svelte-ignore non_reactive_update
   let input: HTMLInputElement;
 
@@ -27,7 +28,7 @@
 </script>
 
 {#if editor}
-  <SimpleButton {editor} key="image" action={() => input.click()} icon={ImageIcon} />
+  <SimpleButton {editor} key="image" action={() => input.click()} icon={ImageIcon} {tooltip} />
   <input onchange={processImages} bind:this={input} type="file" accept="image/*" />
 {/if}
 

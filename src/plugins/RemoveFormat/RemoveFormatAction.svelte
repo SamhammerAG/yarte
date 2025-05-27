@@ -7,9 +7,10 @@
 
   let { editor }: { editor: Editor } = $props();
 
+  let tooltip = "Remove Format";
   const action = () => editor.chain().focus().unsetAllMarks().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="remove-format" icon={ClearIcon} />
+  <SimpleButton {editor} {action} key="remove-format" icon={ClearIcon} {tooltip} />
 {/if}

@@ -8,6 +8,8 @@
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
+
+  let tooltip = "Font Color";
   let dropdownOpen = $state(false);
   const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
@@ -25,7 +27,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="textStyle" icon={FontColorIcon}>
+  <DropdownButton {editor} {dropdownOpen} key="textStyle" icon={FontColorIcon} {tooltip}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />

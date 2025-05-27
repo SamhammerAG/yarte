@@ -6,10 +6,13 @@
   import type { Editor } from "@tiptap/core";
 
   let { editor }: { editor: Editor } = $props();
+
+  let tooltip = "Bold";
+
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
   const action = () => editor.chain().focus().toggleBold().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="bold" icon={BoldIcon} />
+  <SimpleButton {editor} {action} key="bold" icon={BoldIcon} {tooltip} />
 {/if}
