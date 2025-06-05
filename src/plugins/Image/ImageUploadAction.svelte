@@ -7,12 +7,17 @@
 
   interface Props {
     editor: Editor;
+    language: "de" | "en";
     imageUpload: (file: File) => Promise<string>;
   }
 
-  let { editor, imageUpload }: Props = $props();
+  let { editor, language = "en", imageUpload }: Props = $props();
 
-  let tooltip = "Insert Image";
+  const translations: Record<string, string> = {
+    "de": "Bild einfügen",
+    "en": "Insert Image"
+  };
+
   //svelte-ignore non_reactive_update
   let input: HTMLInputElement;
 
@@ -28,7 +33,7 @@
 </script>
 
 {#if editor}
-  <SimpleButton {editor} key="image" action={() => input.click()} icon={ImageIcon} {tooltip} />
+  <SimpleButton {editor} key="image" action={() => input.click()} icon={ImageIcon} tooltip={translations[language]} />
   <input onchange={processImages} bind:this={input} type="file" accept="image/*" />
 {/if}
 

@@ -9,9 +9,13 @@
   import Icon from "../../base/Icon.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  let tooltip = "Text alignment";
+  const translations: Record<string, string> = {
+    "de": "Textausrichtung",
+    "en": "Text Alignment"
+  };
+
   let active = $state(false);
   let highlighted = $state(false);
 
@@ -52,7 +56,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} {tooltip}>
+  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]}>
     {#each textAlignments as alignment}
       <button disabled={active} class:highlighted onclick={() => alignment.action()}>
         <Icon content={alignment.icon} />

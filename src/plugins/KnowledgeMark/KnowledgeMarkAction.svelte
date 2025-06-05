@@ -5,12 +5,16 @@
   import KnowledgeIcon from "../../../icons/brain-line.svg?raw";
   import type { Editor } from "@tiptap/core";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  let tooltip = "Knowledge Mark";
+  const translations: Record<string, string> = {
+    "de": "Wissensmarkierung",
+    "en": "Knowledge Mark"
+  };
+
   const action = () => editor.chain().toggleKnowledgeMark().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="knowledge" icon={KnowledgeIcon} {tooltip} />
+  <SimpleButton {editor} {action} key="knowledge" icon={KnowledgeIcon} tooltip={translations[language]} />
 {/if}

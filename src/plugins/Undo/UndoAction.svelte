@@ -5,13 +5,17 @@
   import SimpleButton from "../../base/SimpleButton.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  let tooltip = "Undo";
+  const translations: Record<string, string> = {
+    "de": "Rückgängig",
+    "en": "Undo"
+  };
+
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
   const action = () => editor.chain().focus().undo().run();
 </script>
 
 {#if editor}
-  <SimpleButton key="undo" {editor} {action} icon={UndoIcon} {tooltip} />
+  <SimpleButton key="undo" {editor} {action} icon={UndoIcon} tooltip={translations[language]} />
 {/if}

@@ -5,12 +5,16 @@
   import SimpleButton from "../../base/SimpleButton.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  let tooltip = "Remove Format";
+  const translations: Record<string, string> = {
+    "de": "Formatierung entfernen",
+    "en": "Remove Format"
+  };
+
   const action = () => editor.chain().focus().unsetAllMarks().run();
 </script>
 
 {#if editor}
-  <SimpleButton {editor} {action} key="remove-format" icon={ClearIcon} {tooltip} />
+  <SimpleButton {editor} {action} key="remove-format" icon={ClearIcon} tooltip={translations[language]} />
 {/if}

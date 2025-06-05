@@ -7,11 +7,23 @@
   import Icon from "../../base/Icon.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  let tooltip = "Font Color";
   let dropdownOpen = $state(false);
-  const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
+
+  const translations: Record<string, string> = {
+    "de": "Markieren",
+    "en": "Font Highlight"
+  };
+
+  const colors: string[] = [
+    "#E91313",
+    "#118800",
+    "#63F963",
+    "#72CDFD",
+    "#fc7999",
+    "#FDFD77"
+  ];
 
   function clearColor() {
     //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
@@ -27,7 +39,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="highlight" icon={FontHighlightIcon} {tooltip}>
+  <DropdownButton {editor} {dropdownOpen} key="highlight" icon={FontHighlightIcon} tooltip={translations[language]}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />

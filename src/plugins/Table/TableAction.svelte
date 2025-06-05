@@ -5,9 +5,13 @@
   import TableIcon from "../../../icons/table-line.svg?raw";
   import type { Editor } from "@tiptap/core";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  let tooltip = "Insert Table";
+  const translations: Record<string, string> = {
+    "de": "Tabelle",
+    "en": "Table"
+  };
+
   let dropdownOpen = $state(false);
   let xPos: number = $state(0);
   let yPos: number = $state(0);
@@ -22,7 +26,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon} {tooltip}>
+  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon} tooltip={translations[language]}>
     <div class="table">
       {#each { length: tableGridSize }, x}
         {#each { length: tableGridSize }, y}
