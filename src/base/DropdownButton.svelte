@@ -39,7 +39,7 @@
   .dropdown-wrapper {
     position: relative;
 
-    :global(> button:after) {
+    :global(> .button-wrapper > button:after) {
       margin-left: 0.25rem;
       content: "";
       border-top: 0.3em solid;

@@ -2,7 +2,7 @@
   import type { Editor } from "@tiptap/core";
   import Icon from "./Icon.svelte";
   import { onMount } from "svelte";
-  import { computePosition, flip, shift, offset, arrow } from "@floating-ui/dom";
+  import { computePosition, shift, offset, arrow } from "@floating-ui/dom";
 
   interface Props {
     editor: Editor;
@@ -38,7 +38,6 @@
       placement: "top",
       middleware: [
         offset(6),
-        flip(),
         shift({ padding: 5 }),
         arrow({ element: tooltipArrowElement })
       ],
@@ -53,15 +52,21 @@
   }
 </script>
 
-<button bind:this={buttonElement} {disabled} class:highlighted onclick={() => action()}>
-  <Icon content={icon} />
-</button>
-<div bind:this={tooltipElement} class="tooltip" role="tooltip">
-  {tooltip}
-  <div bind:this={tooltipArrowElement} class="arrow"></div>
+<div class="button-wrapper">
+  <button bind:this={buttonElement} {disabled} class:highlighted onclick={() => action()}>
+    <Icon content={icon} />
+  </button>
+  <div bind:this={tooltipElement} class="tooltip" role="tooltip">
+    {tooltip}
+    <div bind:this={tooltipArrowElement} class="arrow"></div>
+  </div>
 </div>
 
 <style>
+  .button-wrapper {
+    position: relative;
+  }
+
   button {
     display: flex;
     align-items: center;
