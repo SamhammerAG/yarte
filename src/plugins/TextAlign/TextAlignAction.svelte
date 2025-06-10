@@ -11,54 +11,70 @@
 
   let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
 
-  const translations: Record<string, string> = {
-    "de": "Textausrichtung",
-    "en": "Text Alignment"
+  const translations: Record<string, Record<string, string>> = {
+    "de": {
+      "main": "Textausrichtung",
+      "left": "Linksbündig",
+      "center": "Zentriert",
+      "right": "Rechtsbündig",
+      "justify": "Blocksatz"
+    },
+    "en": {
+      "main": "Text alignment",
+      "left": "Align left",
+      "center": "Align center",
+      "right": "Align right",
+      "justify": "Justify"
+    }
   };
 
-  let active = $state(false);
+  let disabled = $state(false);
   let highlighted = $state(false);
 
-  const textAlignments: { icon: string; action: () => void }[] = [
+  const textAlignments: { name: string, icon: string; action: () => void }[] = [
     {
+      name: "left",
       icon: TextAlignLeftIcon,
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("left").run();
-        active = false;
+        disabled = false;
       },
     },
     {
+      name: "center",
       icon: TextAlignCenterIcon,
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("center").run();
-        active = false;
+        disabled = false;
       },
     },
     {
+      name: "right",
       icon: TextAlignRightIcon,
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("right").run();
-        active = false;
+        disabled = false;
       },
     },
     {
+      name: "justify",
       icon: TextAlignJustifyIcon,
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("justify").run();
-        active = false;
+        disabled = false;
       },
     },
   ];
 </script>
 
 {#if editor}
-  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]}>
+  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]["main"]}>
     {#each textAlignments as alignment}
-      <button disabled={active} class:highlighted onclick={() => alignment.action()}>
+      <button {disabled} class:highlighted onclick={() => alignment.action()} title={disabled ? "" : translations[language][alignment.name]}>
         <Icon content={alignment.icon} />
       </button>
     {/each}

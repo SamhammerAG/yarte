@@ -14,9 +14,19 @@
   let dropdownOpen = $state(false);
   let urlInputField = $state("");
 
-  const translations: Record<string, string> = {
-    "de": "Link",
-    "en": "Link"
+  const translations: Record<string, Record<string, string>> = {
+    "de": {
+      "main": "Link",
+      "confirm": "Bestätigen",
+      "open": "Öffnen",
+      "remove": "Link entfernen/Schließen"
+    },
+    "en": {
+      "main": "Link",
+      "confirm": "Confirm",
+      "open": "Open",
+      "remove": "Remove/Close"
+    }
   };
 
   $effect(() => {
@@ -57,7 +67,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]}>
+  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
     <div class="yarte-link-input-wrapper">
       <input
         bind:value={urlInputField}
@@ -68,13 +78,13 @@
         class="yarte-link-input"
         use:setFocus
       />
-      <button type="button" class="confirm" onclick={setLink} disabled={!urlInputField}>
+      <button type="button" class="confirm" onclick={setLink} disabled={!urlInputField} title={!urlInputField ? "" : translations[language]["confirm"]}>
         <Icon content={CheckIcon} />
       </button>
-      <button type="button" onclick={() => window.open(urlInputField, "_blank")}>
+      <button type="button" onclick={() => window.open(urlInputField, "_blank")} title={translations[language]["open"]}>
         <Icon content={OpenLink} />
       </button>
-      <button type="button" onclick={removeLink}>
+      <button type="button" onclick={removeLink} title={translations[language]["remove"]}>
         <Icon content={UnlinkIcon} />
       </button>
     </div>
