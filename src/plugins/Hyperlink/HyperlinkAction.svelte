@@ -8,25 +8,26 @@
   import OpenLink from "../../../icons/open-link.svg?raw";
   import Icon from "../../base/Icon.svelte";
   import DropdownButton from "../../base/DropdownButton.svelte";
+  import Divider from "../../base/Divider.svelte";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   let dropdownOpen = $state(false);
   let urlInputField = $state("");
 
   const translations: Record<string, Record<string, string>> = {
-    "de": {
-      "main": "Link",
-      "confirm": "Bestätigen",
-      "open": "Öffnen",
-      "remove": "Link entfernen/Schließen"
+    de: {
+      main: "Link",
+      confirm: "Bestätigen",
+      open: "Öffnen",
+      remove: "Link entfernen/Schließen",
     },
-    "en": {
-      "main": "Link",
-      "confirm": "Confirm",
-      "open": "Open",
-      "remove": "Remove/Close"
-    }
+    en: {
+      main: "Link",
+      confirm: "Confirm",
+      open: "Open",
+      remove: "Remove/Close",
+    },
   };
 
   $effect(() => {
@@ -70,6 +71,7 @@
   <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
     <div class="yarte-link-input-wrapper">
       <input
+        id="yarte-link-input"
         bind:value={urlInputField}
         type="url"
         placeholder="Paste a link..."
@@ -78,10 +80,22 @@
         class="yarte-link-input"
         use:setFocus
       />
-      <button type="button" class="confirm" onclick={setLink} disabled={!urlInputField} title={!urlInputField ? "" : translations[language]["confirm"]}>
+      <button
+        type="button"
+        class="confirm"
+        onclick={setLink}
+        disabled={!urlInputField}
+        title={!urlInputField ? "" : translations[language]["confirm"]}
+      >
         <Icon content={CheckIcon} />
       </button>
-      <button type="button" onclick={() => window.open(urlInputField, "_blank")} title={translations[language]["open"]}>
+      <Divider></Divider>
+      <button
+        type="button"
+        onclick={() => window.open(urlInputField, "_blank")}
+        disabled={!urlInputField}
+        title={translations[language]["open"]}
+      >
         <Icon content={OpenLink} />
       </button>
       <button type="button" onclick={removeLink} title={translations[language]["remove"]}>
@@ -97,7 +111,7 @@
     flex-direction: row;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: white;
+    background-color: var(--yarte-bg-button, white);
     border-radius: 8px;
     width: 100%;
   }
@@ -109,17 +123,24 @@
     padding: 0.25rem;
     border: none;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--yarte-bg-button, white);
     flex: 40%;
     &:hover:enabled {
-      background-color: #e2e2e2;
+      background-color: var(--yarte-bg-button-hover, #e2e2e2);
     }
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+  .yarte-link-input::placeholder {
+    color: var(--table-resubmission-line, rgba(0, 0, 0, 0.4));
   }
   .yarte-link-input {
     display: flex;
     padding: 0.25rem;
-    background-color: white;
-    color: black;
+    background-color: var(--yarte-bg-button, white);
+    color: var(--yarte-bg-icon, black);
     outline: none;
     border: 0;
   }

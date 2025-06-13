@@ -7,23 +7,16 @@
   import Icon from "../../base/Icon.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   let dropdownOpen = $state(false);
 
   const translations: Record<string, string> = {
-    "de": "Markieren",
-    "en": "Font Highlight"
+    de: "Markieren",
+    en: "Font Highlight",
   };
 
-  const colors: string[] = [
-    "#E91313",
-    "#118800",
-    "#63F963",
-    "#72CDFD",
-    "#fc7999",
-    "#FDFD77"
-  ];
+  const colors: string[] = ["#E91313", "#118800", "#63F963", "#72CDFD", "#fc7999", "#FDFD77"];
 
   function clearColor() {
     //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
@@ -58,7 +51,7 @@
     flex-flow: row wrap;
     gap: 0.25rem;
     width: 6.75rem;
-    background-color: white;
+    background-color: var(--yarte-bg-button, white);
     padding: 0.25rem;
 
     button {
@@ -70,7 +63,7 @@
       width: 100%;
       text-align: center;
       padding: 0.5rem;
-      background-color: white;
+      background-color: var(--yarte-bg-button, white);
       color: black;
       align-items: center;
       justify-content: center;
@@ -78,7 +71,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #e2e2e2;
+        background-color: var(--yarte-bg-button-hover, #e2e2e2);
       }
 
       :global(svg) {
@@ -91,7 +84,7 @@
       display: flex;
       width: 1.5rem;
       height: 1.5rem;
-      border: 1px solid black;
+      border: 1px solid var(--yarte-bg-icon, black);
 
       &:hover {
         transform: scale(1.25);

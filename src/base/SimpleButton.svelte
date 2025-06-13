@@ -13,7 +13,6 @@
 
   let { editor, key, action, icon, tooltip }: Props = $props();
 
-
   let highlighted = $state(false);
   let disabled = $state(false);
 
@@ -28,25 +27,23 @@
   });
 </script>
 
-  <button {disabled} class:highlighted onclick={() => action()} title={ disabled ? '' : tooltip}>
-    <Icon content={icon} />
-  </button>
+<button {disabled} class:highlighted onclick={() => action()} title={disabled ? "" : tooltip}>
+  <Icon content={icon} />
+</button>
 
 <style>
-
-
   button {
     display: flex;
     align-items: center;
 
-    margin: 6px 1px 5px 0;
+    margin: 6px 0px 5px 0px;
     height: 28px;
     border: none;
     border-radius: 4px;
-    background-color: white;
+    background-color: var(--yarte-bg-button, white);
 
     &:hover:enabled {
-      background-color: #e2e2e2;
+      background-color: var(--yarte-bg-button-hover, #e2e2e2);
     }
   }
 
@@ -54,6 +51,6 @@
     cursor: pointer;
   }
   button.highlighted:enabled {
-    background-color: #a6ccf7;
+    background-color: var(--yarte-bg-button-highlighted, #a6ccf7);
   }
 </style>

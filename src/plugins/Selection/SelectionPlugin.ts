@@ -1,26 +1,38 @@
-import { Extension } from "@tiptap/core"
-import { Decoration, DecorationSet } from "@tiptap/pm/view"
-import { Plugin, PluginKey } from 'prosemirror-state'
+
+import { Extension } from '@tiptap/core'
+import { Plugin, PluginKey } from '@tiptap/pm/state'
+import { Decoration, DecorationSet } from '@tiptap/pm/view'
+
+
+// Credits to https://github.com/ueberdosis/tiptap/discussions/4963#discussioncomment-12922003
 
 export const SelectionDecoration = Extension.create({
-  name: "selectionDecoration",
+  name: 'selectionDecoration',
+
+  addOptions() {
+    return {
+      className: 'selection',
+    }
+  },
+
   addProseMirrorPlugins() {
     return [
       new Plugin({
-        key: new PluginKey("selectionDecoration"),
+        key: new PluginKey('selection'),
         props: {
           decorations: (state) => {
             const { selection } = state
             const { isFocused } = this.editor
 
+            // Skip decoration if editor is focused or no selection
             if (isFocused || selection.empty) {
               return null
             }
 
             return DecorationSet.create(state.doc, [
               Decoration.inline(selection.from, selection.to, {
-                class: "selection",
-                style: "background-color: rgba(0, 120, 212, 0.3);"
+                class: this.options.className,
+                style: "background-color: rgba(0, 153, 255, 0.25)"
               }),
             ])
           },

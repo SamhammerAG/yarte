@@ -5,11 +5,11 @@
   import TableIcon from "../../../icons/table-line.svg?raw";
   import type { Editor } from "@tiptap/core";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   const translations: Record<string, string> = {
-    "de": "Tabelle",
-    "en": "Table"
+    de: "Tabelle",
+    en: "Table",
   };
 
   let dropdownOpen = $state(false);
@@ -50,24 +50,24 @@
     grid-template-rows: repeat(10, 1fr);
 
     & button {
-      border-color: #eee;
+      border-color: var(--yarte-bg-button, #eee);
       border-style: solid;
       border-width: 0 1px 1px 0;
       box-sizing: border-box;
       width: 1rem;
       height: 1rem;
-      background-color: white;
+      background-color: var(--yarte-bg-button, white);
 
       &:hover,
       &.highlight {
-        background-color: #a6ccf7;
+        background-color: var(--yarte-bg-button-highlighted, #a6ccf7);
       }
     }
   }
 
   .display {
     text-align: center;
-    color: black;
+    color: var(--yarte-bg-icon, black);
     padding-bottom: 0.25rem;
   }
 </style>

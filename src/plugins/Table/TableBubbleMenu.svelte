@@ -23,6 +23,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.toggleHeaderCell()}
+          class="toggle-header-button"
         >
           Toggle Header
         </button>
@@ -86,13 +87,13 @@
 
 <style>
   .table-bubble-menu {
-    background-color: #fff;
-    border: 1px solid #eee;
+    background-color: var(--yarte-bg-button, #fff);
+    border: 1px solid var(--yarte-bg-button, #eee);
     border-radius: 8px;
     box-shadow:
       0 0 2px 0 rgba(34, 47, 62, 0.2),
       0 4px 8px 0 rgba(34, 47, 62, 0.15);
-    min-width: 0;
+    min-width: max-content;
     overflow: hidden;
 
     & .table-toolbar {
@@ -113,10 +114,11 @@
           height: 28px;
           border: none;
           border-radius: 8px;
-          background-color: white;
+          background-color: var(--yarte-bg-button, white);
+          color: var(--yarte-bg-icon, black);
 
           &:hover {
-            background-color: #e2e2e2;
+            background-color: var(--yarte-bg-button-hover, #e2e2e2);
           }
         }
       }

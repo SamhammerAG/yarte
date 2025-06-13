@@ -9,29 +9,29 @@
   import Icon from "../../base/Icon.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   const translations: Record<string, Record<string, string>> = {
-    "de": {
-      "main": "Textausrichtung",
-      "left": "Linksbündig",
-      "center": "Zentriert",
-      "right": "Rechtsbündig",
-      "justify": "Blocksatz"
+    de: {
+      main: "Textausrichtung",
+      left: "Linksbündig",
+      center: "Zentriert",
+      right: "Rechtsbündig",
+      justify: "Blocksatz",
     },
-    "en": {
-      "main": "Text alignment",
-      "left": "Align left",
-      "center": "Align center",
-      "right": "Align right",
-      "justify": "Justify"
-    }
+    en: {
+      main: "Text alignment",
+      left: "Align left",
+      center: "Align center",
+      right: "Align right",
+      justify: "Justify",
+    },
   };
 
   let disabled = $state(false);
   let highlighted = $state(false);
 
-  const textAlignments: { name: string, icon: string; action: () => void }[] = [
+  const textAlignments: { name: string; icon: string; action: () => void }[] = [
     {
       name: "left",
       icon: TextAlignLeftIcon,
@@ -74,7 +74,12 @@
 {#if editor}
   <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]["main"]}>
     {#each textAlignments as alignment}
-      <button {disabled} class:highlighted onclick={() => alignment.action()} title={disabled ? "" : translations[language][alignment.name]}>
+      <button
+        {disabled}
+        class:highlighted
+        onclick={() => alignment.action()}
+        title={disabled ? "" : translations[language][alignment.name]}
+      >
         <Icon content={alignment.icon} />
       </button>
     {/each}
@@ -86,7 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: var(--yarte-bg-button, white);
     border: none;
     cursor: pointer;
     padding: 0.625rem;
@@ -96,7 +101,7 @@
     }
 
     &:hover {
-      background-color: #e2e2e2;
+      background-color: var(--yarte-bg-button-hover, #e2e2e2);
     }
 
     :global(svg) {

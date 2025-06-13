@@ -22,6 +22,6 @@
   :global(svg) {
     width: 1.5rem;
     height: 1.5rem;
-    fill: black;
+    fill: var(--yarte-bg-icon, black);
   }
 </style>
