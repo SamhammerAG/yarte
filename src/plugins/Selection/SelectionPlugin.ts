@@ -3,22 +3,13 @@ import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 
-
-// Credits to https://github.com/ueberdosis/tiptap/discussions/4963#discussioncomment-12922003
-
 export const SelectionDecoration = Extension.create({
   name: 'selectionDecoration',
-
-  addOptions() {
-    return {
-      className: 'selection',
-    }
-  },
 
   addProseMirrorPlugins() {
     return [
       new Plugin({
-        key: new PluginKey('selection'),
+        key: new PluginKey('selectionDecoration'),
         props: {
           decorations: (state) => {
             const { selection } = state
@@ -29,9 +20,14 @@ export const SelectionDecoration = Extension.create({
               return null
             }
 
+            const selectedNode = selection.$from.node()
+            if (selectedNode.type.name !== 'paragraph') {
+              return null
+            }
+
             return DecorationSet.create(state.doc, [
               Decoration.inline(selection.from, selection.to, {
-                class: this.options.className,
+                class: "selection",
                 style: "background-color: rgba(0, 153, 255, 0.25)"
               }),
             ])

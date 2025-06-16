@@ -50,7 +50,7 @@
     grid-template-rows: repeat(10, 1fr);
 
     & button {
-      border-color: var(--yarte-bg-button, #eee);
+      border-color: var(--font-light-color, #eee);
       border-style: solid;
       border-width: 0 1px 1px 0;
       box-sizing: border-box;
