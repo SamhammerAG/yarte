@@ -44,23 +44,23 @@ import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMen
 
 ## Components
 
-- **BoldButton**
-- **ItalicButton**
-- **UnderlineButton**
-- **BulletListButton**
-- **OrderedListButton**
-- **FontColorButton**
-- **FontHighlightButton**
-- **ImageButton**
-- **KnowledgeButton**
-- **RedoButton**
-- **UndoButton**
-- **RemoveFormatButton**
-- **StrikeButton**
-- **HyperlinkButton**
-- **TableButton**
-- **TableBubbleMenu**
-- **TextAlignButton**
+- **yarte-bold-button**
+- **yarte-italic-button**
+- **yarte-underline-button**
+- **yarte-bullet-list-button**
+- **yarte-ordered-list-button**
+- **yarte-font-color-button**
+- **yarte-font-highlight-button**
+- **yarte-image-button**
+- **yarte-knowledge-button**
+- **yarte-redo-button**
+- **yarte-undo-button**
+- **yarte-remove-format-button**
+- **yarte-strike-button**
+- **yarte-hyperlink-button**
+- **yarte-table-button**
+- **yarte-table-bubble-menu**
+- **yarte-text-align-button**
 
 ## Extensions
 
@@ -133,6 +133,61 @@ After importing the web components bundle, you can use the provided custom eleme
 ```
 
 You can place these elements anywhere in your HTML and style them as needed. For more details, see the [Usage](#usage) section above.
+
+## Binding the Editor Instance to Web Components (Plain JavaScript)
+
+YARTE web components require a TipTap editor instance to function. Some components, like the image upload button, also require a callback function for uploading images that returns a string (the image URL). Here is how you can do this in plain JavaScript (example for bold, italic, and image upload buttons):
+
+```js
+import { Editor } from '@tiptap/core';
+import StarterKit from '@tiptap/starter-kit';
+import Bold from '@tiptap/extension-bold';
+import Italic from '@tiptap/extension-italic';
+import { ImageExtension } from '@samhammer/yarte/dist/extensions.js';
+import '@samhammer/yarte/dist/web-components.js';
+
+// Example image upload function (should return a Promise<string> with the image URL)
+function uploadInlineImage(file) {
+  // Replace this with your actual upload logic
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Simulate upload and return a dummy URL
+      resolve('https://your.cdn.com/' + file.name);
+    }, 1000);
+  });
+}
+
+const editor = new Editor({
+  element: document.querySelector('#editor'),
+  extensions: [
+    StarterKit,
+    Bold,
+    Italic,
+    ImageExtension(uploadInlineImage)
+  ],
+  content: '<p>Hello World!</p>',
+});
+
+// Assign the editor instance to each YARTE custom element
+const boldButton = document.querySelector('yarte-bold-button');
+boldButton.editor = editor;
+
+const italicButton = document.querySelector('yarte-italic-button');
+italicButton.editor = editor;
+
+const imageButton = document.querySelector('yarte-image-button');
+imageButton.editor = editor;
+imageButton.imageUpload = uploadInlineImage;
+```
+
+```html
+<div id="editor"></div>
+<yarte-bold-button></yarte-bold-button>
+<yarte-italic-button></yarte-italic-button>
+<yarte-image-button></yarte-image-button>
+```
+
+> **Note:** For components like `<yarte-image-button>`, you must provide an `imageUpload` function that returns a Promise resolving to the image URL.
 
 ## Styling
 
