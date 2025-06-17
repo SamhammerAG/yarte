@@ -11,6 +11,8 @@
 
   let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
+  let dropdownOpen = $state(false);
+
   const translations: Record<string, Record<string, string>> = {
     de: {
       main: "Textausrichtung",
@@ -38,6 +40,7 @@
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("left").run();
+        dropdownOpen = false;
         disabled = false;
       },
     },
@@ -47,6 +50,7 @@
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("center").run();
+        dropdownOpen = false;
         disabled = false;
       },
     },
@@ -56,6 +60,7 @@
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("right").run();
+        dropdownOpen = false;
         disabled = false;
       },
     },
@@ -65,6 +70,7 @@
       action: () => {
         //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
         editor.chain().focus().setTextAlign("justify").run();
+        dropdownOpen = false;
         disabled = false;
       },
     },
@@ -72,7 +78,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]["main"]}>
+  <DropdownButton {editor} bind:dropdownOpen key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]["main"]}>
     {#each textAlignments as alignment}
       <button
         {disabled}

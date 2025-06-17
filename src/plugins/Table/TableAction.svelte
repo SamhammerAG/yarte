@@ -26,7 +26,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="table" icon={TableIcon} tooltip={translations[language]}>
+  <DropdownButton {editor} bind:dropdownOpen key="table" icon={TableIcon} tooltip={translations[language]}>
     <div class="table">
       {#each { length: tableGridSize }, x}
         {#each { length: tableGridSize }, y}

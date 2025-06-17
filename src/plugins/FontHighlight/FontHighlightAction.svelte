@@ -32,7 +32,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} {dropdownOpen} key="highlight" icon={FontHighlightIcon} tooltip={translations[language]}>
+  <DropdownButton {editor} bind:dropdownOpen key="highlight" icon={FontHighlightIcon} tooltip={translations[language]}>
     <div class="color-picker">
       <button class="clear" onclick={clearColor}>
         <Icon content={EraserIcon} />
