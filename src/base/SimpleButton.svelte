@@ -18,7 +18,11 @@
 
   onMount(() => {
     editor.on("transaction", () => {
-      highlighted = editor.isActive(key);
+      if (key === "textStyle") {
+        highlighted = !!editor.getAttributes(key).color && editor.isActive(key);
+      } else {
+        highlighted = editor.isActive(key);
+      }
     });
 
     editor.on("update", () => {
