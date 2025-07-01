@@ -8,7 +8,19 @@ export function getBubbleMenuExtension(getEditor: () => Editor): Extension {
     pluginKey: new PluginKey("tableBubbleMenu"),
     tippyOptions: {
       animation: true,
+      maxWidth: "none",
       placement: "bottom",
+      popperOptions: {
+        modifiers: [
+          {
+            name: 'preventOverflow',
+            options: {
+              altAxis: true,
+              tether: true,
+            }
+          }
+        ]
+      },
       getReferenceClientRect: () => {
         const { state, view } = getEditor();
         const myNodePos = new NodePos(state.selection.$anchor, getEditor());
