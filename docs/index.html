@@ -6,14 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tiptap Plain JS Demo</title>
     <link rel="stylesheet" href="styles.css" />
+    <script type="module" href="../dist/web-components.js"></script>
 </head>
 
 <body>
     <h1>Tiptap Editor (Plain JS)</h1>
-    <div class="editor"></div>
 
-    <script type="module" src="demo.js">
-    </script>
+    <div class="editor ${readOnly ? 'readonly' : ''}">
+        <div class="toolbar">
+            <yarte-bold-button></yarte-bold-button>
+            <yarte-italic-button></yarte-italic-button>
+            <yarte-strike-button></yarte-strike-button>
+            <yarte-underline-button></yarte-underline-button>
+            <div class="spacer"></div>
+            <yarte-font-color-button></yarte-font-color-button>
+            <yarte-font-highlight-button></yarte-font-highlight-button>
+            <div class="spacer"></div>
+            <yarte-text-align-button></yarte-text-align-button>
+            <div class="spacer"></div>
+            <yarte-bullet-list-button></yarte-bullet-list-button>
+            <yarte-ordered-list-button></yarte-ordered-list-button>
+            <div class="spacer"></div>
+            <yarte-hyperlink-button></yarte-hyperlink-button>
+            <yarte-image-button"> </yarte-image-button>
+                <yarte-table-button></yarte-table-button>
+                <div class="spacer"></div>
+                <yarte-undo-button></yarte-undo-button>
+                <yarte-redo-button></yarte-redo-button>
+                <yarte-remove-format-button></yarte-remove-format-button>
+        </div>
+        <div class="wrapper">
+            <div class="text-area"></div>
+            <yarte-table-bubble-menu></yarte-table-bubble-menu>
+        </div>
+    </div>
+
+    <script type="module" src="demo.js"></script>
 </body>
 
 </html>
