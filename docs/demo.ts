@@ -1,5 +1,5 @@
-import { Editor } from 'https://esm.sh/@tiptap/core';
-import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "../dist/extensions"
+import { Editor } from "@tiptap/core";
+import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight, CustomHTMLElement } from "../dist/extensions"
 import Bold from "https://esm.sh/@tiptap/extension-bold";
 import BulletList from "https://esm.sh/@tiptap/extension-bullet-list";
 import Color from "https://esm.sh/@tiptap/extension-color";
@@ -33,9 +33,8 @@ function uploadInlineImage(file) {
 }
 
 const editor = new Editor({
-  element: $element,
-  content: this.value,
-  editable: !this.readOnly,
+  element: document.querySelector(".text-area") || undefined,
+  content: "<p>Hello World! 🌍</p>",
   extensions: [
     Paragraph,
     Text,
@@ -60,8 +59,8 @@ const editor = new Editor({
     TableHeader,
     TableCell,
     SelectionDecoration,
-    ImageExtension(this.uploadInlineImage.bind(this)),
-    TableBubbleMenuExtension(() => this.editor),
+    ImageExtension(uploadInlineImage.bind(this)),
+    TableBubbleMenuExtension(() => editor),
     TextAlign.configure({
       types: ["heading", "paragraph"],
     }),
@@ -73,18 +72,18 @@ const editor = new Editor({
   ],
 });
 
-document.querySelector("yarte-bold-button")?.editor = editor;
-document.querySelector("yarte-italic-button")?.editor = editor;
-document.querySelector("yarte-underline-button")?.editor = editor;
-document.querySelector("yarte-strike-button")?.editor = editor;
-document.querySelector("yarte-color-button")?.editor = editor;
-document.querySelector("yarte-text-align-button")?.editor = editor;
-document.querySelector("yarte-bullet-list-button")?.editor = editor;
-document.querySelector("yarte-ordered-list-button")?.editor = editor;
-document.querySelector("yarte-hyperlink-button")?.editor = editor;
-document.querySelector("yarte-image-button")?.editor = editor;
-document.querySelector("yarte-image-button")?.imageUpload = uploadInlineImage.bind(this);
-document.querySelector("yarte-table-button")?.editor = editor;
-document.querySelector("yarte-undo-button")?.editor = editor;
-document.querySelector("yarte-redo-button")?.editor = editor;
-document.querySelector("yarte-remove-format-button")?.editor = editor;
+(document.querySelector("yarte-bold-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-italic-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-underline-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-strike-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-color-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-text-align-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-bullet-list-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-ordered-list-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-hyperlink-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-image-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-image-button") as CustomHTMLElement).imageUpload = uploadInlineImage.bind(this);
+(document.querySelector("yarte-table-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-undo-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-redo-button") as CustomHTMLElement).editor = editor;
+(document.querySelector("yarte-remove-format-button") as CustomHTMLElement).editor = editor;
