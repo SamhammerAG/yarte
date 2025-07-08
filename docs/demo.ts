@@ -1,4 +1,4 @@
-import { Editor } from "@tiptap/core";
+import { Editor } from "https://esm.sh/@tiptap/core";
 import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight, CustomHTMLElement } from "../dist/extensions"
 import Bold from "https://esm.sh/@tiptap/extension-bold";
 import BulletList from "https://esm.sh/@tiptap/extension-bullet-list";
