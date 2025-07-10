@@ -88,3 +88,4 @@ document.querySelector("yarte-table-button").editor = editor;
 document.querySelector("yarte-undo-button").editor = editor;
 document.querySelector("yarte-redo-button").editor = editor;
 document.querySelector("yarte-remove-format-button").editor = editor;
+document.querySelector("yarte-table-bubble-menu").editor = editor;
