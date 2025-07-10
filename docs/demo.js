@@ -88,4 +88,20 @@ document.querySelector("yarte-table-button").editor = editor;
 document.querySelector("yarte-undo-button").editor = editor;
 document.querySelector("yarte-redo-button").editor = editor;
 document.querySelector("yarte-remove-format-button").editor = editor;
-document.querySelector("yarte-table-bubble-menu").editor = editor;
+waitForElement("yarte-table-bubble-menu", (el) => {
+  el.value = editor;
+});
+
+
+
+
+
+function waitForElement(selector, callback) {
+  const interval = setInterval(() => {
+    const el = document.querySelector(selector);
+    if (el) {
+      clearInterval(interval);
+      callback(el);
+    }
+  }, 100);
+}
