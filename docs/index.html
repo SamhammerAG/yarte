@@ -59,9 +59,9 @@
         <pre><code>npm install @samhammer/yarte</code></pre>
         <h2>Usage</h2>
         <h3>Using Web Components</h3>
-        <pre><code>import '@samhammer/yarte/dist/web-components.js';</code></pre>
+        <pre><code>import '@samhammer/yarte/web-components.js';</code></pre>
         <h3>Using Extensions</h3>
-        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } <br> from '@samhammer/yarte/dist/extensions.js';</code></pre>
+        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } <br> from '@samhammer/yarte/extensions.js';</code></pre>
         <h2>Components</h2>
         <ul class="component-list">
             <li>&lt;yarte-bold-button&gt;</li>
@@ -87,7 +87,6 @@
             <li><b>ImageExtension:</b> Add image support to your editor. Bind a function that receives a
                 <code>File</code> and returns a <code>Promise&lt;string&gt;</code>.
             </li>
-            <li><b>KnowledgeExtension:</b> Custom knowledge mark extension.</li>
             <li><b>SelectionDecoration:</b> Visual selection highlighting.</li>
             <li><b>TableBubbleMenuExtension:</b> Bubble Menu for table editing support.</li>
         </ul>
