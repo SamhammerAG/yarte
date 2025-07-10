@@ -183,12 +183,13 @@ imageButton.imageUpload = uploadInlineImage;
 
 ## 🎨 Styling
 
-YeATT components use CSS custom properties for easy theming. For example:
+YeATT components use CSS custom properties for easy theming. The following variables can be overwritten:
 
 ```css
 :root {
   --yarte-bg-button: white;
   --yarte-bg-button-hover: #e2e2e2;
+  --yarte-bg-button-highlighted: #a6ccf7;
   --yarte-bg-icon: rgba(37, 39, 45, 0.37);
 }
 ```
