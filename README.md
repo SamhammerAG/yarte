@@ -133,8 +133,7 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Bold from '@tiptap/extension-bold';
 import Italic from '@tiptap/extension-italic';
-import { ImageExtension } from '@samhammer/yarte/dist/extensions.js';
-import '@samhammer/yarte/dist/web-components.js';
+import { ImageExtension } from '@samhammer/yarte/extensions.js';
 
 // Example image upload function (should return a Promise<string> with the image URL)
 function uploadInlineImage(file) {
@@ -171,6 +170,8 @@ imageButton.imageUpload = uploadInlineImage;
 ```
 
 ```html
+<script type="module" src="@samhammer/yarte/web-components.js"></script>
+
 <div id="editor"></div>
 <yarte-bold-button></yarte-bold-button>
 <yarte-italic-button></yarte-italic-button>
