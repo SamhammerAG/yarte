@@ -79,7 +79,7 @@ YeATT provides the following web components:
 
 ## 🧩 Extensions
 
-- **ImageExtension**: Add image support to your editor. You need to bind a function that receives a `File` and returns a `Promise<string>`. Example:
+- **ImageExtension**: Add image support to your editor. You need to bind a function that uploads the File to your choosen FileProvider, the function receives a `File` and returns a `Promise<string>`. Example:
   ```js
   uploadInlineImage(file: File): Promise<string>;
   ```
