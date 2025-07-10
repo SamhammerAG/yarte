@@ -91,14 +91,14 @@
             table {
                 table-layout: fixed;
                 width: 100%;
-                border: 2px double black;
+                border: 1.5px double black;
                 border-collapse: collapse;
 
                 th,
                 td {
                     box-sizing: border-box;
                     white-space: normal;
-                    border: 2px solid black;
+                    border: 1px solid black;
                     position: relative;
                     min-width: 2rem;
                     padding: 0.5rem;
