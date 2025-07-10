@@ -31,7 +31,7 @@ npm install @samhammer/yarte
 Import the web components bundle in your application:
 
 ```js
-import '@samhammer/yarte/dist/web-components.js';
+import '@samhammer/yarte/web-components.js';
 ```
 
 You can now use the provided custom elements in your HTML:
@@ -48,7 +48,7 @@ You can now use the provided custom elements in your HTML:
 Import the extensions bundle to use with your TipTap editor instance:
 
 ```js
-import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/yarte/dist/extensions.js';
+import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/yarte/extensions.js';
 ```
 
 ---
