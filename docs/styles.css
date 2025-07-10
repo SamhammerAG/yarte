@@ -1,7 +1,17 @@
-.content {
+body {
+    font-family: system-ui, sans-serif;
+    background: #f8f9fb;
+    margin: 0;
+    color: #222;
+}
 
-    margin-left: 20rem;
-    margin-right: 20rem;
+.content {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px 0 #0001;
+    padding: 2rem 2.5rem 2.5rem 2.5rem;
 
     .editor {
 
@@ -129,4 +139,37 @@
             }
         }
     }
+}
+
+h1,
+h2 {
+    color: #2a5d9f;
+    margin-top: 0;
+}
+
+.feature-list,
+.component-list,
+.extension-list {
+    margin: 1.5rem 0 1rem 0;
+    padding-left: 1.2rem;
+}
+
+.feature-list li {
+    margin-bottom: 0.5rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: #888;
+    font-size: 0.95em;
+}
+
+a {
+    color: #2a5d9f;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

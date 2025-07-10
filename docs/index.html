@@ -11,7 +11,19 @@
 
 <body>
     <div class="content">
-        <h2>YeATT Demo</h2>
+        <h1>YeATT: Yet Another Tiptap Toolbox</h1>
+        <p>
+            <b>YeATT</b> is a customizable, web component-based toolbox for <a href="https://tiptap.dev/" target="_blank">TipTap</a>.<br>
+            It provides a set of ready-to-use Svelte web components and extensions for building modern, flexible, and framework-agnostic rich text editing experiences.
+        </p>
+        <h2>Features</h2>
+        <ul class="feature-list">
+            <li><b>Web Components:</b> Use editor buttons and menus as custom elements in any framework or plain HTML.</li>
+            <li><b>TipTap Extensions:</b> Includes a set of TipTap extensions for advanced editing features.</li>
+            <li><b>Svelte-based:</b> All UI components are written in Svelte for performance and reactivity.</li>
+            <li><b>Customizable:</b> Easily style and extend the toolbox to fit your needs.</li>
+        </ul>
+        <h2>Demo Editor</h2>
         <div class="editor">
             <div class="toolbar">
                 <yarte-bold-button></yarte-bold-button>
@@ -40,9 +52,49 @@
                 <yarte-table-bubble-menu></yarte-table-bubble-menu>
             </div>
         </div>
-
-        <h2>License</h2>
-        <p>MIT © Samhammer AG</p>
+        <h2>Installation</h2>
+        <pre><code>npm install @samhammer/yarte</code></pre>
+        <h2>Usage</h2>
+        <h3>Using Web Components</h3>
+        <pre><code>import '@samhammer/yarte/dist/web-components.js';</code></pre>
+        <h3>Using Extensions</h3>
+        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/yarte/dist/extensions.js';</code></pre>
+        <h2>Components</h2>
+        <ul class="component-list">
+            <li>&lt;yarte-bold-button&gt;</li>
+            <li>&lt;yarte-italic-button&gt;</li>
+            <li>&lt;yarte-underline-button&gt;</li>
+            <li>&lt;yarte-bullet-list-button&gt;</li>
+            <li>&lt;yarte-ordered-list-button&gt;</li>
+            <li>&lt;yarte-font-color-button&gt;</li>
+            <li>&lt;yarte-font-highlight-button&gt;</li>
+            <li>&lt;yarte-image-button&gt;</li>
+            <li>&lt;yarte-knowledge-button&gt;</li>
+            <li>&lt;yarte-redo-button&gt;</li>
+            <li>&lt;yarte-undo-button&gt;</li>
+            <li>&lt;yarte-remove-format-button&gt;</li>
+            <li>&lt;yarte-strike-button&gt;</li>
+            <li>&lt;yarte-hyperlink-button&gt;</li>
+            <li>&lt;yarte-table-button&gt;</li>
+            <li>&lt;yarte-table-bubble-menu&gt;</li>
+            <li>&lt;yarte-text-align-button&gt;</li>
+        </ul>
+        <h2>Extensions</h2>
+        <ul class="extension-list">
+            <li><b>ImageExtension:</b> Add image support to your editor. Bind a function that receives a <code>File</code> and returns a <code>Promise&lt;string&gt;</code>.</li>
+            <li><b>KnowledgeExtension:</b> Custom knowledge mark extension.</li>
+            <li><b>SelectionDecoration:</b> Visual selection highlighting.</li>
+            <li><b>TableBubbleMenuExtension:</b> Bubble Menu for table editing support.</li>
+        </ul>
+        <h2>Styling</h2>
+        <pre><code>:root {
+  --yarte-bg-button: white;
+  --yarte-bg-button-hover: #e2e2e2;
+  --yarte-bg-icon: rgba(37, 39, 45, 0.37);
+}</code></pre>
+        <div class="footer">
+          MIT © Samhammer AG
+        </div>
     </div>
     <script type="module" src="demo.js"></script>
 </body>
