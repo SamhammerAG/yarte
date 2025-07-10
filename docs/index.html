@@ -13,12 +13,15 @@
     <div class="content">
         <h1>YeATT: Yet Another Tiptap Toolbox</h1>
         <p>
-            <b>YeATT</b> is a customizable, web component-based toolbox for <a href="https://tiptap.dev/" target="_blank">TipTap</a>.<br>
-            It provides a set of ready-to-use Svelte web components and extensions for building modern, flexible, and framework-agnostic rich text editing experiences.
+            <b>YeATT</b> is a customizable, web component-based toolbox for <a href="https://tiptap.dev/"
+                target="_blank">TipTap</a>.<br>
+            It provides a set of ready-to-use Svelte web components and extensions for building modern, flexible, and
+            framework-agnostic rich text editing experiences.
         </p>
         <h2>Features</h2>
         <ul class="feature-list">
-            <li><b>Web Components:</b> Use editor buttons and menus as custom elements in any framework or plain HTML.</li>
+            <li><b>Web Components:</b> Use editor buttons and menus as custom elements in any framework or plain HTML.
+            </li>
             <li><b>TipTap Extensions:</b> Includes a set of TipTap extensions for advanced editing features.</li>
             <li><b>Svelte-based:</b> All UI components are written in Svelte for performance and reactivity.</li>
             <li><b>Customizable:</b> Easily style and extend the toolbox to fit your needs.</li>
@@ -58,7 +61,7 @@
         <h3>Using Web Components</h3>
         <pre><code>import '@samhammer/yarte/dist/web-components.js';</code></pre>
         <h3>Using Extensions</h3>
-        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/yarte/dist/extensions.js';</code></pre>
+        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } <br> from '@samhammer/yarte/dist/extensions.js';</code></pre>
         <h2>Components</h2>
         <ul class="component-list">
             <li>&lt;yarte-bold-button&gt;</li>
@@ -81,7 +84,9 @@
         </ul>
         <h2>Extensions</h2>
         <ul class="extension-list">
-            <li><b>ImageExtension:</b> Add image support to your editor. Bind a function that receives a <code>File</code> and returns a <code>Promise&lt;string&gt;</code>.</li>
+            <li><b>ImageExtension:</b> Add image support to your editor. Bind a function that receives a
+                <code>File</code> and returns a <code>Promise&lt;string&gt;</code>.
+            </li>
             <li><b>KnowledgeExtension:</b> Custom knowledge mark extension.</li>
             <li><b>SelectionDecoration:</b> Visual selection highlighting.</li>
             <li><b>TableBubbleMenuExtension:</b> Bubble Menu for table editing support.</li>
@@ -90,10 +95,11 @@
         <pre><code>:root {
   --yarte-bg-button: white;
   --yarte-bg-button-hover: #e2e2e2;
+  --yarte-bg-button-highlighted: #a6ccf7;
   --yarte-bg-icon: rgba(37, 39, 45, 0.37);
 }</code></pre>
         <div class="footer">
-          MIT © Samhammer AG
+            MIT © Samhammer AG
         </div>
     </div>
     <script type="module" src="demo.js"></script>
