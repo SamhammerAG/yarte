@@ -90,5 +90,5 @@ document.querySelector("yarte-undo-button").editor = editor;
 document.querySelector("yarte-redo-button").editor = editor;
 document.querySelector("yarte-remove-format-button").editor = editor;
 document.querySelector("yarte-show-source-button").editor = editor;
-document.querySelector("yarte-show-source-button").editor = editor;
+document.querySelector("yarte-show-html-button").editor = editor;
 tableBubbleMenu.editor = editor;
