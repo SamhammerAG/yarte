@@ -71,7 +71,7 @@
             white-space: break-spaces;
             transition: opacity 0.15s;
 
-            .tiptap &.ProseMirror {
+            .tiptap.ProseMirror {
                 outline: none;
             }
 
