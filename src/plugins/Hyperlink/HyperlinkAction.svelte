@@ -1,4 +1,4 @@
-<svelte:options customElement="yarte-hyperlink-button" />
+<svelte:options customElement="tiptob-hyperlink-button" />
 
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
@@ -69,15 +69,15 @@
 
 {#if editor}
   <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
-    <div class="yarte-link-input-wrapper">
+    <div class="tiptob-link-input-wrapper">
       <input
-        id="yarte-link-input"
+        id="tiptob-link-input"
         bind:value={urlInputField}
         type="url"
         placeholder="Paste a link..."
         onkeydown={handleKeyDown}
         autocomplete="off"
-        class="yarte-link-input"
+        class="tiptob-link-input"
         use:setFocus
       />
       <button
@@ -106,12 +106,12 @@
 {/if}
 
 <style>
-  .yarte-link-input-wrapper {
+  .tiptob-link-input-wrapper {
     display: flex;
     flex-direction: row;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: var(--yarte-bg-button, white);
+    background-color: var(--tiptob-bg-button, white);
     border-radius: 8px;
     width: 100%;
   }
@@ -123,24 +123,24 @@
     padding: 0.25rem;
     border: none;
     border-radius: 8px;
-    background-color: var(--yarte-bg-button, white);
+    background-color: var(--tiptob-bg-button, white);
     flex: 40%;
     &:hover:enabled {
-      background-color: var(--yarte-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
     }
     &:disabled {
       opacity: 0.5;
       cursor: default;
     }
   }
-  .yarte-link-input::placeholder {
+  .tiptob-link-input::placeholder {
     color: var(--table-resubmission-line, rgba(0, 0, 0, 0.4));
   }
-  .yarte-link-input {
+  .tiptob-link-input {
     display: flex;
     padding: 0.25rem;
-    background-color: var(--yarte-bg-button, white);
-    color: var(--yarte-bg-icon, black);
+    background-color: var(--tiptob-bg-button, white);
+    color: var(--tiptob-bg-icon, black);
     outline: none;
     border: 0;
   }

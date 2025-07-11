@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YeATT Demo</title>
+    <title>TipToB Demo</title>
     <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="https://esm.sh/@samhammer/yarte/web-components.js"></script>
+    <script type="module" src="https://esm.sh/@samhammer/tiptob/web-components.js"></script>
 </head>
 
 <body>
     <div class="content">
-        <h1>YeATT: Yet Another Tiptap Toolbox</h1>
+        <h1>TipToB: TipTap ToolBox</h1>
         <p>
-            <b>YeATT</b> is a customizable, web component-based toolbox for <a href="https://tiptap.dev/"
+            <b>TipToB</b> is a customizable, web component-based toolbox for <a href="https://tiptap.dev/"
                 target="_blank">TipTap</a>.<br>
             It provides a set of ready-to-use Svelte web components and extensions for building modern, flexible, and
             framework-agnostic rich text editing experiences.
@@ -29,61 +29,61 @@
         <h2>Demo Editor</h2>
         <div class="editor">
             <div class="toolbar">
-                <yarte-bold-button></yarte-bold-button>
-                <yarte-italic-button></yarte-italic-button>
-                <yarte-strike-button></yarte-strike-button>
-                <yarte-underline-button></yarte-underline-button>
+                <tiptob-bold-button></tiptob-bold-button>
+                <tiptob-italic-button></tiptob-italic-button>
+                <tiptob-strike-button></tiptob-strike-button>
+                <tiptob-underline-button></tiptob-underline-button>
                 <div class="spacer"></div>
-                <yarte-font-color-button></yarte-font-color-button>
-                <yarte-font-highlight-button></yarte-font-highlight-button>
+                <tiptob-font-color-button></tiptob-font-color-button>
+                <tiptob-font-highlight-button></tiptob-font-highlight-button>
                 <div class="spacer"></div>
-                <yarte-text-align-button></yarte-text-align-button>
+                <tiptob-text-align-button></tiptob-text-align-button>
                 <div class="spacer"></div>
-                <yarte-bullet-list-button></yarte-bullet-list-button>
-                <yarte-ordered-list-button></yarte-ordered-list-button>
+                <tiptob-bullet-list-button></tiptob-bullet-list-button>
+                <tiptob-ordered-list-button></tiptob-ordered-list-button>
                 <div class="spacer"></div>
-                <yarte-hyperlink-button></yarte-hyperlink-button>
-                <yarte-image-button></yarte-image-button>
-                <yarte-table-button></yarte-table-button>
+                <tiptob-hyperlink-button></tiptob-hyperlink-button>
+                <tiptob-image-button></tiptob-image-button>
+                <tiptob-table-button></tiptob-table-button>
                 <div class="spacer"></div>
-                <yarte-undo-button></yarte-undo-button>
-                <yarte-redo-button></yarte-redo-button>
-                <yarte-remove-format-button></yarte-remove-format-button>
+                <tiptob-undo-button></tiptob-undo-button>
+                <tiptob-redo-button></tiptob-redo-button>
+                <tiptob-remove-format-button></tiptob-remove-format-button>
                 <div class="spacer"></div>
-                <yarte-show-source-button></yarte-show-source-button>
-                <yarte-show-html-button></yarte-show-html-button>
+                <tiptob-show-source-button></tiptob-show-source-button>
+                <tiptob-show-html-button></tiptob-show-html-button>
             </div>
             <div class="wrapper">
                 <div class="text-area"></div>
-                <yarte-table-bubble-menu></yarte-table-bubble-menu>
+                <tiptob-table-bubble-menu></tiptob-table-bubble-menu>
             </div>
         </div>
         <h2>Installation</h2>
-        <pre><code>npm install @samhammer/yarte</code></pre>
+        <pre><code>npm install @samhammer/tiptob</code></pre>
         <h2>Usage</h2>
         <h3>Using Web Components</h3>
-        <pre><code>import '@samhammer/yarte/web-components.js';</code></pre>
+        <pre><code>import '@samhammer/tiptob/web-components.js';</code></pre>
         <h3>Using Extensions</h3>
-        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } <br> from '@samhammer/yarte/extensions.js';</code></pre>
+        <pre><code>import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } <br> from '@samhammer/tiptob/extensions.js';</code></pre>
         <h2>Components</h2>
         <ul class="component-list">
-            <li>&lt;yarte-bold-button&gt;</li>
-            <li>&lt;yarte-italic-button&gt;</li>
-            <li>&lt;yarte-underline-button&gt;</li>
-            <li>&lt;yarte-bullet-list-button&gt;</li>
-            <li>&lt;yarte-ordered-list-button&gt;</li>
-            <li>&lt;yarte-font-color-button&gt;</li>
-            <li>&lt;yarte-font-highlight-button&gt;</li>
-            <li>&lt;yarte-image-button&gt;</li>
-            <li>&lt;yarte-knowledge-button&gt;</li>
-            <li>&lt;yarte-redo-button&gt;</li>
-            <li>&lt;yarte-undo-button&gt;</li>
-            <li>&lt;yarte-remove-format-button&gt;</li>
-            <li>&lt;yarte-strike-button&gt;</li>
-            <li>&lt;yarte-hyperlink-button&gt;</li>
-            <li>&lt;yarte-table-button&gt;</li>
-            <li>&lt;yarte-table-bubble-menu&gt;</li>
-            <li>&lt;yarte-text-align-button&gt;</li>
+            <li>&lt;tiptob-bold-button&gt;</li>
+            <li>&lt;tiptob-italic-button&gt;</li>
+            <li>&lt;tiptob-underline-button&gt;</li>
+            <li>&lt;tiptob-bullet-list-button&gt;</li>
+            <li>&lt;tiptob-ordered-list-button&gt;</li>
+            <li>&lt;tiptob-font-color-button&gt;</li>
+            <li>&lt;tiptob-font-highlight-button&gt;</li>
+            <li>&lt;tiptob-image-button&gt;</li>
+            <li>&lt;tiptob-knowledge-button&gt;</li>
+            <li>&lt;tiptob-redo-button&gt;</li>
+            <li>&lt;tiptob-undo-button&gt;</li>
+            <li>&lt;tiptob-remove-format-button&gt;</li>
+            <li>&lt;tiptob-strike-button&gt;</li>
+            <li>&lt;tiptob-hyperlink-button&gt;</li>
+            <li>&lt;tiptob-table-button&gt;</li>
+            <li>&lt;tiptob-table-bubble-menu&gt;</li>
+            <li>&lt;tiptob-text-align-button&gt;</li>
         </ul>
         <h2>Extensions</h2>
         <ul class="extension-list">
@@ -95,10 +95,10 @@
         </ul>
         <h2>Styling</h2>
         <pre><code>:root {
-  --yarte-bg-button: white;
-  --yarte-bg-button-hover: #e2e2e2;
-  --yarte-bg-button-highlighted: #a6ccf7;
-  --yarte-bg-icon: rgba(37, 39, 45, 0.37);
+  --tiptob-bg-button: white;
+  --tiptob-bg-button-hover: #e2e2e2;
+  --tiptob-bg-button-highlighted: #a6ccf7;
+  --tiptob-bg-icon: rgba(37, 39, 45, 0.37);
 }</code></pre>
         <div class="footer">
             MIT © Samhammer AG

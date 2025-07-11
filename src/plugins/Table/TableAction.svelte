@@ -1,4 +1,4 @@
-<svelte:options customElement="yarte-table-button" />
+<svelte:options customElement="tiptob-table-button" />
 
 <script lang="ts">
   import DropdownButton from "../../base/DropdownButton.svelte";
@@ -56,18 +56,18 @@
       box-sizing: border-box;
       width: 1rem;
       height: 1rem;
-      background-color: var(--yarte-bg-button, white);
+      background-color: var(--tiptob-bg-button, white);
 
       &:hover,
       &.highlight {
-        background-color: var(--yarte-bg-button-highlighted, #a6ccf7);
+        background-color: var(--tiptob-bg-button-highlighted, #a6ccf7);
       }
     }
   }
 
   .display {
     text-align: center;
-    color: var(--yarte-bg-icon, black);
+    color: var(--tiptob-bg-icon, black);
     padding-bottom: 0.25rem;
   }
 </style>

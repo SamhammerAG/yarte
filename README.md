@@ -1,9 +1,9 @@
-# @samhammer/yarte
+# @samhammer/TipToB
 
-Yet Another Tiptap Toolbox (YeATT)
+TipTap ToolBox (TipToB)
 ================================
 
-YeATT is a customizable, web component-based toolbox for [TipTap](https://tiptap.dev/). It provides a set of ready-to-use Svelte web components and extensions for building modern, flexible, and framework-agnostic rich text editing experiences.
+TipToB is a customizable, web component-based toolbox for [TipTap](https://tiptap.dev/). It provides a set of ready-to-use Svelte web components and extensions for building modern, flexible, and framework-agnostic rich text editing experiences.
 
 ---
 
@@ -19,7 +19,7 @@ YeATT is a customizable, web component-based toolbox for [TipTap](https://tiptap
 ## 🚀 Installation
 
 ```sh
-npm install @samhammer/yarte
+npm install @samhammer/tiptob
 ```
 
 ---
@@ -31,15 +31,15 @@ npm install @samhammer/yarte
 Import the web components bundle in your application:
 
 ```js
-import '@samhammer/yarte/web-components.js';
+import '@samhammer/tiptob/web-components.js';
 ```
 
 You can now use the provided custom elements in your HTML:
 
 ```html
-<yarte-bold-button></yarte-bold-button>
-<yarte-italic-button></yarte-italic-button>
-<yarte-underline-button></yarte-underline-button>
+<tiptob-bold-button></tiptob-bold-button>
+<tiptob-italic-button></tiptob-italic-button>
+<tiptob-underline-button></tiptob-underline-button>
 <!-- ...and more -->
 ```
 
@@ -48,32 +48,32 @@ You can now use the provided custom elements in your HTML:
 Import the extensions bundle to use with your TipTap editor instance:
 
 ```js
-import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/yarte/extensions.js';
+import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/tiptob/extensions.js';
 ```
 
 ---
 
 ## 🧩 Components
 
-YeATT provides the following web components:
+TipToB provides the following web components:
 
-- `<yarte-bold-button>`
-- `<yarte-italic-button>`
-- `<yarte-underline-button>`
-- `<yarte-bullet-list-button>`
-- `<yarte-ordered-list-button>`
-- `<yarte-font-color-button>`
-- `<yarte-font-highlight-button>`
-- `<yarte-image-button>`
-- `<yarte-knowledge-button>`
-- `<yarte-redo-button>`
-- `<yarte-undo-button>`
-- `<yarte-remove-format-button>`
-- `<yarte-strike-button>`
-- `<yarte-hyperlink-button>`
-- `<yarte-table-button>`
-- `<yarte-table-bubble-menu>`
-- `<yarte-text-align-button>`
+- `<tiptob-bold-button>`
+- `<tiptob-italic-button>`
+- `<tiptob-underline-button>`
+- `<tiptob-bullet-list-button>`
+- `<tiptob-ordered-list-button>`
+- `<tiptob-font-color-button>`
+- `<tiptob-font-highlight-button>`
+- `<tiptob-image-button>`
+- `<tiptob-knowledge-button>`
+- `<tiptob-redo-button>`
+- `<tiptob-undo-button>`
+- `<tiptob-remove-format-button>`
+- `<tiptob-strike-button>`
+- `<tiptob-hyperlink-button>`
+- `<tiptob-table-button>`
+- `<tiptob-table-bubble-menu>`
+- `<tiptob-text-align-button>`
 
 ---
 
@@ -99,7 +99,7 @@ import {
   ImageExtension,
   SelectionDecoration,
   TableBubbleMenuExtension
-} from '@samhammer/yarte/extensions.js';
+} from '@samhammer/tiptob/extensions.js';
 
 const editor = new Editor({
   element: document.querySelector('#editor'),
@@ -123,14 +123,14 @@ For more details and advanced configuration, visit the [TipTap documentation](ht
 
 ## 🔗 Binding the Editor Instance to Web Components (Plain JavaScript)
 
-YeATT web components require a TipTap editor instance to function. Some components, like the image upload button, also require a callback function for uploading images that returns a string (the image URL). Here is how you can do this in plain JavaScript (example for bold, italic, and image upload buttons):
+TipToB web components require a TipTap editor instance to function. Some components, like the image upload button, also require a callback function for uploading images that returns a string (the image URL). Here is how you can do this in plain JavaScript (example for bold, italic, and image upload buttons):
 
 ```js
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Bold from '@tiptap/extension-bold';
 import Italic from '@tiptap/extension-italic';
-import { ImageExtension } from '@samhammer/yarte/extensions.js';
+import { ImageExtension } from '@samhammer/tiptob/extensions.js';
 
 // Example image upload function (should return a Promise<string> with the image URL)
 function uploadInlineImage(file) {
@@ -154,41 +154,41 @@ const editor = new Editor({
   content: '<p>Hello World!</p>',
 });
 
-// Assign the editor instance to each YeATT custom element
-const boldButton = document.querySelector('yarte-bold-button');
+// Assign the editor instance to each TipToB custom element
+const boldButton = document.querySelector('tiptob-bold-button');
 boldButton.editor = editor;
 
-const italicButton = document.querySelector('yarte-italic-button');
+const italicButton = document.querySelector('tiptob-italic-button');
 italicButton.editor = editor;
 
-const imageButton = document.querySelector('yarte-image-button');
+const imageButton = document.querySelector('tiptob-image-button');
 imageButton.editor = editor;
 imageButton.imageUpload = uploadInlineImage;
 ```
 
 ```html
-<script type="module" src="@samhammer/yarte/web-components.js"></script>
+<script type="module" src="@samhammer/tiptob/web-components.js"></script>
 
 <div id="editor"></div>
-<yarte-bold-button></yarte-bold-button>
-<yarte-italic-button></yarte-italic-button>
-<yarte-image-button></yarte-image-button>
+<tiptob-bold-button></tiptob-bold-button>
+<tiptob-italic-button></tiptob-italic-button>
+<tiptob-image-button></tiptob-image-button>
 ```
 
-> **Note:** For components like `<yarte-image-button>`, you must provide an `imageUpload` function that returns a Promise resolving to the image URL.
+> **Note:** For components like `<tiptob-image-button>`, you must provide an `imageUpload` function that returns a Promise resolving to the image URL.
 
 ---
 
 ## 🎨 Styling
 
-YeATT components use CSS custom properties for easy theming. The following variables can be overwritten:
+TipToB components use CSS custom properties for easy theming. The following variables can be overwritten:
 
 ```css
 :root {
-  --yarte-bg-button: white;
-  --yarte-bg-button-hover: #e2e2e2;
-  --yarte-bg-button-highlighted: #a6ccf7;
-  --yarte-bg-icon: rgba(37, 39, 45, 0.37);
+  --tiptob-bg-button: white;
+  --tiptob-bg-button-hover: #e2e2e2;
+  --tiptob-bg-button-highlighted: #a6ccf7;
+  --tiptob-bg-icon: rgba(37, 39, 45, 0.37);
 }
 ```
 

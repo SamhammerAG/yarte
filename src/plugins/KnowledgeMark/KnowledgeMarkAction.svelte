@@ -1,15 +1,15 @@
-<svelte:options customElement="yarte-knowledge-button" />
+<svelte:options customElement="tiptob-knowledge-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
   import KnowledgeIcon from "../../../icons/brain-line.svg?raw";
   import type { Editor } from "@tiptap/core";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   const translations: Record<string, string> = {
-    "de": "Wissensmarkierung",
-    "en": "Knowledge Mark"
+    de: "Wissensmarkierung",
+    en: "Knowledge Mark",
   };
 
   const action = () => editor.chain().toggleKnowledgeMark().run();

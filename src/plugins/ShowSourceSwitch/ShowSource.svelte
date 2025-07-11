@@ -1,4 +1,4 @@
-<svelte:options customElement="yarte-show-source-button" />
+<svelte:options customElement="tiptob-show-source-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";

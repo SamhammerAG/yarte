@@ -1,15 +1,15 @@
-<svelte:options customElement="yarte-italic-button" />
+<svelte:options customElement="tiptob-italic-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
   import ItalicIcon from "../../../icons/italic.svg?raw";
   import type { Editor } from "@tiptap/core";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   const translations: Record<string, string> = {
-    "de": "Kursiv",
-    "en": "Italic"
+    de: "Kursiv",
+    en: "Italic",
   };
 
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component

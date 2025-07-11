@@ -44,10 +44,10 @@
     height: 28px;
     border: none;
     border-radius: 4px;
-    background-color: var(--yarte-bg-button, white);
+    background-color: var(--tiptob-bg-button, white);
 
     &:hover:enabled {
-      background-color: var(--yarte-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
     }
   }
 
@@ -55,6 +55,6 @@
     cursor: pointer;
   }
   button.highlighted:enabled {
-    background-color: var(--yarte-bg-button-highlighted, #a6ccf7);
+    background-color: var(--tiptob-bg-button-highlighted, #a6ccf7);
   }
 </style>

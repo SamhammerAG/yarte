@@ -1,7 +1,7 @@
 {
-  "name": "@samhammer/yarte",
-  "version": "2.1.9",
-  "description": "Yet another rich text editor based on TipTap",
+  "name": "@samhammer/tiptob",
+  "version": "2.2.0",
+  "description": "TipTap ToolBox",
   "type": "module",
   "main": "./dist/web-components.js",
   "module": "./dist/web-components.js",

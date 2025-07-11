@@ -1,15 +1,15 @@
-<svelte:options customElement="yarte-ordered-list-button" />
+<svelte:options customElement="tiptob-ordered-list-button" />
 
 <script lang="ts">
   import NumberedListIcon from "../../../icons/list-ordered.svg?raw";
   import SimpleButton from "../../base/SimpleButton.svelte";
   import type { Editor } from "@tiptap/core";
 
-  let { editor, language = "en" }: { editor: Editor, language: "de" | "en" } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
 
   const translations: Record<string, string> = {
-    "de": "Nummerierung",
-    "en": "Numbered List"
+    de: "Nummerierung",
+    en: "Numbered List",
   };
 
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component

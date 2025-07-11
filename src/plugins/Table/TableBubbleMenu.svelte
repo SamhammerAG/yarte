@@ -1,4 +1,4 @@
-<svelte:options customElement="yarte-table-bubble-menu" />
+<svelte:options customElement="tiptob-table-bubble-menu" />
 
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
@@ -87,8 +87,8 @@
 
 <style>
   .table-bubble-menu {
-    background-color: var(--yarte-bg-button, #fff);
-    border: 1px solid var(--yarte-bg-button, #eee);
+    background-color: var(--tiptob-bg-button, #fff);
+    border: 1px solid var(--tiptob-bg-button, #eee);
     border-radius: 8px;
     box-shadow:
       0 0 2px 0 rgba(34, 47, 62, 0.2),
@@ -114,11 +114,11 @@
           height: 28px;
           border: none;
           border-radius: 8px;
-          background-color: var(--yarte-bg-button, white);
-          color: var(--yarte-bg-icon, black);
+          background-color: var(--tiptob-bg-button, white);
+          color: var(--tiptob-bg-icon, black);
 
           &:hover {
-            background-color: var(--yarte-bg-button-hover, #e2e2e2);
+            background-color: var(--tiptob-bg-button-hover, #e2e2e2);
           }
         }
       }

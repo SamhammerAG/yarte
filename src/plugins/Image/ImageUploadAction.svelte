@@ -1,4 +1,4 @@
-<svelte:options customElement="yarte-image-button" />
+<svelte:options customElement="tiptob-image-button" />
 
 <script lang="ts">
   import SimpleButton from "../../base/SimpleButton.svelte";
@@ -14,8 +14,8 @@
   let { editor, language = "en", imageUpload }: Props = $props();
 
   const translations: Record<string, string> = {
-    "de": "Bild einfügen",
-    "en": "Insert Image"
+    de: "Bild einfügen",
+    en: "Insert Image",
   };
 
   //svelte-ignore non_reactive_update

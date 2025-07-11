@@ -1,4 +1,4 @@
-<svelte:options customElement="yarte-text-align-button" />
+<svelte:options customElement="tiptob-text-align-button" />
 
 <script lang="ts">
   import TextAlignRightIcon from "../../../icons/align-right.svg?raw";
@@ -97,7 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--yarte-bg-button, white);
+    background-color: var(--tiptob-bg-button, white);
     border: none;
     cursor: pointer;
     padding: 0.625rem;
@@ -107,7 +107,7 @@
     }
 
     &:hover {
-      background-color: var(--yarte-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
     }
 
     :global(svg) {

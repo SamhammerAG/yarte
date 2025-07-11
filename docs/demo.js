@@ -1,5 +1,5 @@
 import { Editor } from "https://esm.sh/@tiptap/core";
-import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "https://esm.sh/@samhammer/yarte/extensions.js";
+import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "https://esm.sh/@samhammer/tiptob/extensions.js";
 import Bold from "https://esm.sh/@tiptap/extension-bold";
 import BulletList from "https://esm.sh/@tiptap/extension-bullet-list";
 import Color from "https://esm.sh/@tiptap/extension-color";
@@ -31,7 +31,7 @@ function uploadInlineImage(file) {
     }, 1000);
   });
 }
-var tableBubbleMenu = document.querySelector("yarte-table-bubble-menu");
+var tableBubbleMenu = document.querySelector("tiptob-table-bubble-menu");
 
 const editor = new Editor({
   element: document.querySelector(".text-area") || undefined,
@@ -73,22 +73,22 @@ const editor = new Editor({
   ],
 });
 
-document.querySelector("yarte-bold-button").editor = editor;
-document.querySelector("yarte-italic-button").editor = editor;
-document.querySelector("yarte-underline-button").editor = editor;
-document.querySelector("yarte-strike-button").editor = editor;
-document.querySelector("yarte-font-color-button").editor = editor;
-document.querySelector("yarte-font-highlight-button").editor = editor;
-document.querySelector("yarte-text-align-button").editor = editor;
-document.querySelector("yarte-bullet-list-button").editor = editor;
-document.querySelector("yarte-ordered-list-button").editor = editor;
-document.querySelector("yarte-hyperlink-button").editor = editor;
-document.querySelector("yarte-image-button").editor = editor;
-document.querySelector("yarte-image-button").imageUpload = uploadInlineImage.bind(this);
-document.querySelector("yarte-table-button").editor = editor;
-document.querySelector("yarte-undo-button").editor = editor;
-document.querySelector("yarte-redo-button").editor = editor;
-document.querySelector("yarte-remove-format-button").editor = editor;
-document.querySelector("yarte-show-source-button").editor = editor;
-document.querySelector("yarte-show-html-button").editor = editor;
+document.querySelector("tiptob-bold-button").editor = editor;
+document.querySelector("tiptob-italic-button").editor = editor;
+document.querySelector("tiptob-underline-button").editor = editor;
+document.querySelector("tiptob-strike-button").editor = editor;
+document.querySelector("tiptob-font-color-button").editor = editor;
+document.querySelector("tiptob-font-highlight-button").editor = editor;
+document.querySelector("tiptob-text-align-button").editor = editor;
+document.querySelector("tiptob-bullet-list-button").editor = editor;
+document.querySelector("tiptob-ordered-list-button").editor = editor;
+document.querySelector("tiptob-hyperlink-button").editor = editor;
+document.querySelector("tiptob-image-button").editor = editor;
+document.querySelector("tiptob-image-button").imageUpload = uploadInlineImage.bind(this);
+document.querySelector("tiptob-table-button").editor = editor;
+document.querySelector("tiptob-undo-button").editor = editor;
+document.querySelector("tiptob-redo-button").editor = editor;
+document.querySelector("tiptob-remove-format-button").editor = editor;
+document.querySelector("tiptob-show-source-button").editor = editor;
+document.querySelector("tiptob-show-html-button").editor = editor;
 tableBubbleMenu.editor = editor;
