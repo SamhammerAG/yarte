@@ -12,7 +12,6 @@
     en: "Show source code",
   };
 
-  //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
   const action = () => editor.commands.setContent(`<textarea>${editor.getHTML()}</textarea>`);
 </script>
 

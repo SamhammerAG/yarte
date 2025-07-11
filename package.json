@@ -26,9 +26,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SamhammerAG/yarte.git"
+    "url": "git+https://github.com/SamhammerAG/tiptob.git"
   },
-  "homepage": "https://github.com/SamhammerAG/yarte",
+  "homepage": "https://github.com/SamhammerAG/tiptob",
   "keywords": [
     "richtext",
     "editor",
