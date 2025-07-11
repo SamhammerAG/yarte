@@ -13,7 +13,7 @@
   };
 
   //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
-  const action = () => editor.value.commands.setContent(`<textarea>${editor.value.getHTML()}</textarea>`);
+  const action = () => editor.commands.setContent(`<textarea>${editor.getHTML()}</textarea>`);
 </script>
 
 {#if editor}

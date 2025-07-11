@@ -12,8 +12,7 @@
     en: "Show HTML",
   };
 
-  //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
-  const action = () => editor.value.commands.setContent(editor.value.getText());
+  const action = () => editor.commands.setContent(editor.getText());
 </script>
 
 {#if editor}

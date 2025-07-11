@@ -83,7 +83,6 @@ YeATT provides the following web components:
   ```js
   uploadInlineImage(file: File): Promise<string>;
   ```
-- **KnowledgeExtension**: Custom knowledge mark extension.
 - **SelectionDecoration**: Visual selection highlighting.
 - **TableBubbleMenuExtension**: Bubble Menu for table editing support.
 
@@ -98,17 +97,15 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import {
   ImageExtension,
-  KnowledgeExtension,
   SelectionDecoration,
   TableBubbleMenuExtension
-} from '@samhammer/yarte/dist/extensions.js';
+} from '@samhammer/yarte/extensions.js';
 
 const editor = new Editor({
   element: document.querySelector('#editor'),
   extensions: [
     StarterKit,
     ImageExtension,
-    KnowledgeExtension,
     SelectionDecoration,
     TableBubbleMenuExtension
   ],
