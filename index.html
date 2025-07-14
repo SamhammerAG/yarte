@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tiptap Editor Test Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./dist/web-components.js"></script>
+    <style>
+        .content {
+            max-width: 900px;
+            margin: 2rem auto;
+
+            .editor {
+                margin-bottom: 1rem;
+                box-shadow: 0 1rem 1rem -0.625rem rgba(34, 47, 62, 0.15),
+                    0 0 2.5rem 1px rgba(34, 47, 62, 0.15);
+                background-color: white;
+                color: black;
+                border-radius: 2px;
+            }
+
+            .editor a {
+                all: unset;
+                color: blue;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            .toolbar {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                margin: 0;
+                font-family: "Inter", sans-serif;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 10px 0px, rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+                background-color: white;
+                padding: 0 11px 0 12px;
+            }
+
+            .toolbar .spacer {
+                width: 1px;
+                margin: 0.25rem 0.25rem;
+                background-color: black;
+            }
+
+            .wrapper {
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+            }
+
+            .wrapper::-webkit-scrollbar {
+                width: 0.5rem;
+                height: 0.5rem;
+            }
+
+            .wrapper::-webkit-scrollbar-thumb {
+                background: #b0b5ba;
+                border-radius: 0.5rem;
+            }
+
+            .wrapper::-webkit-scrollbar-track {
+                background: #efefef;
+            }
+
+            .wrapper::-webkit-scrollbar-thumb:hover {
+                background: #a6ccf7;
+            }
+
+            .text-area {
+                min-height: 25rem;
+                max-height: 25rem;
+                padding: 1rem 1.5rem 1.5rem 1.5rem;
+                overflow: auto;
+                word-wrap: break-word;
+                white-space: break-spaces;
+                transition: opacity 0.15s;
+            }
+
+            .text-area .tiptap.ProseMirror {
+                outline: none;
+            }
+
+            .text-area ol {
+                padding: 0;
+                margin-left: 1.5rem;
+            }
+
+            .text-area ul {
+                margin-left: 1.5rem;
+            }
+
+            .text-area ul li {
+                list-style: disc;
+            }
+
+            .text-area table {
+                table-layout: fixed;
+                width: 100%;
+                border: 1.5px double black;
+                border-collapse: collapse;
+            }
+
+            .text-area table th,
+            .text-area table td {
+                box-sizing: border-box;
+                white-space: normal;
+                border: 1px solid black;
+                position: relative;
+                min-width: 2rem;
+                padding: 0.5rem;
+                text-align: left;
+            }
+
+            .text-area table th {
+                background-color: rgba(61, 37, 20, 0.05);
+            }
+
+            .text-area table .selectedCell:after {
+                background: rgba(61, 37, 20, 0.08);
+                content: "";
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                pointer-events: none;
+                position: absolute;
+                z-index: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="editor">
+            <div class="toolbar">
+                <tiptob-bold-button></tiptob-bold-button>
+                <tiptob-italic-button></tiptob-italic-button>
+                <tiptob-strike-button></tiptob-strike-button>
+                <tiptob-underline-button></tiptob-underline-button>
+                <div class="spacer"></div>
+                <tiptob-font-color-button></tiptob-font-color-button>
+                <tiptob-font-highlight-button></tiptob-font-highlight-button>
+                <div class="spacer"></div>
+                <tiptob-text-align-button></tiptob-text-align-button>
+                <div class="spacer"></div>
+                <tiptob-bullet-list-button></tiptob-bullet-list-button>
+                <tiptob-ordered-list-button></tiptob-ordered-list-button>
+                <div class="spacer"></div>
+                <tiptob-hyperlink-button></tiptob-hyperlink-button>
+                <tiptob-image-button></tiptob-image-button>
+                <tiptob-table-button></tiptob-table-button>
+                <div class="spacer"></div>
+                <tiptob-undo-button></tiptob-undo-button>
+                <tiptob-redo-button></tiptob-redo-button>
+                <tiptob-remove-format-button></tiptob-remove-format-button>
+                <tiptob-show-html-button></tiptob-show-html-button>
+            </div>
+            <div class="wrapper">
+                <div class="text-area"></div>
+                <tiptob-table-bubble-menu></tiptob-table-bubble-menu>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { Editor } from "https://esm.sh/@tiptap/core@2.26.0";
+        import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "./dist/extensions.js";
+        import Bold from "https://esm.sh/@tiptap/extension-bold@2.26.0";
+        import BulletList from "https://esm.sh/@tiptap/extension-bullet-list@2.26.0";
+        import Color from "https://esm.sh/@tiptap/extension-color@2.26.0";
+        import Document from "https://esm.sh/@tiptap/extension-document@2.26.0";
+        import Gapcursor from "https://esm.sh/@tiptap/extension-gapcursor@2.26.0";
+        import HardBreak from "https://esm.sh/@tiptap/extension-hard-break@2.26.0";
+        import History from "https://esm.sh/@tiptap/extension-history@2.26.0";
+        import Italic from "https://esm.sh/@tiptap/extension-italic@2.26.0";
+        import Link from "https://esm.sh/@tiptap/extension-link@2.26.0";
+        import ListItem from "https://esm.sh/@tiptap/extension-list-item@2.26.0";
+        import OrderdList from "https://esm.sh/@tiptap/extension-ordered-list@2.26.0";
+        import Paragraph from "https://esm.sh/@tiptap/extension-paragraph@2.26.0";
+        import Strike from "https://esm.sh/@tiptap/extension-strike@2.26.0";
+        import Table from "https://esm.sh/@tiptap/extension-table@2.26.0";
+        import TableCell from "https://esm.sh/@tiptap/extension-table-cell@2.26.0";
+        import TableHeader from "https://esm.sh/@tiptap/extension-table-header@2.26.0";
+        import TableRow from "https://esm.sh/@tiptap/extension-table-row@2.26.0";
+        import Text from "https://esm.sh/@tiptap/extension-text@2.26.0";
+        import TextAlign from "https://esm.sh/@tiptap/extension-text-align@2.26.0";
+        import TextStyle from "https://esm.sh/@tiptap/extension-text-style@2.26.0";
+        import Underline from "https://esm.sh/@tiptap/extension-underline@2.26.0";
+
+        function uploadInlineImage(file) {
+            // Replace this with your actual upload logic
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Simulate upload and return a dummy URL
+                    resolve('https://your.cdn.com/' + file.name);
+                }, 1000);
+            });
+        }
+        var tableBubbleMenu = document.querySelector("tiptob-table-bubble-menu");
+
+        const editor = new Editor({
+            element: document.querySelector(".text-area") || undefined,
+            content: "<p>Hello World! 🌍</p>",
+            extensions: [
+                Paragraph,
+                Text,
+                TextStyle.configure({ mergeNestedSpanStyles: true }),
+                Color,
+                Document,
+                Gapcursor,
+                Bold,
+                Italic,
+                ListItem,
+                HardBreak,
+                BulletList,
+                ExtendedHighlight.configure({
+                    multicolor: true,
+                }),
+                OrderdList,
+                History,
+                Strike,
+                Underline,
+                Table,
+                TableRow,
+                TableHeader,
+                TableCell,
+                SelectionDecoration,
+                ImageExtension(uploadInlineImage.bind(this)),
+                TableBubbleMenuExtension(() => editor),
+                TextAlign.configure({
+                    types: ["heading", "paragraph"],
+                }),
+                Link.configure({
+                    openOnClick: false,
+                    defaultProtocol: "https",
+                    protocols: ["https"],
+                }),
+            ],
+        });
+
+        document.querySelector("tiptob-bold-button").editor = editor;
+        document.querySelector("tiptob-italic-button").editor = editor;
+        document.querySelector("tiptob-underline-button").editor = editor;
+        document.querySelector("tiptob-strike-button").editor = editor;
+        document.querySelector("tiptob-font-color-button").editor = editor;
+        document.querySelector("tiptob-font-highlight-button").editor = editor;
+        document.querySelector("tiptob-text-align-button").editor = editor;
+        document.querySelector("tiptob-bullet-list-button").editor = editor;
+        document.querySelector("tiptob-ordered-list-button").editor = editor;
+        document.querySelector("tiptob-hyperlink-button").editor = editor;
+        document.querySelector("tiptob-image-button").editor = editor;
+        document.querySelector("tiptob-image-button").imageUpload = uploadInlineImage.bind(this);
+        document.querySelector("tiptob-table-button").editor = editor;
+        document.querySelector("tiptob-undo-button").editor = editor;
+        document.querySelector("tiptob-redo-button").editor = editor;
+        document.querySelector("tiptob-remove-format-button").editor = editor;
+        tableBubbleMenu.editor = editor;
+    </script>
+</body>
+
+</html>

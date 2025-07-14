@@ -14,11 +14,6 @@ body {
     padding: 2rem 2.5rem 2.5rem 2.5rem;
 
     .editor {
-
-        &.readonly {
-            opacity: 0.6;
-        }
-
         a {
             all: unset;
             color: blue;
