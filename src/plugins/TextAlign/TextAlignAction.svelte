@@ -79,7 +79,7 @@
 
 {#if editor}
   <DropdownButton {editor} bind:dropdownOpen key="text-align" icon={TextAlignLeftIcon} tooltip={translations[language]["main"]}>
-    {#each textAlignments as alignment}
+    {#each textAlignments as alignment (alignment.name)}
       <button
         {disabled}
         class:highlighted
