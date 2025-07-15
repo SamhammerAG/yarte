@@ -58,24 +58,24 @@ import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMen
 
 TipToB provides the following web components:
 
-| Web Component                | Required TipTap Extension(s)                |
+| Web Component                | Required TipTap Extension(s) and Import               |
 |-----------------------------|---------------------------------------------|
-| `<tiptob-bold-button>`      | `@tiptap/extension-bold`                    |
-| `<tiptob-italic-button>`    | `@tiptap/extension-italic`                  |
-| `<tiptob-underline-button>` | `@tiptap/extension-underline`               |
-| `<tiptob-strike-button>`    | `@tiptap/extension-strike`                  |
-| `<tiptob-bullet-list-button>`| `@tiptap/extension-list` |
-| `<tiptob-ordered-list-button>`| `@tiptap/extension-list`|
-| `<tiptob-font-color-button>`| `@tiptap/extension-color`, `@tiptap/extension-text-style` |
-| `<tiptob-font-highlight-button>`| `HighlightExtension` (from TipToB), `@tiptap/extension-text-style` |
+| `<tiptob-bold-button>`      | `@tiptap/extension-bold  (Bold)`                  |
+| `<tiptob-italic-button>`    | `@tiptap/extension-italic  (Italic)`                  |
+| `<tiptob-underline-button>` | `@tiptap/extension-underline  (Underline)`               |
+| `<tiptob-strike-button>`    | `@tiptap/extension-strike  (Strike)`                  |
+| `<tiptob-bullet-list-button>`| `@tiptap/extension-list (ListKit)` |
+| `<tiptob-ordered-list-button>`| `@tiptap/extension-list (ListKit)`|
+| `<tiptob-font-color-button>`| `@tiptap/extension-color  (Color)`, `@tiptap/extension-text-style  (TextStyleKit)` |
+| `<tiptob-font-highlight-button>`| `HighlightExtension` (from TipToB), `@tiptap/extension-text-style  (TextStyleKit)` |
 | `<tiptob-image-button>`     | `ImageExtension` (from TipToB)              |
-| `<tiptob-redo-button>`      | `@tiptap/extensions`                 |
-| `<tiptob-undo-button>`      | `@tiptap/extensions`                 |
+| `<tiptob-redo-button>`      | `@tiptap/extensions  (UndoRedo)`               |
+| `<tiptob-undo-button>`      | `@tiptap/extensions  (UndoRedo)`               |
 | `<tiptob-remove-format-button>`||
-| `<tiptob-hyperlink-button>` | `@tiptap/extension-link`                    |
-| `<tiptob-table-button>`     | `@tiptap/extension-table`|
-| `<tiptob-table-bubble-menu>`| `TableBubbleMenuExtension` (from TipToB), `@tiptap/extension-table`   |
-| `<tiptob-text-align-button>`| `@tiptap/extension-text-align`              |
+| `<tiptob-hyperlink-button>` | `@tiptap/extension-link  (Link)`                    |
+| `<tiptob-table-button>`     | `@tiptap/extension-table  (Table, TableCell, TableHeader, TableRow)`|
+| `<tiptob-table-bubble-menu>`| `TableBubbleMenuExtension` (from TipToB), `@tiptap/extension-table (Table, TableCell, TableHeader, TableRow)`   |
+| `<tiptob-text-align-button>`| `@tiptap/extension-text-align (TextAlign)`              |
 
 ---
 
