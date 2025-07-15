@@ -48,7 +48,7 @@ You can now use the provided custom elements in your HTML:
 Import the extensions bundle to use with your TipTap editor instance:
 
 ```js
-import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/tiptob/extensions.js';
+import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMenuExtension } from '@samhammer/tiptob/extensions';
 ```
 
 ---
