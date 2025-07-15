@@ -55,25 +55,27 @@ import { ImageExtension, KnowledgeExtension, SelectionDecoration, TableBubbleMen
 
 ## 🧩 Components
 
+
 TipToB provides the following web components:
 
-- `<tiptob-bold-button>`
-- `<tiptob-italic-button>`
-- `<tiptob-underline-button>`
-- `<tiptob-bullet-list-button>`
-- `<tiptob-ordered-list-button>`
-- `<tiptob-font-color-button>`
-- `<tiptob-font-highlight-button>`
-- `<tiptob-image-button>`
-- `<tiptob-knowledge-button>`
-- `<tiptob-redo-button>`
-- `<tiptob-undo-button>`
-- `<tiptob-remove-format-button>`
-- `<tiptob-strike-button>`
-- `<tiptob-hyperlink-button>`
-- `<tiptob-table-button>`
-- `<tiptob-table-bubble-menu>`
-- `<tiptob-text-align-button>`
+| Web Component                | Required TipTap Extension(s)                |
+|-----------------------------|---------------------------------------------|
+| `<tiptob-bold-button>`      | `@tiptap/extension-bold`                    |
+| `<tiptob-italic-button>`    | `@tiptap/extension-italic`                  |
+| `<tiptob-underline-button>` | `@tiptap/extension-underline`               |
+| `<tiptob-strike-button>`    | `@tiptap/extension-strike`                  |
+| `<tiptob-bullet-list-button>`| `@tiptap/extension-list` |
+| `<tiptob-ordered-list-button>`| `@tiptap/extension-list`|
+| `<tiptob-font-color-button>`| `@tiptap/extension-color`, `@tiptap/extension-text-style` |
+| `<tiptob-font-highlight-button>`| `HighlightExtension` (from TipToB), `@tiptap/extension-text-style` |
+| `<tiptob-image-button>`     | `ImageExtension` (from TipToB)              |
+| `<tiptob-redo-button>`      | `@tiptap/extensions`                 |
+| `<tiptob-undo-button>`      | `@tiptap/extensions`                 |
+| `<tiptob-remove-format-button>`||
+| `<tiptob-hyperlink-button>` | `@tiptap/extension-link`                    |
+| `<tiptob-table-button>`     | `@tiptap/extension-table`|
+| `<tiptob-table-bubble-menu>`| `TableBubbleMenuExtension` (from TipToB), `@tiptap/extension-table`   |
+| `<tiptob-text-align-button>`| `@tiptap/extension-text-align`              |
 
 ---
 
