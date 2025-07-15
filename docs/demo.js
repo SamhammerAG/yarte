@@ -4,7 +4,7 @@ import Bold from "https://esm.sh/@tiptap/extension-bold";
 import Color from "https://esm.sh/@tiptap/extension-color";
 import Document from "https://esm.sh/@tiptap/extension-document";
 import HardBreak from "https://esm.sh/@tiptap/extension-hard-break";
-import { Gapcursor, Selection, UndoRedo } from "@tiptap/extensions";
+import { Gapcursor, Selection, UndoRedo } from "https://esm.sh/@tiptap/extensions";
 import Italic from "https://esm.sh/@tiptap/extension-italic";
 import Link from "https://esm.sh/@tiptap/extension-link";
 import { ListKit } from "https://esm.sh/@tiptap/extension-list";
