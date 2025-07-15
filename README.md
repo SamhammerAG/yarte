@@ -85,7 +85,6 @@ TipToB provides the following web components:
   ```js
   uploadInlineImage(file: File): Promise<string>;
   ```
-- **SelectionDecoration**: Visual selection highlighting.
 - **TableBubbleMenuExtension**: Bubble Menu for table editing support.
 
 ---
@@ -97,26 +96,19 @@ Below is a minimal example of initializing a TipTap editor. For more advanced us
 ```js
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import {
-  ImageExtension,
-  SelectionDecoration,
-  TableBubbleMenuExtension
-} from '@samhammer/tiptob/extensions.js';
+
 
 const editor = new Editor({
-  element: document.querySelector('#editor'),
+  element: document.querySelector('.editor'),
   extensions: [
     StarterKit,
-    ImageExtension,
-    SelectionDecoration,
-    TableBubbleMenuExtension
   ],
   content: '<p>Hello World!</p>',
 });
 ```
 
 ```html
-<div id="editor"></div>
+<div class="editor"></div>
 ```
 
 For more details and advanced configuration, visit the [TipTap documentation](https://tiptap.dev/).

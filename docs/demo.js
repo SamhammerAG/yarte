@@ -3,7 +3,6 @@ import { ImageExtension, TableBubbleMenuExtension, ExtendedHighlight } from "htt
 import Bold from "https://esm.sh/@tiptap/extension-bold";
 import Color from "https://esm.sh/@tiptap/extension-color";
 import Document from "https://esm.sh/@tiptap/extension-document";
-import Gapcursor from "https://esm.sh/@tiptap/extension-gapcursor";
 import HardBreak from "https://esm.sh/@tiptap/extension-hard-break";
 import { Gapcursor, Selection, UndoRedo } from "@tiptap/extensions";
 import Italic from "https://esm.sh/@tiptap/extension-italic";
@@ -37,9 +36,9 @@ const editor = new Editor({
     TextStyleKit,
     Color,
     Document,
-    Gapcursor,
     Bold,
     Italic,
+    Gapcursor,
     ListKit,
     HardBreak,
     ExtendedHighlight.configure({
