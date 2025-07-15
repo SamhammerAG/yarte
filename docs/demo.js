@@ -1,25 +1,20 @@
 import { Editor } from "https://esm.sh/@tiptap/core";
-import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "https://esm.sh/@samhammer/tiptob/extensions.js";
+import { ImageExtension, TableBubbleMenuExtension, ExtendedHighlight } from "https://esm.sh/@samhammer/tiptob/extensions.js";
 import Bold from "https://esm.sh/@tiptap/extension-bold";
-import BulletList from "https://esm.sh/@tiptap/extension-bullet-list";
 import Color from "https://esm.sh/@tiptap/extension-color";
 import Document from "https://esm.sh/@tiptap/extension-document";
 import Gapcursor from "https://esm.sh/@tiptap/extension-gapcursor";
 import HardBreak from "https://esm.sh/@tiptap/extension-hard-break";
-import History from "https://esm.sh/@tiptap/extension-history";
+import { Gapcursor, Selection, UndoRedo } from "@tiptap/extensions";
 import Italic from "https://esm.sh/@tiptap/extension-italic";
 import Link from "https://esm.sh/@tiptap/extension-link";
-import ListItem from "https://esm.sh/@tiptap/extension-list-item";
-import OrderdList from "https://esm.sh/@tiptap/extension-ordered-list";
+import { ListKit } from "https://esm.sh/@tiptap/extension-list";
 import Paragraph from "https://esm.sh/@tiptap/extension-paragraph";
 import Strike from "https://esm.sh/@tiptap/extension-strike";
-import Table from "https://esm.sh/@tiptap/extension-table";
-import TableCell from "https://esm.sh/@tiptap/extension-table-cell";
-import TableHeader from "https://esm.sh/@tiptap/extension-table-header";
-import TableRow from "https://esm.sh/@tiptap/extension-table-row";
+import { Table, TableCell, TableHeader, TableRow } from "https://esm.sh/@tiptap/extension-table";
 import Text from "https://esm.sh/@tiptap/extension-text";
 import TextAlign from "https://esm.sh/@tiptap/extension-text-align";
-import TextStyle from "https://esm.sh/@tiptap/extension-text-style";
+import { TextStyleKit } from "https://esm.sh/@tiptap/extension-text-style";
 import Underline from "https://esm.sh/@tiptap/extension-underline";
 
 function uploadInlineImage(file) {
@@ -39,27 +34,25 @@ const editor = new Editor({
   extensions: [
     Paragraph,
     Text,
-    TextStyle.configure({ mergeNestedSpanStyles: true }),
+    TextStyleKit,
     Color,
     Document,
     Gapcursor,
     Bold,
     Italic,
-    ListItem,
+    ListKit,
     HardBreak,
-    BulletList,
     ExtendedHighlight.configure({
       multicolor: true,
     }),
-    OrderdList,
-    History,
+    UndoRedo,
     Strike,
     Underline,
     Table,
     TableRow,
     TableHeader,
     TableCell,
-    SelectionDecoration,
+    Selection,
     ImageExtension(uploadInlineImage.bind(this)),
     TableBubbleMenuExtension(() => editor),
     TextAlign.configure({
