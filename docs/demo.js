@@ -81,6 +81,4 @@ document.querySelector("tiptob-table-button").editor = editor;
 document.querySelector("tiptob-undo-button").editor = editor;
 document.querySelector("tiptob-redo-button").editor = editor;
 document.querySelector("tiptob-remove-format-button").editor = editor;
-document.querySelector("tiptob-show-source-button").editor = editor;
-document.querySelector("tiptob-show-html-button").editor = editor;
 tableBubbleMenu.editor = editor;
