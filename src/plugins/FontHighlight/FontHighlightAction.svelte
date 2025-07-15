@@ -36,7 +36,7 @@
         <Icon content={EraserIcon} />
       </button>
 
-      {#each colors as color}
+      {#each colors as color (colors.indexOf(color))}
         <button style="background-color: {color};" onclick={() => setColor(color)} aria-label={color}></button>
       {/each}
     </div>
