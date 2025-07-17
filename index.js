@@ -1,5 +1,5 @@
 import { Editor } from "https://esm.sh/@tiptap/core@2.26.0";
-import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "https://esm.sh/@samhammer/tiptob/extensions.js";
+import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "./dist/extensions.js";
 import Bold from "https://esm.sh/@tiptap/extension-bold@2.26.0";
 import BulletList from "https://esm.sh/@tiptap/extension-bullet-list@2.26.0";
 import Color from "https://esm.sh/@tiptap/extension-color@2.26.0";
