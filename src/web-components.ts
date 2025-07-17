@@ -15,8 +15,9 @@ import StrikeButton from "./plugins/Strikethrough/StrikeAction.svelte";
 import UnderlineButton from "./plugins/Underline/UnderlineAction.svelte";
 import UndoButton from "./plugins/Undo/UndoAction.svelte";
 import HyperlinkButton from "./plugins/Hyperlink/HyperlinkAction.svelte";
-import ShowHtmlButton from "./plugins/ShowSourceSwitch/ShowHtml.svelte";
-import ShowSourceButton from "./plugins/ShowSourceSwitch/ShowSource.svelte";
+import ShowHtmlButton from "./plugins/ShowSourceSwitch/ShowHtmlAction.svelte";
+import ShowSourceButton from "./plugins/ShowSourceSwitch/ShowSourceAction.svelte";
+import TokenAction from "./plugins/Token/TokenAction.svelte"
 
 export {
   BoldButton,
@@ -37,5 +38,6 @@ export {
   TableBubbleMenu,
   TextAlignButton,
   ShowHtmlButton,
-  ShowSourceButton
+  ShowSourceButton,
+  TokenAction
 };

@@ -12,7 +12,30 @@
   import InsertRowBottomIcon from "../../../icons/insert-row-bottom.svg?raw";
   import Icon from "../../base/Icon.svelte";
 
-  let { editor }: { editor: Editor } = $props();
+  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
+
+  const translations: Record<string, Record<string, string>> = {
+    de: {
+      toggleHeader: "Kopfzeile umschalten",
+      deleteTable: "Tabelle löschen",
+      addRowBefore: "Zeile oben einfügen",
+      addRowAfter: "Zeile unten einfügen",
+      deleteRow: "Zeile entfernen",
+      addColumnBefore: "Spalte links einfügen",
+      addColumnAfter: "Spalte rechts einfügen",
+      deleteColumn: "Spalte entfernen",
+    },
+    en: {
+      toggleHeader: "Toggle Header",
+      deleteTable: "Delete Table",
+      addRowBefore: "Add Row Before",
+      addRowAfter: "Add Row After",
+      deleteRow: "Delete Row",
+      addColumnBefore: "Add Column Before",
+      addColumnAfter: "Add Column After",
+      deleteColumn: "Delete Column",
+    },
+  };
 </script>
 
 {#if editor}
@@ -24,6 +47,7 @@
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.toggleHeaderCell()}
           class="toggle-header-button"
+          title={translations[language]["toggleHeader"]}
         >
           Toggle Header
         </button>
@@ -31,6 +55,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.deleteTable()}
+          title={translations[language]["deleteTable"]}
         >
           <Icon content={DeleteTableIcon} />
         </button>
@@ -40,6 +65,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addRowBefore()}
+          title={translations[language]["addRowBefore"]}
         >
           <Icon content={InsertRowTopIcon} />
         </button>
@@ -47,6 +73,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addRowAfter()}
+          title={translations[language]["addRowAfter"]}
         >
           <Icon content={InsertRowBottomIcon} />
         </button>
@@ -54,6 +81,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.deleteRow()}
+          title={translations[language]["deleteRow"]}
         >
           <Icon content={DeleteRowIcon} />
         </button>
@@ -63,6 +91,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addColumnBefore()}
+          title={translations[language]["addColumnBefore"]}
         >
           <Icon content={InsertColumnLeftIcon} />
         </button>
@@ -70,6 +99,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.addColumnAfter()}
+          title={translations[language]["addColumnAfter"]}
         >
           <Icon content={InsertColumnRightIcon} />
         </button>
@@ -77,6 +107,7 @@
           onclick={() =>
             //@ts-expect-error: This error is expected because the editor is initilized outside of the Web-component
             editor.commands.deleteColumn()}
+          title={translations[language]["deleteColumn"]}
         >
           <Icon content={DeleteColumnIcon} />
         </button>
