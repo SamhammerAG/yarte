@@ -8,10 +8,11 @@
     key: string;
     action: () => void;
     icon: string;
+    text?: string;
     tooltip: string;
   }
 
-  let { editor, key, action, icon, tooltip }: Props = $props();
+  let { editor, key, action, icon, text = "", tooltip }: Props = $props();
 
   let highlighted = $state(false);
   let disabled = $state(false);
@@ -33,6 +34,7 @@
 
 <button {disabled} class:highlighted onclick={() => action()} title={disabled ? "" : tooltip}>
   <Icon content={icon} />
+  {text}
 </button>
 
 <style>

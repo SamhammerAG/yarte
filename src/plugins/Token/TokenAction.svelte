@@ -15,9 +15,9 @@
   let selected = $state("Select option");
 
   const options = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
+    "{Option 1}",
+    "{Option 2}",
+    "{Option 3}",
     "Option 4",
     "Option 5",
     "Option 6",
@@ -47,7 +47,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
+  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} text="Token" tooltip={translations[language]["main"]}>
     <div class="dropdown-content">
       <div class="menu">
         {#each options as option (option)}
