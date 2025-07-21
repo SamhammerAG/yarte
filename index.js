@@ -92,4 +92,6 @@ document.querySelector("tiptob-undo-button").editor = editor;
 document.querySelector("tiptob-redo-button").editor = editor;
 document.querySelector("tiptob-remove-format-button").editor = editor;
 document.querySelector("tiptob-token-button").editor = editor;
+document.querySelector("tiptob-token-button").placeHolders = [
+  { key: "token.id", expression: "{ token.id }", typeId: 1, entity: "token", isAffectedContact: false, translation: "Token" }];
 tableBubbleMenu.editor = editor;
