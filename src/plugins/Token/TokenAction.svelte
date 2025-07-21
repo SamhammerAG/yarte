@@ -50,7 +50,7 @@
   <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
     <div class="dropdown-content">
       <div class="menu">
-        {#each options as option}
+        {#each options as option (option)}
           <button class="menu-item" onclick={() => (selected = option)}>
             {option}
           </button>
