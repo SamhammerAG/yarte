@@ -68,7 +68,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
+  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} text="" tooltip={translations[language]["main"]}>
     <div class="tiptob-link-input-wrapper">
       <input
         id="tiptob-link-input"

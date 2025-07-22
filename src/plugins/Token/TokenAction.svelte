@@ -7,25 +7,7 @@
   import CheckIcon from "../../../icons/check-line.svg?raw";
   import CloseIcon from "../../../icons/close-line.svg?raw";
   import DropdownButton from "../../base/DropdownButton.svelte";
-
-  let { editor, language = "en" }: { editor: Editor; language: "de" | "en" } = $props();
-
-  let dropdownOpen = $state(false);
-
-  let selected = $state("Select option");
-
-  const options = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4",
-    "Option 5",
-    "Option 6",
-    "Option 7",
-    "Option 8",
-    "Option 9",
-    "Option 10",
-  ];
+  import type PlaceHolder from "./PlaceHolderInterface";
 
   const translations: Record<string, Record<string, string>> = {
     de: {
@@ -40,6 +22,15 @@
     },
   };
 
+  let {
+    editor,
+    language = "en",
+    placeHolders,
+  }: { editor: Editor; language: "de" | "en"; placeHolders: Array<PlaceHolder> } = $props();
+
+  let dropdownOpen = $state(false);
+  let selected = $state("Select option");
+
   function confirmToken() {
     editor.commands.insertContent(selected);
     dropdownOpen = false;
@@ -47,12 +38,12 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} tooltip={translations[language]["main"]}>
+  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} text="Token" tooltip={translations[language]["main"]}>
     <div class="dropdown-content">
       <div class="menu">
-        {#each options as option (option)}
-          <button class="menu-item" onclick={() => (selected = option)}>
-            {option}
+        {#each placeHolders as placeholder (placeholder)}
+          <button class="menu-item" onclick={() => (selected = placeholder.expression)}>
+            {placeholder.translation}
           </button>
         {/each}
       </div>

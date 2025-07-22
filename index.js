@@ -1,5 +1,6 @@
 import { Editor } from "https://esm.sh/@tiptap/core@2.26.0";
-import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight } from "./src/extensions";
+import { ImageExtension, SelectionDecoration, TableBubbleMenuExtension, ExtendedHighlight, TokenExtension } from "./src/extensions";
+
 import Bold from "https://esm.sh/@tiptap/extension-bold@2.26.0";
 import BulletList from "https://esm.sh/@tiptap/extension-bullet-list@2.26.0";
 import Color from "https://esm.sh/@tiptap/extension-color@2.26.0";
@@ -35,7 +36,7 @@ var tableBubbleMenu = document.querySelector("tiptob-table-bubble-menu");
 
 const editor = new Editor({
   element: document.querySelector(".text-area") || undefined,
-  content: "<p>Hello World! 🌍</p>",
+  content: "<p>Hello World!  { token.id } </p>",
   extensions: [
     Paragraph,
     Text,
@@ -59,6 +60,7 @@ const editor = new Editor({
     TableRow,
     TableHeader,
     TableCell,
+    TokenExtension,
     SelectionDecoration,
     ImageExtension(uploadInlineImage.bind(this)),
     TableBubbleMenuExtension(() => editor),
@@ -90,4 +92,6 @@ document.querySelector("tiptob-undo-button").editor = editor;
 document.querySelector("tiptob-redo-button").editor = editor;
 document.querySelector("tiptob-remove-format-button").editor = editor;
 document.querySelector("tiptob-token-button").editor = editor;
+document.querySelector("tiptob-token-button").placeHolders = [
+  { key: "token.id", expression: "{ token.id }", typeId: 1, entity: "token", isAffectedContact: false, translation: "Token" }];
 tableBubbleMenu.editor = editor;
