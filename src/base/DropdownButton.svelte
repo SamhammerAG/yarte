@@ -45,7 +45,7 @@
       border-top: 0.3em solid;
       border-right: 0.3em solid transparent;
       border-left: 0.3em solid transparent;
-      color: black;
+      color: #333333;
     }
 
     .dropdown {
@@ -55,7 +55,7 @@
         rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
         rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
       background-color: var(--tiptob-bg-button, white);
-      border-radius: 8px;
+      top: 2rem;
     }
   }
 </style>

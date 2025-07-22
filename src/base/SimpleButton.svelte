@@ -40,14 +40,13 @@
     display: flex;
     align-items: center;
 
-    margin: 6px 0px 5px 0px;
-    height: 28px;
+    margin: 0.5rem 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     background-color: var(--tiptob-bg-button, white);
 
     &:hover:enabled {
-      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
   }
 
@@ -55,6 +54,10 @@
     cursor: pointer;
   }
   button.highlighted:enabled {
-    background-color: var(--tiptob-bg-button-highlighted, #a6ccf7);
+    background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
+
+    :global(svg) {
+      fill: #2977ff;
+    }
   }
 </style>

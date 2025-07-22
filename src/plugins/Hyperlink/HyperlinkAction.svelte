@@ -112,8 +112,6 @@
     gap: 0.25rem;
     padding: 0.25rem;
     background-color: var(--tiptob-bg-button, white);
-    border-radius: 8px;
-    width: 100%;
   }
   button {
     display: flex;
@@ -122,11 +120,11 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: var(--tiptob-bg-button, white);
     flex: 40%;
     &:hover:enabled {
-      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
     &:disabled {
       opacity: 0.5;
