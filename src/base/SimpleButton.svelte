@@ -41,8 +41,7 @@
   button {
     display: flex;
     align-items: center;
-
-    margin: 0.5rem 0;
+    margin: 0.2rem 0;
     border: none;
     border-radius: 0.25rem;
     background-color: var(--tiptob-bg-button, white);
@@ -50,6 +49,10 @@
     &:hover:enabled {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
+
+    /*&:active {
+      background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
+    }*/
   }
 
   button:enabled {

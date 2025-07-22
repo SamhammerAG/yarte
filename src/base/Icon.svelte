@@ -21,7 +21,7 @@
   }
   :global(svg) {
     width: 1.25rem;
-    height: 1.25rem;
+    height: 1.75rem;
     fill: var(--tiptob-bg-icon, #333333);
   }
 </style>
