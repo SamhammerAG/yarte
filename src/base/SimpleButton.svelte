@@ -49,10 +49,6 @@
     &:hover:enabled {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
-
-    /*&:active {
-      background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
-    }*/
   }
 
   button:enabled {
@@ -62,7 +58,11 @@
     background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
 
     :global(svg) {
-      fill: #2977ff;
+      fill: var(--tiptob-bg-icon-highlighted, #2977ff);
     }
+  }
+
+  button.highlighted:enabled::after {
+    color: var(--tiptob-bg-icon-highlighted, #2977ff);
   }
 </style>

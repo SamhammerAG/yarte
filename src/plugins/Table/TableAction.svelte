@@ -70,7 +70,7 @@
 
   .display {
     text-align: center;
-    color: var(--tiptob-bg-icon, black);
+    color: var(--tiptob-bg-icon, #333333);
     padding-bottom: 0.25rem;
   }
 </style>

@@ -109,7 +109,7 @@
     :global(svg) {
       width: 1.125rem;
       height: 1.125rem;
-      color: black;
+      color: #333333;
     }
   }
 </style>

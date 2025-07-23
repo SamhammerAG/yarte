@@ -156,7 +156,7 @@
     display: flex;
     padding: 0.25rem;
     background-color: var(--tiptob-bg-button, white);
-    color: var(--tiptob-bg-icon, black);
+    color: var(--tiptob-bg-icon, #333333);
     outline: none;
     border: 0;
   }

@@ -62,7 +62,7 @@
       text-align: center;
       padding: 0.5rem;
       background-color: var(--tiptob-bg-button, white);
-      color: black;
+      color: #333333;
       align-items: center;
       justify-content: center;
       display: flex;
