@@ -57,6 +57,7 @@
   }
   button.dropdownOpen:enabled,
   button.highlighted:enabled {
+    color: var(--tiptob-bg-icon-highlighted, #2977ff);
     background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
 
     :global(svg) {
