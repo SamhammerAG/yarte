@@ -3,7 +3,7 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import CheckIcon from "../../../icons/check-line.svg?raw";
-  import UnlinkIcon from "../../../icons/link-unlink-m.svg?raw";
+  import CloseIcon from "../../../icons/close-line.svg?raw";
   import LinkIcon from "../../../icons/link.svg?raw";
   import OpenLink from "../../../icons/open-link.svg?raw";
   import Icon from "../../base/Icon.svelte";
@@ -98,8 +98,8 @@
       >
         <Icon content={OpenLink} />
       </button>
-      <button type="button" onclick={removeLink} title={translations[language]["remove"]}>
-        <Icon content={UnlinkIcon} />
+      <button class="close" type="button" onclick={removeLink} title={translations[language]["remove"]}>
+        <Icon content={CloseIcon} />
       </button>
     </div>
   </DropdownButton>
@@ -129,6 +129,24 @@
     &:disabled {
       opacity: 0.5;
       cursor: default;
+
+      &.confirm {
+        :global(svg) {
+          fill: var(--tiptob-bg-icon, #333333);
+        }
+      }
+    }
+
+    &.confirm {
+      :global(svg) {
+        fill: var(--icon-green, #28a745);
+      }
+    }
+
+    &.close {
+      :global(svg) {
+        fill: var(--icon-red, #dc3545);
+      }
     }
   }
   .tiptob-link-input::placeholder {

@@ -107,10 +107,24 @@
       justify-content: center;
       width: 40%;
       border: none;
-      border-radius: 0.5rem;
-      background-color: var(--tiptob-bg-button, rgb(167, 167, 167));
+      border-radius: 0.25rem;
+      background-color: var(--tiptob-bg-button, #ffffff);
+      cursor: pointer;
+
       &:hover:enabled {
-        background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+        background-color: var(--tiptob-bg-button-hover, #f0f0f0);
+      }
+
+      &.confirm {
+        :global(svg) {
+          fill: var(--icon-green, #28a745);
+        }
+      }
+
+      &.close {
+        :global(svg) {
+          fill: var(--icon-red, #dc3545);
+        }
       }
     }
   }
