@@ -2,7 +2,7 @@
 
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
-  import LinkIcon from "../../../icons/link.svg?raw";
+  import Text from "../../../icons/text.svg?raw";
   import Icon from "../../base/Icon.svelte";
   import CheckIcon from "../../../icons/check-line.svg?raw";
   import CloseIcon from "../../../icons/close-line.svg?raw";
@@ -38,7 +38,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} text="Token" tooltip={translations[language]["main"]}>
+  <DropdownButton {editor} bind:dropdownOpen key="token" icon={Text} text="Token" tooltip={translations[language]["main"]}>
     <div class="dropdown-content">
       <div class="menu">
         {#each placeHolders as placeholder (placeholder)}
