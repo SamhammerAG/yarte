@@ -34,22 +34,20 @@
 
 <button {disabled} class:highlighted onclick={() => action()} title={disabled ? "" : tooltip}>
   <Icon content={icon} />
-  {text}
+  <div class="icon-text">{text}</div>
 </button>
 
 <style>
   button {
     display: flex;
     align-items: center;
-
-    margin: 6px 0px 5px 0px;
-    height: 28px;
+    margin: 0.2rem 0;
     border: none;
-    border-radius: 4px;
-    background-color: var(--tiptob-bg-button, white);
+    border-radius: 0.25rem;
+    background-color: var(--tiptob-bg-button, #ffffff);
 
     &:hover:enabled {
-      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
   }
 
@@ -57,6 +55,14 @@
     cursor: pointer;
   }
   button.highlighted:enabled {
-    background-color: var(--tiptob-bg-button-highlighted, #a6ccf7);
+    background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
+
+    :global(svg) {
+      fill: var(--tiptob-bg-icon-highlighted, #2977ff);
+    }
+  }
+
+  button.highlighted:enabled::after {
+    color: var(--tiptob-bg-icon-highlighted, #2977ff);
   }
 </style>

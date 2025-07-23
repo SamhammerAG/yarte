@@ -3,7 +3,7 @@
 <script lang="ts">
   import type { Editor } from "@tiptap/core";
   import CheckIcon from "../../../icons/check-line.svg?raw";
-  import UnlinkIcon from "../../../icons/link-unlink-m.svg?raw";
+  import CloseIcon from "../../../icons/close-line.svg?raw";
   import LinkIcon from "../../../icons/link.svg?raw";
   import OpenLink from "../../../icons/open-link.svg?raw";
   import Icon from "../../base/Icon.svelte";
@@ -98,8 +98,8 @@
       >
         <Icon content={OpenLink} />
       </button>
-      <button type="button" onclick={removeLink} title={translations[language]["remove"]}>
-        <Icon content={UnlinkIcon} />
+      <button class="close" type="button" onclick={removeLink} title={translations[language]["remove"]}>
+        <Icon content={CloseIcon} />
       </button>
     </div>
   </DropdownButton>
@@ -111,9 +111,7 @@
     flex-direction: row;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
-    border-radius: 8px;
-    width: 100%;
+    background-color: var(--tiptob-bg-button, #ffffff);
   }
   button {
     display: flex;
@@ -122,15 +120,33 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 8px;
-    background-color: var(--tiptob-bg-button, white);
+    border-radius: 4px;
+    background-color: var(--tiptob-bg-button, #ffffff);
     flex: 40%;
     &:hover:enabled {
-      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
     &:disabled {
       opacity: 0.5;
       cursor: default;
+
+      &.confirm {
+        :global(svg) {
+          fill: var(--tiptob-bg-icon, #333333);
+        }
+      }
+    }
+
+    &.confirm {
+      :global(svg) {
+        fill: var(--icon-green, #28a745);
+      }
+    }
+
+    &.close {
+      :global(svg) {
+        fill: var(--icon-red, #dc3545);
+      }
     }
   }
   .tiptob-link-input::placeholder {
@@ -139,8 +155,8 @@
   .tiptob-link-input {
     display: flex;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
-    color: var(--tiptob-bg-icon, black);
+    background-color: var(--tiptob-bg-button, #ffffff);
+    color: var(--tiptob-bg-icon, #333333);
     outline: none;
     border: 0;
   }

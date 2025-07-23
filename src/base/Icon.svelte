@@ -20,8 +20,8 @@
     justify-content: center;
   }
   :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: var(--tiptob-bg-icon, black);
+    width: 1.25rem;
+    height: 1.75rem;
+    fill: var(--tiptob-bg-icon, #333333);
   }
 </style>

@@ -97,23 +97,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
     border: none;
     cursor: pointer;
-    padding: 0.625rem;
-
-    &:not(:last-child) {
-      margin-bottom: 0.25rem;
-    }
+    padding: 0.5rem 0.75rem;
 
     &:hover {
-      background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
     }
 
     :global(svg) {
       width: 1.125rem;
       height: 1.125rem;
-      color: black;
+      color: #333333;
     }
   }
 </style>

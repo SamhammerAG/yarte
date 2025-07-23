@@ -48,28 +48,28 @@
     display: flex;
     flex-flow: row wrap;
     gap: 0.25rem;
-    width: 6.75rem;
-    background-color: var(--tiptob-bg-button, white);
+    width: 5rem;
+    background-color: var(--tiptob-bg-button, #ffffff);
     padding: 0.25rem;
 
     button {
       border: none;
-      border-radius: 8px;
+      border-radius: 2px;
     }
 
     .clear {
       width: 100%;
       text-align: center;
       padding: 0.5rem;
-      background-color: var(--tiptob-bg-button, white);
-      color: black;
+      background-color: var(--tiptob-bg-button, #ffffff);
+      color: #333333;
       align-items: center;
       justify-content: center;
       display: flex;
       cursor: pointer;
 
       &:hover {
-        background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+        background-color: var(--tiptob-bg-button-hover, #f0f0f0);
       }
 
       :global(svg) {
@@ -82,10 +82,11 @@
       display: flex;
       width: 1.5rem;
       height: 1.5rem;
-      border: 1px solid var(--tiptob-bg-icon, black);
+      border: 1px solid var(--tiptob-bg-icon, #cecece);
+      cursor: pointer;
 
       &:hover {
-        transform: scale(1.25);
+        border: 1px solid #2977ff;
       }
     }
   }

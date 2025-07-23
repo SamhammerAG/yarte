@@ -48,15 +48,18 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
+    margin: 0.5rem;
+    border-top: 1px solid #cecece;
+    border-left: 1px solid #cecece;
 
     & button {
-      border-color: var(--font-light-color, #eee);
+      border-color: var(--font-light-color, #cecece);
       border-style: solid;
       border-width: 0 1px 1px 0;
       box-sizing: border-box;
       width: 1rem;
       height: 1rem;
-      background-color: var(--tiptob-bg-button, white);
+      background-color: var(--tiptob-bg-button, #ffffff);
 
       &:hover,
       &.highlight {
@@ -67,7 +70,7 @@
 
   .display {
     text-align: center;
-    color: var(--tiptob-bg-icon, black);
+    color: var(--tiptob-bg-icon, #333333);
     padding-bottom: 0.25rem;
   }
 </style>

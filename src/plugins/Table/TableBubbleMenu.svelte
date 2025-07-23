@@ -145,8 +145,8 @@
           height: 28px;
           border: none;
           border-radius: 8px;
-          background-color: var(--tiptob-bg-button, white);
-          color: var(--tiptob-bg-icon, black);
+          background-color: var(--tiptob-bg-button, #ffffff);
+          color: var(--tiptob-bg-icon, #333333);
 
           &:hover {
             background-color: var(--tiptob-bg-button-hover, #e2e2e2);

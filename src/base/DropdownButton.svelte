@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="dropdown-wrapper" use:clickOutside onoutclick={outsideclick}>
+<div class="dropdown-wrapper" class:open={dropdownOpen} use:clickOutside onoutclick={outsideclick}>
   <SimpleButton {key} {editor} action={toggleDropdown} {icon} {text} {tooltip} />
 
   {#if dropdownOpen}
@@ -40,13 +40,19 @@
   .dropdown-wrapper {
     position: relative;
 
-    :global(> button:after) {
+    :global(> button::after) {
       margin-left: 0.25rem;
       content: "";
+      display: inline-block;
       border-top: 0.3em solid;
       border-right: 0.3em solid transparent;
       border-left: 0.3em solid transparent;
-      color: black;
+      transition: transform 0.3s ease;
+      transform: rotate(0deg);
+    }
+
+    &.open :global(> button::after) {
+      transform: rotate(180deg);
     }
 
     .dropdown {
@@ -55,8 +61,8 @@
       box-shadow:
         rgba(0, 0, 0, 0.05) 0px 6px 10px 0px,
         rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
-      background-color: var(--tiptob-bg-button, white);
-      border-radius: 8px;
+      background-color: var(--tiptob-bg-button, #ffffff);
+      top: 2.125rem;
     }
   }
 </style>

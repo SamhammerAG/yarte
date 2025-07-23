@@ -64,28 +64,30 @@
   .dropdown-content {
     display: flex;
     flex-direction: column;
-    width: 200px;
-    max-height: 250px;
+    width: 12.5rem;
+    max-height: 15.5rem;
     border: 1px solid #ccc;
-    background: white;
-    border-radius: 6px;
+    background: #ffffff;
     overflow: hidden;
   }
+
+
 
   .menu {
     flex: 1;
     overflow-y: auto;
-    max-height: 200px;
+    max-height: 12.5rem;
   }
 
   .menu-item {
-    padding: 8px 12px;
+    padding: 0.5rem 0.75rem;
     border: none;
     background: transparent;
     text-align: left;
     cursor: pointer;
     width: 100%;
-    font-size: 14px;
+    font-size: 1rem;
+    color: #333333;
   }
 
   .menu-item:focus,
@@ -96,9 +98,8 @@
   .button-wrapper {
     display: flex;
     justify-content: space-evenly;
-    padding: 8px;
-    border-top: 1px solid #eee;
-    background: white;
+    padding: 0.25rem 0;
+    border-top: 1px solid #cecece;
     position: sticky;
 
     button {
@@ -107,10 +108,24 @@
       justify-content: center;
       width: 40%;
       border: none;
-      border-radius: 8px;
-      background-color: var(--tiptob-bg-button, rgb(167, 167, 167));
+      border-radius: 0.25rem;
+      background-color: var(--tiptob-bg-button, #ffffff);
+      cursor: pointer;
+
       &:hover:enabled {
-        background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+        background-color: var(--tiptob-bg-button-hover, #f0f0f0);
+      }
+
+      &.confirm {
+        :global(svg) {
+          fill: var(--icon-green, #28a745);
+        }
+      }
+
+      &.close {
+        :global(svg) {
+          fill: var(--icon-red, #dc3545);
+        }
       }
     }
   }
