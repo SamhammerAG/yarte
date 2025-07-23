@@ -34,7 +34,7 @@
 
 <button {disabled} class:highlighted onclick={() => action()} title={disabled ? "" : tooltip}>
   <Icon content={icon} />
-  <div class="icon-text">{text}</div>
+  {text}
 </button>
 
 <style>
