@@ -38,7 +38,7 @@
 </script>
 
 {#if editor}
-  <DropdownButton {editor} bind:dropdownOpen key="link" icon={LinkIcon} text="Token" tooltip={translations[language]["main"]}>
+  <DropdownButton {editor} bind:dropdownOpen key="token" icon={LinkIcon} text="Token" tooltip={translations[language]["main"]}>
     <div class="dropdown-content">
       <div class="menu">
         {#each placeHolders as placeholder (placeholder)}
