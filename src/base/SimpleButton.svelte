@@ -34,7 +34,7 @@
 
 <button {disabled} class:highlighted onclick={() => action()} title={disabled ? "" : tooltip}>
   <Icon content={icon} />
-  {text}
+  <div class="icon-text">{text}</div>
 </button>
 
 <style>
@@ -44,7 +44,7 @@
     margin: 0.2rem 0;
     border: none;
     border-radius: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
 
     &:hover:enabled {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);

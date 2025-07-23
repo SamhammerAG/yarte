@@ -51,7 +51,7 @@
     flex-flow: row wrap;
     gap: 0.25rem;
     width: 5rem;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
     padding: 0.25rem;
 
     button {
@@ -63,7 +63,7 @@
       width: 100%;
       text-align: center;
       padding: 0.5rem;
-      background-color: var(--tiptob-bg-button, white);
+      background-color: var(--tiptob-bg-button, #ffffff);
       color: #333333;
       align-items: center;
       justify-content: center;

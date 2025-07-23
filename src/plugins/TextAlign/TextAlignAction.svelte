@@ -97,7 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
     border: none;
     cursor: pointer;
     padding: 0.5rem 0.75rem;

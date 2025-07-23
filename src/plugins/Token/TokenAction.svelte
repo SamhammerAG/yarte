@@ -67,9 +67,11 @@
     width: 12.5rem;
     max-height: 15.5rem;
     border: 1px solid #ccc;
-    background: white;
+    background: #ffffff;
     overflow: hidden;
   }
+
+
 
   .menu {
     flex: 1;
@@ -96,9 +98,8 @@
   .button-wrapper {
     display: flex;
     justify-content: space-evenly;
-    padding: 0.5rem;
-    border-top: 1px solid #eee;
-    background: white;
+    padding: 0.25rem 0;
+    border-top: 1px solid #cecece;
     position: sticky;
 
     button {

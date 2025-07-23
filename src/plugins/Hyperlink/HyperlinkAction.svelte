@@ -111,7 +111,7 @@
     flex-direction: row;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
   }
   button {
     display: flex;
@@ -121,7 +121,7 @@
     padding: 0.25rem;
     border: none;
     border-radius: 4px;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
     flex: 40%;
     &:hover:enabled {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);
@@ -155,7 +155,7 @@
   .tiptob-link-input {
     display: flex;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
+    background-color: var(--tiptob-bg-button, #ffffff);
     color: var(--tiptob-bg-icon, #333333);
     outline: none;
     border: 0;

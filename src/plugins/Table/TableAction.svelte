@@ -59,7 +59,7 @@
       box-sizing: border-box;
       width: 1rem;
       height: 1rem;
-      background-color: var(--tiptob-bg-button, white);
+      background-color: var(--tiptob-bg-button, #ffffff);
 
       &:hover,
       &.highlight {
