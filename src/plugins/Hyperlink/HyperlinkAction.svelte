@@ -120,7 +120,7 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     background-color: var(--tiptob-bg-button, #ffffff);
     flex: 40%;
     &:hover:enabled {

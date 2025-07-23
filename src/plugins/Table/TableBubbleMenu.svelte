@@ -118,12 +118,12 @@
 
 <style>
   .table-bubble-menu {
-    background-color: var(--tiptob-bg-button, #fff);
-    border: 1px solid var(--tiptob-bg-button, #eee);
-    border-radius: 8px;
+    background-color: var(--tiptob-bg-button, #ffffff);
+    border: 1px solid var(--tiptob-bg-button, #eeeeee);
+    border-radius: 0.5rem;
     box-shadow:
       0 0 2px 0 rgba(34, 47, 62, 0.2),
-      0 4px 8px 0 rgba(34, 47, 62, 0.15);
+      0 0.25rem 0.5rem 0 rgba(34, 47, 62, 0.15);
     min-width: max-content;
     overflow: hidden;
 
@@ -131,20 +131,20 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding: 4px 0;
+      padding: 0.25rem 0;
 
       & .toolbar-button-group {
         display: flex;
         gap: 0.125rem;
-        padding: 0 8px 0 10px;
+        padding: 0 0.5rem;
         align-items: center;
 
         & button {
           cursor: pointer;
-          margin: 6px 1px 5px 0;
-          height: 28px;
+          margin: 0.5rem 0;
+          height: 1.75rem;
           border: none;
-          border-radius: 8px;
+          border-radius: 0.5rem;
           background-color: var(--tiptob-bg-button, #ffffff);
           color: var(--tiptob-bg-icon, #333333);
 

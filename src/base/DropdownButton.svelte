@@ -44,9 +44,9 @@
       margin-left: 0.25rem;
       content: "";
       display: inline-block;
-      border-top: 0.3em solid;
-      border-right: 0.3em solid transparent;
-      border-left: 0.3em solid transparent;
+      border-top: 0.3rem solid;
+      border-right: 0.3rem solid transparent;
+      border-left: 0.3rem solid transparent;
       transition: transform 0.3s ease;
       transform: rotate(0deg);
     }

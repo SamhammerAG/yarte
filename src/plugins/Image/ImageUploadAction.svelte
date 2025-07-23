@@ -101,8 +101,8 @@
     flex-direction: row;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
-    border-radius: 8px;
+    background-color: var(--tiptob-bg-button, #ffffff);
+    border-radius: 0.5rem;
     width: 100%;
   }
   .tiptob-link-input::placeholder {
@@ -111,8 +111,8 @@
   .tiptob-link-input {
     display: flex;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
-    color: var(--tiptob-bg-icon, black);
+    background-color: var(--tiptob-bg-button, #ffffff);
+    color: var(--tiptob-bg-icon, #333333);
     outline: none;
     border: 0;
   }
@@ -129,8 +129,8 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 8px;
-    background-color: var(--tiptob-bg-button, white);
+    border-radius: 0.5rem;
+    background-color: var(--tiptob-bg-button, #ffffff);
     flex: 40%;
   }
   button:enabled:hover {
