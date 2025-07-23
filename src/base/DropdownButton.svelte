@@ -9,10 +9,10 @@
     editor: Editor;
     key: string;
     icon: string;
-    text?: string;
-    dropdownOpen?: boolean;
     children: Snippet;
     tooltip: string;
+    text?: string;
+    dropdownOpen?: boolean;
   }
 
   let { editor, key, icon, text = "", dropdownOpen = $bindable(), children, tooltip }: Props = $props();
@@ -27,7 +27,7 @@
 </script>
 
 <div class="dropdown-wrapper" class:open={dropdownOpen} use:clickOutside onoutclick={outsideclick}>
-  <SimpleButton {key} {editor} action={toggleDropdown} {icon} {text} {tooltip} />
+  <SimpleButton {key} {editor} action={toggleDropdown} {icon} {text} {tooltip} {dropdownOpen} />
 
   {#if dropdownOpen}
     <div transition:fly class="dropdown">

@@ -8,11 +8,12 @@
     key: string;
     action: () => void;
     icon: string;
-    text?: string;
     tooltip: string;
+    text?: string;
+    dropdownOpen?: boolean;
   }
 
-  let { editor, key, action, icon, text = "", tooltip }: Props = $props();
+  let { editor, key, action, icon, tooltip, text = "", dropdownOpen = $bindable(false) }: Props = $props();
 
   let highlighted = $state(false);
   let disabled = $state(false);
@@ -32,7 +33,7 @@
   });
 </script>
 
-<button {disabled} class:highlighted onclick={() => action()} title={disabled ? "" : tooltip}>
+<button {disabled} class:highlighted class:dropdownOpen onclick={() => action()} title={disabled ? "" : tooltip}>
   <Icon content={icon} />
   <div class="icon-text">{text}</div>
 </button>
@@ -54,6 +55,7 @@
   button:enabled {
     cursor: pointer;
   }
+  button.dropdownOpen:enabled,
   button.highlighted:enabled {
     background-color: var(--tiptob-bg-button-highlighted, #f0f7ff);
 
@@ -62,6 +64,7 @@
     }
   }
 
+  button.dropdownOpen:enabled::after,
   button.highlighted:enabled::after {
     color: var(--tiptob-bg-icon-highlighted, #2977ff);
   }
