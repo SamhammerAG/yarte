@@ -81,6 +81,7 @@
           <Icon content={CheckIcon} />
         </button>
         <button
+          class="close"
           type="button"
           onclick={() => {
             dropdownOpen = false;
@@ -101,27 +102,8 @@
     flex-direction: row;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
-    border-radius: 8px;
-    width: 100%;
+    background-color: var(--tiptob-bg-button, #ffffff);
   }
-  .tiptob-link-input::placeholder {
-    color: var(--table-resubmission-line, rgba(0, 0, 0, 0.4));
-  }
-  .tiptob-link-input {
-    display: flex;
-    padding: 0.25rem;
-    background-color: var(--tiptob-bg-button, white);
-    color: var(--tiptob-bg-icon, black);
-    outline: none;
-    border: 0;
-  }
-  /* --- File Input Styles --- */
-  input[type="file"] {
-    display: none;
-  }
-
-  /* --- Button Styles --- */
   button {
     display: flex;
     align-items: center;
@@ -129,15 +111,48 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 8px;
-    background-color: var(--tiptob-bg-button, white);
+    border-radius: 4px;
+    background-color: var(--tiptob-bg-button, #ffffff);
     flex: 40%;
+    &:hover:enabled {
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+
+      &.confirm {
+        :global(svg) {
+          fill: var(--tiptob-bg-icon, #333333);
+        }
+      }
+    }
+
+    &.confirm {
+      :global(svg) {
+        fill: var(--icon-green, #28a745);
+      }
+    }
+
+    &.close {
+      :global(svg) {
+        fill: var(--icon-red, #dc3545);
+      }
+    }
   }
-  button:enabled:hover {
-    background-color: var(--tiptob-bg-button-hover, #e2e2e2);
+  .tiptob-link-input::placeholder {
+    color: var(--table-resubmission-line, rgba(0, 0, 0, 0.4));
   }
-  button:disabled {
-    opacity: 0.5;
-    cursor: default;
+  .tiptob-link-input {
+    display: flex;
+    padding: 0.25rem;
+    background-color: var(--tiptob-bg-button, #ffffff);
+    color: var(--tiptob-bg-icon, #333333);
+    outline: none;
+    border: 0;
+  }
+  /* --- File Input Styles --- */
+  input[type="file"] {
+    display: none;
   }
 </style>
