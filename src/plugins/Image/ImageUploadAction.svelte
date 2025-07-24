@@ -104,6 +104,7 @@
     padding: 0.25rem;
     background-color: var(--tiptob-bg-button, #ffffff);
   }
+
   button {
     display: flex;
     align-items: center;
@@ -111,7 +112,7 @@
     cursor: pointer;
     padding: 0.25rem;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     background-color: var(--tiptob-bg-button, #ffffff);
     flex: 40%;
     &:hover:enabled {
@@ -154,25 +155,5 @@
   /* --- File Input Styles --- */
   input[type="file"] {
     display: none;
-  }
-
-  /* --- Button Styles --- */
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    padding: 0.25rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: var(--tiptob-bg-button, #ffffff);
-    flex: 40%;
-  }
-  button:enabled:hover {
-    background-color: var(--tiptob-bg-button-hover, #e2e2e2);
-  }
-  button:disabled {
-    opacity: 0.5;
-    cursor: default;
   }
 </style>
