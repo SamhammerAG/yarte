@@ -81,6 +81,7 @@
           <Icon content={CheckIcon} />
         </button>
         <button
+          class="close"
           type="button"
           onclick={() => {
             dropdownOpen = false;
@@ -102,8 +103,42 @@
     gap: 0.25rem;
     padding: 0.25rem;
     background-color: var(--tiptob-bg-button, #ffffff);
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0.25rem;
+    border: none;
     border-radius: 0.5rem;
-    width: 100%;
+    background-color: var(--tiptob-bg-button, #ffffff);
+    flex: 40%;
+    &:hover:enabled {
+      background-color: var(--tiptob-bg-button-hover, #f0f0f0);
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+
+      &.confirm {
+        :global(svg) {
+          fill: var(--tiptob-bg-icon, #333333);
+        }
+      }
+    }
+
+    &.confirm {
+      :global(svg) {
+        fill: var(--icon-green, #28a745);
+      }
+    }
+
+    &.close {
+      :global(svg) {
+        fill: var(--icon-red, #dc3545);
+      }
+    }
   }
   .tiptob-link-input::placeholder {
     color: var(--table-resubmission-line, rgba(0, 0, 0, 0.4));
