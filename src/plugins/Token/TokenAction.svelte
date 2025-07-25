@@ -71,8 +71,6 @@
     overflow: hidden;
   }
 
-
-
   .menu {
     flex: 1;
     overflow-y: auto;

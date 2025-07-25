@@ -35,7 +35,7 @@
 
 <button {disabled} class:highlighted class:dropdownOpen onclick={() => action()} title={disabled ? "" : tooltip}>
   <Icon content={icon} />
-  {text}
+  <div class="icon-text">{text}</div>
 </button>
 
 <style>
@@ -49,6 +49,10 @@
 
     &:hover:enabled {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);
+    }
+
+    .icon-text {
+      font-size: 0.8rem;
     }
   }
 
