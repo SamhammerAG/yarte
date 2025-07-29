@@ -83,11 +83,10 @@
       display: flex;
       width: 1.5rem;
       height: 1.5rem;
-      border: 1px solid var(--tiptob-bg-icon, #cecece);
       cursor: pointer;
 
       &:hover {
-        border: 1px solid #2977ff;
+        border: 2px solid #2977ff;
       }
     }
   }
