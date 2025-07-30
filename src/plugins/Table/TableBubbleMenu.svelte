@@ -144,7 +144,7 @@
           margin: 0.5rem 0;
           height: 1.75rem;
           border: none;
-          border-radius: 0.5rem;
+          border-radius: 0.25rem;
           background-color: var(--tiptob-bg-button, #ffffff);
           color: var(--tiptob-bg-icon, #333333);
 

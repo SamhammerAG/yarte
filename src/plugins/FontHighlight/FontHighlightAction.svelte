@@ -54,7 +54,7 @@
 
     button {
       border: none;
-      border-radius: 2px;
+      border-radius: 0.25rem;
     }
 
     .clear {
