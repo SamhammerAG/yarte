@@ -36,7 +36,7 @@ export const TokenExtension = Extension.create({
 
 function findCurlyBraceDecorations(doc: ProseMirrorNode): Decoration[] {
   const decorations: Decoration[] = []
-  const regex = /\{[^{}]*\}/g
+  const regex = /(\{\{[^{}]*\}\}|\{%\s*[^%]*\s*%\})/g
 
   doc.descendants((node, pos) => {
     if (!node.isText || !node.text) return true
