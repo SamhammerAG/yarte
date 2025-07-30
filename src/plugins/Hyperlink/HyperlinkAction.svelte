@@ -150,7 +150,8 @@
     }
   }
   .tiptob-link-input::placeholder {
-    color: var(--table-resubmission-line, rgba(0, 0, 0, 0.4));
+    color: var(--tiptob-bg-icon, #333333);
+    opacity: 0.5;
   }
   .tiptob-link-input {
     display: flex;
