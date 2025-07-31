@@ -100,7 +100,7 @@
     background-color: var(--tiptob-bg-button, #ffffff);
     border: none;
     cursor: pointer;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.8rem;
 
     &:hover {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);

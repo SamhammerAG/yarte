@@ -49,6 +49,14 @@
 
     &:hover:enabled {
       background-color: var(--tiptob-bg-button-hover, #f0f0f0);
+
+      :global(svg) {
+        fill: var(--tiptob-bg-icon-hover, #333333);
+      }
+    }
+
+    &:hover:enabled::after {
+      border-top: 0.3rem solid var(--tiptob-bg-icon-hover, #333333);
     }
 
     .icon-text {
@@ -71,6 +79,6 @@
 
   button.dropdownOpen:enabled::after,
   button.highlighted:enabled::after {
-    color: var(--tiptob-bg-icon-highlighted, #2977ff);
+    border-top: 0.3rem solid var(--tiptob-bg-icon-highlighted, #2977ff);
   }
 </style>
