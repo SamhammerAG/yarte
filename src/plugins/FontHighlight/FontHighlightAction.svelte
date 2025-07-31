@@ -71,7 +71,6 @@
       &:hover {
         background-color: var(--tiptob-bg-button-hover, #f0f0f0);
       }
-
       :global(svg) {
         width: 1.125rem;
         height: 1.125rem;
@@ -85,7 +84,7 @@
       cursor: pointer;
 
       &:hover {
-        border: 1px solid #2977ff;
+        border: 2px solid #2977ff;
       }
     }
   }
