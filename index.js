@@ -36,7 +36,7 @@ var tableBubbleMenu = document.querySelector("tiptob-table-bubble-menu");
 
 const editor = new Editor({
   element: document.querySelector(".text-area") || undefined,
-  content: "<p>Hello World!  { token.id } </p>",
+  content: "<p>Hello World!  {{ token.id }} </p>",
   extensions: [
     Paragraph,
     Text,
@@ -93,5 +93,32 @@ document.querySelector("tiptob-redo-button").editor = editor;
 document.querySelector("tiptob-remove-format-button").editor = editor;
 document.querySelector("tiptob-token-button").editor = editor;
 document.querySelector("tiptob-token-button").placeHolders = [
-  { key: "token.id", expression: "{ token.id }", typeId: 1, entity: "token", isAffectedContact: false, translation: "Token" }];
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+  { translation: "token.id", expression: "{{ token.id }}" },
+];
+
 tableBubbleMenu.editor = editor;

@@ -64,8 +64,7 @@
   .dropdown-content {
     display: flex;
     flex-direction: column;
-    width: 12.5rem;
-    max-height: 15.5rem;
+    width: 15rem;
     border: 1px solid #ccc;
     background: #ffffff;
     overflow: hidden;
@@ -74,7 +73,7 @@
   .menu {
     flex: 1;
     overflow-y: auto;
-    max-height: 12.5rem;
+    max-height: 15rem;
   }
 
   .menu-item {
@@ -84,7 +83,7 @@
     text-align: left;
     cursor: pointer;
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #333333;
   }
 
